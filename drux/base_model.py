@@ -21,7 +21,6 @@ class ModelParameters:
     """
     Base dataclass for model parameters.
     """
-
     pass
 
 
