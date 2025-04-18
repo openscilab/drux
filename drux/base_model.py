@@ -1,20 +1,29 @@
 """
 This file contains the abstract base class for drug release models.
 """
+
 import numpy as np
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from drux.messages import (ERROR_TARGET_RELEASE_RANGE, ERROR_DURATION_TIME_STEP_POSITIVE,
-                           ERROR_TIME_STEP_GREATER_THAN_DURATION, ERROR_NO_SIMULATION_DATA,
-                           ERROR_RELEASE_PROFILE_TOO_SHORT, ERROR_TARGET_RELEASE_EXCEEDS_MAX)
+from drux.messages import (
+    ERROR_TARGET_RELEASE_RANGE,
+    ERROR_DURATION_TIME_STEP_POSITIVE,
+    ERROR_TIME_STEP_GREATER_THAN_DURATION,
+    ERROR_NO_SIMULATION_DATA,
+    ERROR_RELEASE_PROFILE_TOO_SHORT,
+    ERROR_TARGET_RELEASE_EXCEEDS_MAX,
+)
+
 
 @dataclass
 class ModelParameters:
     """
     Base dataclass for model parameters.
     """
+
     pass
+
 
 class DrugReleaseModel(ABC):
     """
