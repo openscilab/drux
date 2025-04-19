@@ -14,7 +14,7 @@ from drux.messages import (
     ERROR_NO_SIMULATION_DATA,
     ERROR_RELEASE_PROFILE_TOO_SHORT,
     ERROR_TARGET_RELEASE_EXCEEDS_MAX,
-    MATPLOT_IMPORT_ERROR
+    MATPLOT_IMPORT_ERROR,
 )
 
 
@@ -23,6 +23,7 @@ class ModelParameters:
     """
     Base dataclass for model parameters.
     """
+
     pass
 
 
@@ -130,10 +131,12 @@ class DrugReleaseModel(ABC):
         fig, ax = self._validate_plot()
 
         # Plotting the release profile
-        ax.plot(self.time_points, self.release_profile, label='Release Profile', **kwargs)
-        ax.set_xlabel('Time (s)')
-        ax.set_ylabel('Cumulative Release (%)')
-        ax.set_title('Drug Release Profile')
+        ax.plot(
+            self.time_points, self.release_profile, label="Release Profile", **kwargs
+        )
+        ax.set_xlabel("Time (s)")
+        ax.set_ylabel("Cumulative Release (%)")
+        ax.set_title("Drug Release Profile")
         ax.grid()
         ax.legend()
 
