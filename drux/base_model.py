@@ -5,6 +5,7 @@ This file contains the abstract base class for drug release models.
 import numpy as np
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
+from typing import Any
 
 from drux.messages import (
     ERROR_TARGET_RELEASE_RANGE,
@@ -13,6 +14,7 @@ from drux.messages import (
     ERROR_NO_SIMULATION_DATA,
     ERROR_RELEASE_PROFILE_TOO_SHORT,
     ERROR_TARGET_RELEASE_EXCEEDS_MAX,
+    MATPLOT_IMPORT_ERROR
 )
 
 
@@ -76,6 +78,30 @@ class DrugReleaseModel(ABC):
         """
         return np.vectorize(self._model_function)(self.time_points)
 
+    def _validate_plot(self) -> tuple:
+        """
+        Validate plotting process.
+
+        @raises ImportError: if matplotlib is not installed
+        @raises ValueError: if simulation data is not available
+        @raises ValueError: if release profile is too short
+        """
+
+        try:
+            import matplotlib.pyplot as plt
+            from matplotlib.figure import Figure
+            from matplotlib.axes import Axes
+        except ImportError:
+            raise ImportError(MATPLOT_IMPORT_ERROR)
+
+        if self.time_points is None or self.release_profile is None:
+            raise ValueError(ERROR_NO_SIMULATION_DATA)
+
+        if len(self.release_profile) < 2:
+            raise ValueError(ERROR_RELEASE_PROFILE_TOO_SHORT)
+        fig, ax = plt.subplots()
+        return fig, ax
+
     def simulate(self, duration: int, time_step: float = 1) -> np.ndarray:
         """
         Simulate drug release over time.
@@ -96,6 +122,33 @@ class DrugReleaseModel(ABC):
         self._validate_parameters()
         self.release_profile = self._get_release_profile()
         return self.release_profile
+
+    def plot(self, show=True, **kwargs: Any) -> tuple:
+        """
+        Plot the drug release profile.
+
+        @param show: Whether to display the plot (default: True)
+        @type show: bool
+
+        @return: tuple containing the figure and axes objects
+        @rtype: tuple
+        """
+        # Create a new figure and axis if not provided
+        fig, ax = self._validate_plot()
+
+        # Plotting the release profile
+        ax.plot(self.time_points, self.release_profile, label='Release Profile', **kwargs)
+        ax.set_xlabel('Time (s)')
+        ax.set_ylabel('Cumulative Release (%)')
+        ax.set_title('Drug Release Profile')
+        ax.grid()
+        ax.legend()
+
+        # Show the plot if requested
+        if show:
+            fig.show()
+
+        return fig, ax
 
     def get_release_rate(self) -> np.ndarray:
         """
