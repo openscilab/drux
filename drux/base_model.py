@@ -35,9 +35,9 @@ class DrugReleaseModel(ABC):
     mathematical models of drug release from delivery systems.
 
     Subclasses should implement:
-    - _release_profile(): Core model equation
+    - _model_function(): Core model equation
     - _validate_parameters(): Parameter validation
-    - parameters: ModelParameters dataclass with model-specific parameters
+    - params: ModelParameters dataclass with model-specific parameters
     """
 
     def __init__(self, params: ModelParameters):
@@ -61,19 +61,13 @@ class DrugReleaseModel(ABC):
         """
         Model function that calculates drug release profile over time.
 
-        @param t: time point at which to calculate drug release
-
-        @return: fraction/percentage of drug released at the given time point
+        :param t: time point at which to calculate drug release
         """
         pass
 
     def _get_release_profile(self) -> np.ndarray:
         """
         Calculate the drug release profile over the specified time points.
-
-        @return: fraction/percentage of drug released at the given time point(s)
-        @rtype: np.ndarray
-
         """
         return np.vectorize(self._model_function)(self.time_points)
 
@@ -81,9 +75,9 @@ class DrugReleaseModel(ABC):
         """
         Validate plotting process.
 
-        @raises ImportError: if matplotlib is not installed
-        @raises ValueError: if simulation data is not available
-        @raises ValueError: if release profile is too short
+        :raises ImportError: if matplotlib is not installed
+        :raises ValueError: if simulation data is not available
+        :raises ValueError: if release profile is too short
         """
 
         try:
@@ -105,10 +99,8 @@ class DrugReleaseModel(ABC):
         """
         Simulate drug release over time.
 
-        @param duration: total time for simulation (in seconds)
-        @param time_step: time step for simulation (in seconds)
-
-        @return: calculated array of drug release profile
+        :param duration: total time for simulation (in seconds)
+        :param time_step: time step for simulation (in seconds)
         """
         if duration <= 0 or time_step <= 0:
             raise ValueError(ERROR_DURATION_TIME_STEP_POSITIVE)
@@ -119,13 +111,11 @@ class DrugReleaseModel(ABC):
         self.release_profile = self._get_release_profile()
         return self.release_profile
 
-    def plot(self, show=True, **kwargs: Any) -> tuple:
+    def plot(self, show: bool = True, **kwargs: Any) -> tuple:
         """
         Plot the drug release profile.
 
-        @param show: Whether to display the plot (default: True)
-
-        @return: tuple containing the figure and axes objects
+        :param show: Whether to display the plot (default: True)
         """
         # Create a new figure and axis if not provided
         fig, ax = self._validate_plot()
@@ -149,8 +139,6 @@ class DrugReleaseModel(ABC):
     def get_release_rate(self) -> np.ndarray:
         """
         Calculate the instantaneous release rate (derivative of release profile).
-
-        @return: array of release rates at each time point
         """
         if self.time_points is None or self.release_profile is None:
             raise ValueError(ERROR_NO_SIMULATION_DATA)
@@ -166,13 +154,11 @@ class DrugReleaseModel(ABC):
         """
         Estimate time needed to reach a specific release percentage.
 
-        @param target_release: target release fraction (0-1)
+        :param target_release: target release fraction (0-1)
 
-        @raises ValueError: if target_release is not between 0 and 1
-        @raises ValueError: if simulation data is not available
-        @raises ValueError: if target_release exceeds maximum release
-
-        @return: estimated time to reach target release
+        :raises ValueError: if target_release is not between 0 and 1
+        :raises ValueError: if simulation data is not available
+        :raises ValueError: if target_release exceeds maximum release
         """
         if self.time_points is None or self.release_profile is None:
             raise ValueError(ERROR_NO_SIMULATION_DATA)
