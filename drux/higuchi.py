@@ -25,8 +25,16 @@ class HiguchiModel(DrugReleaseModel):
     based on concentration conditions:
     """
 
-    def __init__(self, params: HiguchiParameters):
-        super().__init__(params)
+    def __init__(self, D: float, c0: float, cs: float, L: float) -> None:
+        """
+        Initialize the Higuchi model with the given parameters.
+        :param D: Drug diffusivity in the polymer carrier (cm^2/s)
+        :param c0: Initial drug concentration (mg/cm^3)
+        :param cs: Drug solubility in the polymer (mg/cm^3)
+        :param L: Film thickness (cm)
+        """
+        super().__init__()
+        self.params = HiguchiParameters(D=D, c0=c0, cs=cs, L=L)
 
     def _model_function(self, t: float) -> float:
         """
