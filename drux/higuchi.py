@@ -1,4 +1,5 @@
 from drux import DrugReleaseModel, ModelParameters
+from drux.messages import ERROR_INVALID_DIFFUSION, ERROR_INVALID_CONCENTRATION, ERROR_INVALID_THICKNESS, ERROR_INVALID_SOLUBILITY
 from dataclasses import dataclass
 from math import sqrt, pi
 
@@ -55,10 +56,10 @@ class HiguchiModel(DrugReleaseModel):
         Validate the parameters of the Higuchi model.
         """
         if self.params.D <= 0:
-            raise ValueError("Diffusivity (D) must be positive.")
+            raise ValueError(ERROR_INVALID_DIFFUSION)
         if self.params.c0 <= 0:
-            raise ValueError("Initial drug concentration (c0) must be positive.")
+            raise ValueError(ERROR_INVALID_CONCENTRATION)
         if self.params.cs <= 0:
-            raise ValueError("Solubility (cs) must be positive.")
+            raise ValueError(ERROR_INVALID_SOLUBILITY)
         if self.params.L <= 0:
-            raise ValueError("Film thickness (L) must be positive.")
+            raise ValueError(ERROR_INVALID_THICKNESS)
