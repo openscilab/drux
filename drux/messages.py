@@ -10,3 +10,9 @@ ERROR_TARGET_RELEASE_EXCEEDS_MAX = (
     "Target release exceeds maximum release of the simulated duration."
 )
 MATPLOT_IMPORT_ERROR = "Matplotlib is required for plotting but not installed."
+
+# Error messages for Higuchi
+ERROR_INVALID_DIFFUSION = "Diffusivity (D) must be positive."
+ERROR_INVALID_CONCENTRATION = "Initial drug concentration (c0) must be positive."
+ERROR_INVALID_SOLUBILITY = "Solubility (cs) must be positive."
+ERROR_INVALID_THICKNESS = "Film thickness (L) must be positive."
