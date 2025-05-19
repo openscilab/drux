@@ -37,16 +37,14 @@ class DrugReleaseModel(ABC):
     Subclasses should implement:
     - _model_function(): Core model equation
     - _validate_parameters(): Parameter validation
-    - params: ModelParameters dataclass with model-specific parameters
     """
 
-    def __init__(self, params: ModelParameters):
+    def __init__(self):
         """
         Initialize the drug release model.
         """
         self.time_points = None
         self.release_profile = None
-        self.params = params
 
     @abstractmethod
     def _validate_parameters(self) -> None:
