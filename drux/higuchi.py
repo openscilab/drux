@@ -20,10 +20,12 @@ class HiguchiParameters(ModelParameters):
         cs (float): Drug solubility in the polymer (mg/cm^3)
         L (float): Film thickness (cm)
     """
+
     D: float
     c0: float
     cs: float
     L: float
+
 
 class HiguchiModel(DrugReleaseModel):
     """
@@ -53,7 +55,6 @@ class HiguchiModel(DrugReleaseModel):
         c0 = self.params.c0
         cs = self.params.cs
         L = self.params.L
-
 
         if c0 < cs:
             Mt = sqrt((D * t) / (pi * L**2))
