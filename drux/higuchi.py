@@ -40,8 +40,7 @@ class HiguchiModel(DrugReleaseModel):
         """
         Calculate the drug release at time t using the Higuchi model.
         - Case 1: c0 < cs → Mt = sqrt(D * t / (pi * L^2))
-        - Case 2: c0 >> cs → Mt = sqrt(D * c0 * cs) * t
-        - Case 3: General case (default): Mt = sqrt(D * c0 * (2*c0 - cs) * cs * t)
+        - Case 2: General case (default): Mt = sqrt(D * c0 * (2*c0 - cs) * cs * t)
         :param t: time (s)
         """
         D = self.params.D
@@ -52,8 +51,6 @@ class HiguchiModel(DrugReleaseModel):
 
         if c0 < cs:
             Mt = sqrt((D * t) / (pi * L**2))
-        elif c0 > 10 * cs:
-            Mt = sqrt(D * c0 * cs) * t
         else:
             Mt = sqrt(D * c0 * (2 * c0 - cs) * cs) * t
 
