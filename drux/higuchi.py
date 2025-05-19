@@ -1,7 +1,13 @@
 from drux import DrugReleaseModel, ModelParameters
-from drux.messages import ERROR_INVALID_DIFFUSION, ERROR_INVALID_CONCENTRATION, ERROR_INVALID_THICKNESS, ERROR_INVALID_SOLUBILITY
+from drux.messages import (
+    ERROR_INVALID_DIFFUSION,
+    ERROR_INVALID_CONCENTRATION,
+    ERROR_INVALID_THICKNESS,
+    ERROR_INVALID_SOLUBILITY,
+)
 from dataclasses import dataclass
 from math import sqrt, pi
+
 
 @dataclass
 class HiguchiParameters(ModelParameters):
