@@ -59,7 +59,7 @@ class HiguchiModel(DrugReleaseModel):
         if c0 < cs:
             Mt = sqrt((D * t) / (pi * L**2))
         else:
-            Mt = sqrt(D * c0 * (2 * c0 - cs) * cs) * t
+            Mt = sqrt(D * (2 * c0 - cs) * cs * t)
 
         return Mt
 
