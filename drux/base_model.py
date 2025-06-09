@@ -4,7 +4,6 @@ This file contains the abstract base class for drug release models.
 
 import numpy as np
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
 from typing import Any
 
 from drux.messages import (
@@ -16,15 +15,6 @@ from drux.messages import (
     ERROR_TARGET_RELEASE_EXCEEDS_MAX,
     MATPLOT_IMPORT_ERROR,
 )
-
-
-@dataclass
-class ModelParameters:
-    """
-    Base dataclass for model parameters.
-    """
-
-    pass
 
 
 class DrugReleaseModel(ABC):
