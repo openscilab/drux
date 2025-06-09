@@ -1,5 +1,5 @@
-from drux import DrugReleaseModel, ModelParameters
-from drux.messages import (
+from .base_model import DrugReleaseModel
+from .messages import (
     ERROR_INVALID_DIFFUSION,
     ERROR_INVALID_CONCENTRATION,
     ERROR_INVALID_THICKNESS,
@@ -10,7 +10,7 @@ from math import sqrt, pi
 
 
 @dataclass
-class HiguchiParameters(ModelParameters):
+class HiguchiParameters:
     """
     Parameters for the Higuchi model based on physical formulation.
 
