@@ -1,5 +1,5 @@
-from drux import DrugReleaseModel
-from drux.messages import (
+from .base_model import DrugReleaseModel
+from .messages import (
     ERROR_INVALID_DIFFUSION,
     ERROR_INVALID_CONCENTRATION,
     ERROR_INVALID_THICKNESS,

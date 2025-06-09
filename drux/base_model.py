@@ -6,7 +6,7 @@ import numpy as np
 from abc import ABC, abstractmethod
 from typing import Any
 
-from drux.messages import (
+from .messages import (
     ERROR_TARGET_RELEASE_RANGE,
     ERROR_DURATION_TIME_STEP_POSITIVE,
     ERROR_TIME_STEP_GREATER_THAN_DURATION,
