@@ -112,6 +112,11 @@ Just fill an issue and describe it. We'll check it ASAP! or send an email to [dr
 
 - Please complete the issue template
 
+## References
+<blockquote>1- T. Higuchi, "Rate of release of medicaments from ointment bases containing drugs in suspension," <i>Journal of Pharmaceutical Sciences</i>, vol. 50, no. 10, pp. 874–875, 1961.</blockquote>
+<blockquote>2- D. R. Paul, "Elaborations on the Higuchi model for drug delivery," <i>International Journal of Pharmaceutics</i>, vol. 418, no. 1, pp. 13–17, 2011.</blockquote>
+<blockquote>3- J. Siepmann and N. A. Peppas, "Higuchi equation: Derivation, applications, use and misuse," <i>International Journal of Pharmaceutics</i>, vol. 418, no. 1, pp. 6–12, 2011.</blockquote>
+<blockquote>4- R. T. Medarametla, K. V. Gopaiah, J. N. Suresh Kumar, G. Anand Babu, M. Shaggir, G. Raghavendra, D. Naveen Reddy, and B. Venkamma, "Drug Release Kinetics and Mathematical Models," <i>International Journal of Science and Research Methodology</i>, vol. 27, no. 9, pp. 12–19, Sep. 2024.</blockquote>
 
 ## Show your support
 
