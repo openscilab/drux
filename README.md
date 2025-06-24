@@ -66,10 +66,10 @@ Drux is a Python-based framework for simulating drug release profiles using math
 - Run `pip install .`
 
 ## Supported Models
-### Higuchi Model [?]
+### Higuchi Model
 The Higuchi model describes the release of a drug from a matrix system, where the drug diffuses through a porous medium.
 The Higuchi equation addressed important aspects of drug transport and release from planar
-devices. The formula is given by [?, ?]:
+devices. According to this model, the cumulative amount of drug released at time $t$ is given by:
 
 $
 M_t =
@@ -86,7 +86,7 @@ where:
 - $c_s$ is the solubility of the drug in the polymer (carrier),
 - $L$ is the film thickness.
 
-#### Applications [?]
+#### Applications
 1. Matrix Tablets
 2. Hydrophilic polymer matrices
 3. Controlled- Release Microspheres
@@ -119,8 +119,6 @@ Just fill an issue and describe it. We'll check it ASAP! or send an email to [dr
 <blockquote>4- R. T. Medarametla, K. V. Gopaiah, J. N. Suresh Kumar, G. Anand Babu, M. Shaggir, G. Raghavendra, D. Naveen Reddy, and B. Venkamma, "Drug Release Kinetics and Mathematical Models," <i>International Journal of Science and Research Methodology</i>, vol. 27, no. 9, pp. 12–19, Sep. 2024.</blockquote>
 
 ## Show your support
-
-
 ### Star this repo
 
 Give a ⭐️ if this project helped you!
