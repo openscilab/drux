@@ -71,13 +71,13 @@ The Higuchi model describes the release of a drug from a matrix system, where th
 The Higuchi equation addressed important aspects of drug transport and release from planar
 devices. According to this model, the cumulative amount of drug released at time $t$ is given by:
 
-$
+$$
 M_t =
 \begin{cases} 
-\sqrt{\frac{Dt}{\pi L^2}}, & \text{if } c_0 < c_s \\
-\sqrt{D(2c_0 - c_s)c_st}, & \text{if } c_0 \ge c_s
+\sqrt{\frac{Dt}{\pi L^2}}, & \text{if } c_0 < c_s, \\
+\sqrt{D(2c_0 - c_s)c_st}, & \text{if } c_0 \ge c_s.
 \end{cases}
-$
+$$
 
 where:
 - $M_t$ is the cumulative absolute amount of drug released at time $t$,
