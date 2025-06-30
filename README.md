@@ -81,10 +81,10 @@ $$
 
 where:
 - $M_t$ is the cumulative absolute amount of drug released at time $t$,
-- $D$ is the drug diffusivity in the polymer carrier,
-- $c_0$ is the initial drug concentration (total concentration of drug in the matrix),
-- $c_s$ is the solubility of the drug in the polymer (carrier),
-- $L$ is the film thickness.
+- $D ({\frac{cm^2}{s}})$ is the drug diffusivity in the polymer carrier,
+- $c_0 (\frac{mg}{cm^3})$ is the initial drug concentration (total concentration of drug in the matrix),
+- $c_s (\frac{mg}{cm^3})$ is the solubility of the drug in the polymer (carrier),
+- $L (cm)$ is the film thickness.
 
 #### Applications
 1. Matrix Tablets
@@ -99,9 +99,6 @@ where:
 from drux import HiguchiModel
 model = HiguchiModel(D=1e-6, c0=0.5, cs=1.0, L=0.1)
 model.simulate(duration=1000, time_step=10)
-```
-### Visualization
-```python
 model.plot(show=True)
 ```
 <img src="otherfiles/higuchi_plot.png">
