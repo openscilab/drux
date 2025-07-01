@@ -72,15 +72,11 @@ The Higuchi equation addressed important aspects of drug transport and release f
 devices. According to this model, the cumulative amount of drug released at time $t$ is given by:
 
 $$
-M_t =
-\begin{cases} 
-\sqrt{\frac{Dt}{\pi L^2}}, & \text{if } c_0 < c_s, \\
-\sqrt{D(2c_0 - c_s)c_st}, & \text{if } c_0 \ge c_s.
-\end{cases}
+M_t = \sqrt{D(2c_0 - c_s)c_st}.
 $$
 
 where:
-- $M_t$ is the cumulative absolute amount of drug released at time $t$,
+- $M_t (\frac{mg}{cm^2})$ is the cumulative absolute amount of drug released at time $t$,
 - $D ({\frac{cm^2}{s}})$ is the drug diffusivity in the polymer carrier,
 - $c_0 (\frac{mg}{cm^3})$ is the initial drug concentration (total concentration of drug in the matrix),
 - $c_s (\frac{mg}{cm^3})$ is the solubility of the drug in the polymer (carrier),
@@ -89,7 +85,7 @@ where:
 #### Applications
 1. Matrix Tablets
 2. Hydrophilic polymer matrices
-3. Controlled- Release Microspheres
+3. Controlled - Release Microspheres
 4. Semisolid Systems
 5. Implantable Drug delivery systems
 
@@ -112,8 +108,7 @@ Just fill an issue and describe it. We'll check it ASAP! or send an email to [dr
 ## References
 <blockquote>1- T. Higuchi, "Rate of release of medicaments from ointment bases containing drugs in suspension," <i>Journal of Pharmaceutical Sciences</i>, vol. 50, no. 10, pp. 874–875, 1961.</blockquote>
 <blockquote>2- D. R. Paul, "Elaborations on the Higuchi model for drug delivery," <i>International Journal of Pharmaceutics</i>, vol. 418, no. 1, pp. 13–17, 2011.</blockquote>
-<blockquote>3- J. Siepmann and N. A. Peppas, "Higuchi equation: Derivation, applications, use and misuse," <i>International Journal of Pharmaceutics</i>, vol. 418, no. 1, pp. 6–12, 2011.</blockquote>
-<blockquote>4- R. T. Medarametla, K. V. Gopaiah, J. N. Suresh Kumar, G. Anand Babu, M. Shaggir, G. Raghavendra, D. Naveen Reddy, and B. Venkamma, "Drug Release Kinetics and Mathematical Models," <i>International Journal of Science and Research Methodology</i>, vol. 27, no. 9, pp. 12–19, Sep. 2024.</blockquote>
+<blockquote>3- R. T. Medarametla, K. V. Gopaiah, J. N. Suresh Kumar, G. Anand Babu, M. Shaggir, G. Raghavendra, D. Naveen Reddy, and B. Venkamma, "Drug Release Kinetics and Mathematical Models," <i>International Journal of Science and Research Methodology</i>, vol. 27, no. 9, pp. 12–19, Sep. 2024.</blockquote>
 
 ## Show your support
 ### Star this repo
