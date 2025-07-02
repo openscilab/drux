@@ -97,7 +97,7 @@ model = HiguchiModel(D=1e-6, c0=0.5, cs=1.0, L=0.1)
 model.simulate(duration=1000, time_step=10)
 model.plot(show=True)
 ```
-<img src="otherfiles/higuchi_plot.png">
+<img src="otherfiles/higuchi_plot.png" alt="Higuchi Plot">
 
 ## Issues & bug reports
 
