@@ -79,9 +79,9 @@ where:
 - $M_t (\frac{mg}{cm^2})$ is the cumulative absolute amount of drug released at time $t$,
 - $D ({\frac{cm^2}{s}})$ is the drug diffusivity in the polymer carrier,
 - $c_0 (\frac{mg}{cm^3})$ is the initial drug concentration (total concentration of drug in the matrix),
-- $c_s (\frac{mg}{cm^3})$ is the solubility of the drug in the polymer (carrier),
-- $L (cm)$ is the film thickness.
+- $c_s (\frac{mg}{cm^3})$ is the solubility of the drug in the polymer (carrier).
 
+⚠️ **Note**: The Higuchi model assumes that $c_0 \ge c_s$.
 #### Applications
 1. Matrix Tablets
 2. Hydrophilic polymer matrices
