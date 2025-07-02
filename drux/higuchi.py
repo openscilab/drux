@@ -3,6 +3,7 @@ from .messages import (
     ERROR_INVALID_DIFFUSION,
     ERROR_INVALID_CONCENTRATION,
     ERROR_INVALID_SOLUBILITY,
+    ERROR_SOLUBILITY_HIGHER_THAN_CONCENTRATION,
 )
 from dataclasses import dataclass
 from math import sqrt, pi
@@ -64,3 +65,5 @@ class HiguchiModel(DrugReleaseModel):
             raise ValueError(ERROR_INVALID_CONCENTRATION)
         if self.params.cs <= 0:
             raise ValueError(ERROR_INVALID_SOLUBILITY)
+        if self.params.cs > self.params.c0:
+            raise ValueError(ERROR_SOLUBILITY_HIGHER_THAN_CONCENTRATION)
