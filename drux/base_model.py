@@ -113,7 +113,7 @@ class DrugReleaseModel(ABC):
             self.time_points, self.release_profile, label="Release Profile", **kwargs
         )
         ax.set_xlabel("Time (s)")
-        ax.set_ylabel("Cumulative Release (%)")
+        ax.set_ylabel("Cumulative Release")
         ax.set_title("Drug Release Profile")
         ax.grid()
         ax.legend()
