@@ -76,10 +76,10 @@ M_t = \sqrt{D(2c_0 - c_s)c_st}
 $$
 
 where:
-- $M_t (\frac{mg}{cm^2})$ is the cumulative absolute amount of drug released at time $t$,
-- $D ({\frac{cm^2}{s}})$ is the drug diffusivity in the polymer carrier,
-- $c_0 (\frac{mg}{cm^3})$ is the initial drug concentration (total concentration of drug in the matrix),
-- $c_s (\frac{mg}{cm^3})$ is the solubility of the drug in the polymer (carrier).
+- $M_t (\frac{mg}{cm^2})$ is the cumulative absolute amount of drug released at time $t$
+- $D ({\frac{cm^2}{s}})$ is the drug diffusivity in the polymer carrier
+- $c_0 (\frac{mg}{cm^3})$ is the initial drug concentration (total concentration of drug in the matrix)
+- $c_s (\frac{mg}{cm^3})$ is the solubility of the drug in the polymer (carrier)
 
 ⚠️ The Higuchi model assumes that $c_0 \ge c_s$
 #### Applications
@@ -97,7 +97,7 @@ model = HiguchiModel(D=1e-6, c0=0.5, cs=1.0)
 model.simulate(duration=1000, time_step=10)
 model.plot(show=True)
 ```
-<img src="otherfiles/higuchi_plot.png" alt="Higuchi Plot">
+<img src="https://github.com/openscilab/drux/raw/dev/otherfiles/higuchi_plot.png" alt="Higuchi Plot">
 
 ## Issues & bug reports
 
