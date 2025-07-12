@@ -80,11 +80,13 @@ def test_higuchi_plot_error():
             model.plot()
 
 
-def test_higuchi_release_rate():
-    model = HiguchiModel(D=1e-6, c0=1.5, cs=0.5)
+def test_higuchi_release_rate(): # Reference: https://www.wolframalpha.com/input?i=get+the+derivative+of+sqrt%28D*C_s*%282*C_0-C_s%29*t%29+with+respect+to+t
+    D, C0, Cs = 1e-6, 1.5, 0.5
+    model = HiguchiModel(D=D, c0=C0, cs=Cs)
     model.simulate(duration=1000, time_step=10)
     rate = model.get_release_rate()
-    assert True # TODO: need a reference for rate based on a sequence of release values
+    actual_rate = [0] + [sqrt(D * t * (2 * C0 - Cs) * Cs) / (2 * t) for t in range(1, 1001, 10)] # not defined at t=0, set to 0
+    assert all(isclose(r, a, rtol=1e-3) for r, a in zip(rate, actual_rate))
 
 
 def test_higuchi_release_rate_error():
