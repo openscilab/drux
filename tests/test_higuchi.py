@@ -30,7 +30,7 @@ def test_invalid_parameters():
         HiguchiModel(D=1e-6, c0=0.5, cs=1.5).simulate(duration=1000, time_step=10)
 
 
-def test_higuchi_simulation(): # https://www.sciencedirect.com/science/article/abs/pii/S0022354915333037
+def test_higuchi_simulation(): # Reference: https://www.sciencedirect.com/science/article/abs/pii/S0022354915333037
     D, A, Cs = 1e-6, 1.5, 0.5
     model = HiguchiModel(D=D, c0=A, cs=Cs)
     profile = model.simulate(duration=1000, time_step=10)
@@ -99,11 +99,11 @@ def test_higuchi_release_rate_error():
         model.get_release_rate()
 
 
-def test_higuchi_time_for_release():
+def test_higuchi_time_for_release(): # Reference: https://www.wolframalpha.com/input?i=solve+for+t+in+sqrt%2810%5E%28-6%29*0.5*%282*1.5-0.5%29*t%29+%3D+0.5*sqrt%2810%5E%28-6%29*0.5*%282*1.5-0.5%29*1000%29
     model = HiguchiModel(D=1e-6, c0=1.5, cs=0.5)
     model.simulate(duration=1000, time_step=10)
-    t50 = model.time_for_release(0.5 * model.release_profile[-1])
-    assert True # TODO: need a reference for time based on a figure
+    tx = model.time_for_release(0.5 * model.release_profile[-1])
+    assert tx == 250.0
 
 
 def test_higuchi_time_for_release_error():
