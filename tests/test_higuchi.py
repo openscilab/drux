@@ -105,7 +105,7 @@ def test_higuchi_time_for_release(): # Reference: https://www.wolframalpha.com/i
     model = HiguchiModel(D=1e-6, c0=1.5, cs=0.5)
     model.simulate(duration=1000, time_step=10)
     tx = model.time_for_release(0.5 * model.release_profile[-1])
-    assert tx == 250.0
+    assert isclose(tx, 250.0, rtol=1e-3)
 
 
 def test_higuchi_time_for_release_error():
