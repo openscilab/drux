@@ -6,7 +6,7 @@ from numpy import isclose
 from math import sqrt
 from drux import HiguchiModel
 
-TEST_CASE_NAME = "Higuchi Model tests"
+TEST_CASE_NAME = "Higuchi model tests"
 
 
 def test_higuchi_parameters():
