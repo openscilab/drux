@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+"""Drux Huguchi model implementation"""
+
 from .base_model import DrugReleaseModel
 from .messages import (
     ERROR_INVALID_DIFFUSION,
@@ -26,14 +29,12 @@ class HiguchiParameters:
 
 
 class HiguchiModel(DrugReleaseModel):
-    """
-    Simulator for the Higuchi drug release model using analytical expressions
-    based on concentration conditions:
-    """
+    """Simulator for the Higuchi drug release model using analytical expressions based on concentration conditions."""
 
     def __init__(self, D: float, c0: float, cs: float) -> None:
         """
         Initialize the Higuchi model with the given parameters.
+
         :param D: Drug diffusivity in the polymer carrier (cm^2/s)
         :param c0: Initial drug concentration (mg/cm^3)
         :param cs: Drug solubility in the polymer (mg/cm^3)
@@ -44,6 +45,8 @@ class HiguchiModel(DrugReleaseModel):
     def _model_function(self, t: float) -> float:
         """
         Calculate the drug release at time t using the Higuchi model.
+
+        The formula used is:
         - General case (default): Mt = sqrt(D * c0 * (2*c0 - cs) * cs * t)
         :param t: time (s)
         """
@@ -56,9 +59,7 @@ class HiguchiModel(DrugReleaseModel):
         return Mt
 
     def _validate_parameters(self) -> None:
-        """
-        Validate the parameters of the Higuchi model.
-        """
+        """Validate the parameters of the Higuchi model."""
         if self.params.D <= 0:
             raise ValueError(ERROR_INVALID_DIFFUSION)
         if self.params.c0 <= 0:

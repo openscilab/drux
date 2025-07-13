@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+"""Drux messages and error constants"""
+
 # Error messages
 ERROR_DURATION_TIME_STEP_POSITIVE = "Duration and time step must be positive values"
 ERROR_TIME_STEP_GREATER_THAN_DURATION = "Time step cannot be greater than duration"
