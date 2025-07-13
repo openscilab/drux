@@ -6,7 +6,7 @@ from .messages import (
     ERROR_SOLUBILITY_HIGHER_THAN_CONCENTRATION,
 )
 from dataclasses import dataclass
-from math import sqrt, pi
+from math import sqrt
 
 
 @dataclass

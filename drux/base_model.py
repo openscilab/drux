@@ -70,8 +70,6 @@ class DrugReleaseModel(ABC):
 
         try:
             import matplotlib.pyplot as plt
-            from matplotlib.figure import Figure
-            from matplotlib.axes import Axes
         except ImportError:
             raise ImportError(MATPLOT_IMPORT_ERROR)
 
