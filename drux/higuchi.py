@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Drux Huguchi model implementation"""
+"""Drux Huguchi model implementation."""
 
 from .base_model import DrugReleaseModel
 from .messages import (

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Drux messages and error constants"""
+"""Drux messages and error constants."""
 
 # Error messages
 ERROR_DURATION_TIME_STEP_POSITIVE = "Duration and time step must be positive values"

@@ -1,4 +1,4 @@
-"""Tests for the Higuchi model implementation in drux package"""
+"""Tests for the Higuchi model implementation in drux package."""
 
 from pytest import raises
 from unittest import mock
