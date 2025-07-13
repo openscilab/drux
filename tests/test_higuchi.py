@@ -4,6 +4,7 @@ from pytest import raises
 from unittest import mock
 from numpy import isclose
 from math import sqrt
+from re import escape
 from drux import HiguchiModel
 
 TEST_CASE_NAME = "Higuchi model tests"
@@ -20,16 +21,16 @@ def test_higuchi_parameters():
 
 
 def test_invalid_parameters():
-    with raises(ValueError, match="Diffusivity \\(D\\) must be positive."):
+    with raises(ValueError, match=escape("Diffusivity (D) must be positive.")):
         HiguchiModel(D=-D, c0=C0, cs=CS).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
-    with raises(ValueError, match="Initial drug concentration \\(c0\\) must be positive."):
+    with raises(ValueError, match=escape("Initial drug concentration (c0) must be positive.")):
         HiguchiModel(D=D, c0=-C0, cs=CS).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
-    with raises(ValueError, match="Solubility \\(cs\\) must be positive."):
+    with raises(ValueError, match=escape("Solubility (cs) must be positive.")):
         HiguchiModel(D=D, c0=C0, cs=-CS).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
-    with raises(ValueError, match="Solubility \\(cs\\) must be lower or equal to initial concentration \\(c0\\)."):
+    with raises(ValueError, match=escape("Solubility (cs) must be lower or equal to initial concentration (c0).")):
         HiguchiModel(D=D, c0=0.5, cs=1.5).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
 
@@ -68,7 +69,7 @@ def test_higuchi_plot(mock_subplots: mock.MagicMock):
 def test_higuchi_plot_error():
     model = HiguchiModel(D=D, c0=C0, cs=CS)
 
-    with raises(ValueError, match="No simulation data available. Run simulate\\(\\) first."):
+    with raises(ValueError, match=escape("No simulation data available. Run simulate() first.")):
         model.plot()
     
     model.time_points = [0]  # manually set time points to simulate error (TODO: it will be caught with prior errors)
@@ -93,7 +94,7 @@ def test_higuchi_release_rate(): # Reference: https://www.wolframalpha.com/input
 def test_higuchi_release_rate_error():
     model = HiguchiModel(D=D, c0=C0, cs=CS)
 
-    with raises(ValueError, match="No simulation data available. Run simulate\\(\\) first."):
+    with raises(ValueError, match=escape("No simulation data available. Run simulate() first.")):
         model.get_release_rate()
 
     model.time_points = [0]  # manually set time points to simulate error (TODO: it will be caught with prior errors)
@@ -112,7 +113,7 @@ def test_higuchi_time_for_release(): # Reference: https://www.wolframalpha.com/i
 def test_higuchi_time_for_release_error():
     model = HiguchiModel(D=1e-6, c0=C0, cs=CS)
 
-    with raises(ValueError, match="No simulation data available. Run simulate\\(\\) first."):
+    with raises(ValueError, match=escape("No simulation data available. Run simulate() first.")):
         model.time_for_release(0.5)
     model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
