@@ -93,7 +93,7 @@ where:
 ### Higuchi Model
 ```python
 from drux import HiguchiModel
-model = HiguchiModel(D=1e-6, c0=1.5, cs=0.5)
+model = HiguchiModel(D=1e-6, c0=1, cs=0.5)
 model.simulate(duration=1000, time_step=10)
 model.plot(show=True)
 ```

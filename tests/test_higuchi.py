@@ -8,7 +8,7 @@ from re import escape
 from drux import HiguchiModel
 
 TEST_CASE_NAME = "Higuchi model tests"
-D, C0, CS = 1e-6, 1.5, 0.5
+D, C0, CS = 1e-6, 1, 0.5
 SIM_DURATION, SIM_TIME_STEP = 1000, 10
 RELATIVE_TOLERANCE = 1e-2
 
@@ -31,7 +31,7 @@ def test_invalid_parameters():
         HiguchiModel(D=D, c0=C0, cs=-CS).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
     with raises(ValueError, match=escape("Solubility (cs) must be lower or equal to initial concentration (c0).")):
-        HiguchiModel(D=D, c0=0.5, cs=1.5).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
+        HiguchiModel(D=D, c0=0.5, cs=1).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
 
 def test_higuchi_simulation(): # Reference: https://www.sciencedirect.com/science/article/abs/pii/S0022354915333037
@@ -111,7 +111,7 @@ def test_higuchi_time_for_release(): # Reference: https://www.wolframalpha.com/i
 
 
 def test_higuchi_time_for_release_error():
-    model = HiguchiModel(D=1e-6, c0=C0, cs=CS)
+    model = HiguchiModel(D=D, c0=C0, cs=CS)
 
     with raises(ValueError, match=escape("No simulation data available. Run simulate() first.")):
         model.time_for_release(0.5)
