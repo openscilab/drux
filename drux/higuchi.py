@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Drux Huguchi model implementation."""
+"""Drux Higuchi model implementation."""
 
 from .base_model import DrugReleaseModel
 from .messages import (
@@ -46,8 +46,8 @@ class HiguchiModel(DrugReleaseModel):
         """
         Calculate the drug release at time t using the Higuchi model.
 
-        The formula used is:
-        - General case (default): Mt = sqrt(D * c0 * (2*c0 - cs) * cs * t)
+        Formula:
+        - General case: Mt = sqrt(D * c0 * (2*c0 - cs) * cs * t)
         :param t: time (s)
         """
         D = self.params.D
