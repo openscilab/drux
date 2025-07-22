@@ -1,6 +1,4 @@
-"""
-This file contains the abstract base class for drug release models.
-"""
+"""This file contains the abstract base class for drug release models."""
 
 import numpy as np
 from abc import ABC, abstractmethod
@@ -30,9 +28,7 @@ class DrugReleaseModel(ABC):
     """
 
     def __init__(self):
-        """
-        Initialize the drug release model.
-        """
+        """Initialize the drug release model."""
         self.time_points = None
         self.release_profile = None
 
@@ -40,6 +36,7 @@ class DrugReleaseModel(ABC):
     def _validate_parameters(self) -> None:
         """
         Validate model parameters.
+
         Should raise ValueError if parameters are invalid.
         """
         pass
@@ -54,9 +51,7 @@ class DrugReleaseModel(ABC):
         pass
 
     def _get_release_profile(self) -> np.ndarray:
-        """
-        Calculate the drug release profile over the specified time points.
-        """
+        """Calculate the drug release profile over the specified time points."""
         return np.vectorize(self._model_function)(self.time_points)
 
     def _validate_plot(self) -> tuple:
@@ -67,11 +62,8 @@ class DrugReleaseModel(ABC):
         :raises ValueError: if simulation data is not available
         :raises ValueError: if release profile is too short
         """
-
         try:
             import matplotlib.pyplot as plt
-            from matplotlib.figure import Figure
-            from matplotlib.axes import Axes
         except ImportError:
             raise ImportError(MATPLOT_IMPORT_ERROR)
 
@@ -125,9 +117,7 @@ class DrugReleaseModel(ABC):
         return fig, ax
 
     def get_release_rate(self) -> np.ndarray:
-        """
-        Calculate the instantaneous release rate (derivative of release profile).
-        """
+        """Calculate the instantaneous release rate (derivative of release profile)."""
         if self.time_points is None or self.release_profile is None:
             raise ValueError(ERROR_NO_SIMULATION_DATA)
 
