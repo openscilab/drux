@@ -18,13 +18,17 @@ requirements:
         - python >=3.6
     run:
         - python >=3.6
+        - numpy >=1.19.0
+        - matplotlib >=3.2.2
 about:
     home: https://github.com/openscilab/drux
     license: MIT
     license_family: MIT
-    summary: Drux: TODO
+    summary: Drux: Drug Release Analysis Framework
     description: |
-	TODO
+        Drux is a Python-based framework for simulating drug release profiles using mathematical models.
+        It offers a reproducible and extensible platform to model, analyze, and visualize time-dependent drug release behavior, making it ideal for pharmaceutical research and development.
+        By combining simplicity with scientific rigor, Drux provides a robust foundation for quantitative analysis of drug delivery kinetics.
 	
         Website: https://openscilab.com
 

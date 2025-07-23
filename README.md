@@ -47,13 +47,6 @@ Drux is a Python-based framework for simulating drug release profiles using math
             </td>
     </tr>
 </table>
-<table>
-    <tr> 
-        <td align="center">Code Quality</td>
-        <td align="center">--</td>
-        <td align="center">--</td>
-    </tr>
-</table>
 
 
 ## Installation

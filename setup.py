@@ -23,7 +23,10 @@ def read_description() -> str:
             description += c.read()
         return description
     except Exception:
-        return '''TODO'''
+        return '''Drux is a Python-based framework for simulating drug release profiles using mathematical models.
+                It offers a reproducible and extensible platform to model, analyze, and visualize time-dependent drug release behavior, making it ideal for pharmaceutical research and development.
+                By combining simplicity with scientific rigor, Drux provides a robust foundation for quantitative analysis of drug delivery kinetics.
+               '''
 
 
 setup(
@@ -31,14 +34,14 @@ setup(
     packages=[
         'drux', ],
     version='0.1',
-    description='TODO',
+    description='Drux: Drug Release Analysis Framework',
     long_description=read_description(),
     long_description_content_type='text/markdown',
     author='Drux Development Team',
     author_email='drux@openscilab.com',
     url='https://github.com/openscilab/drux',
     download_url='https://github.com/openscilab/drux/tarball/v0.1',
-    keywords="TODO",
+    keywords="drug-release drug-delivery mathematical-modeling simulation kinetics",
     project_urls={
             'Source': 'https://github.com/openscilab/drux',
     },
@@ -64,7 +67,8 @@ setup(
         'Topic :: Education',
         'Topic :: Scientific/Engineering',
         'Topic :: Scientific/Engineering :: Information Analysis',
-        'Topic :: Scientific/Engineering :: Artificial Intelligence',
+        'Topic :: Scientific/Engineering :: Medical Science Apps.',
+        'Topic :: Scientific/Engineering :: Mathematics',
     ],
     license='MIT',
 )
