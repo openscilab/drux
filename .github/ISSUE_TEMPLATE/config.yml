@@ -1,5 +1,7 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Discord
+    url: https://discord.gg/8Rf6bGBtse
     about: Ask questions and discuss with other Drux community members 
   - name: Website
     url: https://openscilab.com/
