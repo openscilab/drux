@@ -142,8 +142,6 @@ You can also join our discord server
 
 
 ## Show your support
-
-
 ### Star this repo
 
 Give a ⭐️ if this project helped you!
