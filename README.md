@@ -112,8 +112,6 @@ You can also join our discord server
 <blockquote>3- R. T. Medarametla, K. V. Gopaiah, J. N. Suresh Kumar, G. Anand Babu, M. Shaggir, G. Raghavendra, D. Naveen Reddy, and B. Venkamma, "Drug Release Kinetics and Mathematical Models," <i>International Journal of Science and Research Methodology</i>, vol. 27, no. 9, pp. 12–19, Sep. 2024.</blockquote>
 
 ## Show your support
-
-
 ### Star this repo
 
 Give a ⭐️ if this project helped you!
