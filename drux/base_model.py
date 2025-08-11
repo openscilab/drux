@@ -134,7 +134,7 @@ class DrugReleaseModel(ABC):
 
         :param target_release: target release fraction (>= 0)
 
-        :raises ValueError: if target_release is not between 0 and 1
+        :raises ValueError: if target_release is negative
         :raises ValueError: if simulation data is not available
         :raises ValueError: if target_release exceeds maximum release
         """
