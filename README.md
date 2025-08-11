@@ -62,6 +62,7 @@ Drux is a Python-based framework for simulating drug release profiles using math
 ## Supported Models
 ### Zero-Order
 The Zero-Order model describes a constant rate of drug release over time. According to this model, the cumulative amount of drug released at time $t$ is given by:
+
 $$
 M_t = M_0 + k_0 t
 $$
