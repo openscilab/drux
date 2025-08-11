@@ -121,11 +121,8 @@ def test_higuchi_time_for_release_error():
         model.time_for_release(0.5)
     model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
-    with raises(ValueError, match="Target release must be between 0 and 1."):
+    with raises(ValueError, match="Target release must be non-negative."):
         model.time_for_release(-0.1)
-
-    with raises(ValueError, match="Target release must be between 0 and 1."):
-        model.time_for_release(2.0)
 
     with raises(ValueError, match="Target release exceeds maximum release of the simulated duration."):
         model.time_for_release(min(model.release_profile[-1] + 0.1, 1))

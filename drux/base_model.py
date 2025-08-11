@@ -132,16 +132,16 @@ class DrugReleaseModel(ABC):
         """
         Estimate time needed to reach a specific release percentage.
 
-        :param target_release: target release fraction (0-1)
+        :param target_release: target release fraction (>= 0)
 
-        :raises ValueError: if target_release is not between 0 and 1
+        :raises ValueError: if target_release is negative
         :raises ValueError: if simulation data is not available
         :raises ValueError: if target_release exceeds maximum release
         """
         if self.time_points is None or self.release_profile is None:
             raise ValueError(ERROR_NO_SIMULATION_DATA)
 
-        if target_release < 0 or target_release > 1:
+        if target_release < 0:
             raise ValueError(ERROR_TARGET_RELEASE_RANGE)
 
         if target_release > self.release_profile[-1]:
