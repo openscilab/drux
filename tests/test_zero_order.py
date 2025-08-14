@@ -22,7 +22,7 @@ def test_invalid_parameters():
     with raises(ValueError, match=escape("Initial amount of drug in the solution (M0) must be non-negative.")):
         ZeroOrderModel(M0=-M0, k0=k0).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
-    with raises(ValueError, match=escape("Release rate (k0) must be positive.")):
+    with raises(ValueError, match=escape("Release rate (k0) must be non-negative.")):
         ZeroOrderModel(M0=M0, k0=-k0).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
 

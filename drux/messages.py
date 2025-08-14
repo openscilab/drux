@@ -21,5 +21,5 @@ ERROR_INVALID_SOLUBILITY = "Solubility (cs) must be positive."
 ERROR_SOLUBILITY_HIGHER_THAN_CONCENTRATION = "Solubility (cs) must be lower or equal to initial concentration (c0)."
 
 # Error messages for zero-order
-ERROR_ZERO_ORDER_RELEASE_RATE = "Release rate (k0) must be positive."
+ERROR_ZERO_ORDER_RELEASE_RATE = "Release rate (k0) must be non-negative."
 ERROR_ZERO_ORDER_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) must be non-negative."

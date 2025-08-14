@@ -52,5 +52,5 @@ class ZeroOrderModel(DrugReleaseModel):
         """Validate the parameters of the zero-order model."""
         if self.params.M0 < 0:
             raise ValueError(ERROR_ZERO_ORDER_INITIAL_AMOUNT)
-        if self.params.k0 <= 0:
+        if self.params.k0 < 0:
             raise ValueError(ERROR_ZERO_ORDER_RELEASE_RATE)
