@@ -13,7 +13,7 @@ SIM_DURATION, SIM_TIME_STEP = 1000, 10
 RELATIVE_TOLERANCE = 1e-2
 
 
-def test_zer_order_parameters():
+def test_zero_order_parameters():
     model = ZeroOrderModel(M0=M0, k0=k0)
     assert model.params.M0 == M0
     assert model.params.k0 == k0
