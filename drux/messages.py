@@ -12,7 +12,6 @@ ERROR_TARGET_RELEASE_RANGE = "Target release must be non-negative."
 ERROR_TARGET_RELEASE_EXCEEDS_MAX = (
     "Target release exceeds maximum release of the simulated duration."
 )
-MATPLOT_IMPORT_ERROR = "Matplotlib is required for plotting but not installed."
 
 # Error messages for Higuchi
 ERROR_INVALID_DIFFUSION = "Diffusivity (D) must be positive."

@@ -1,6 +1,7 @@
 """This file contains the abstract base class for drug release models."""
 
 import numpy as np
+import matplotlib.pyplot as plt
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -11,7 +12,6 @@ from .messages import (
     ERROR_NO_SIMULATION_DATA,
     ERROR_RELEASE_PROFILE_TOO_SHORT,
     ERROR_TARGET_RELEASE_EXCEEDS_MAX,
-    MATPLOT_IMPORT_ERROR,
 )
 
 
@@ -58,15 +58,9 @@ class DrugReleaseModel(ABC):
         """
         Validate plotting process.
 
-        :raises ImportError: if matplotlib is not installed
         :raises ValueError: if simulation data is not available
         :raises ValueError: if release profile is too short
         """
-        try:
-            import matplotlib.pyplot as plt
-        except ImportError:
-            raise ImportError(MATPLOT_IMPORT_ERROR)
-
         if self.time_points is None or self.release_profile is None:
             raise ValueError(ERROR_NO_SIMULATION_DATA)
 

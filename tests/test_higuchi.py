@@ -78,11 +78,6 @@ def test_higuchi_plot_error():
     with raises(ValueError, match="Release profile is too short to calculate release rate."):
         model.plot()
 
-    model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
-    with mock.patch.dict('sys.modules', {'matplotlib': None}):
-        with raises(ImportError, match="Matplotlib is required for plotting but not installed."):
-            model.plot()
-
 
 def test_higuchi_release_rate():  # Reference: https://www.wolframalpha.com/input?i=get+the+derivative+of+sqrt%28D*C_s*%282*C_0-C_s%29*t%29+with+respect+to+t
     model = HiguchiModel(D=D, c0=C0, cs=CS)
