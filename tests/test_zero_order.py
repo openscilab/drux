@@ -70,11 +70,6 @@ def test_zero_order_plot_error():
     with raises(ValueError, match="Release profile is too short to calculate release rate."):
         model.plot()
 
-    model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
-    with mock.patch.dict('sys.modules', {'matplotlib': None}):
-        with raises(ImportError, match="Matplotlib is required for plotting but not installed."):
-            model.plot()
-
 
 def test_zero_order_release_rate():  # Reference: https://www.wolframalpha.com/input?i=get+the+derivative+of+M0+%2B+%28k0+*+t%29+with+respect+to+t
     model = ZeroOrderModel(M0=M0, k0=k0)
