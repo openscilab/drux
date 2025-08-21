@@ -48,6 +48,13 @@ Drux is a Python-based framework for simulating drug release profiles using math
             </td>
     </tr>
 </table>
+<table>
+    <tr> 
+        <td align="center">Code Quality</td>
+        <td align="center"><a href="https://www.codefactor.io/repository/github/openscilab/drux"><img src="https://www.codefactor.io/repository/github/openscilab/drux/badge" alt="CodeFactor"></a></td>
+        <td align="center"><a href="https://app.codacy.com/gh/openscilab/drux/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img src="https://app.codacy.com/project/badge/Grade/06ed95529d284c81a846205baa1f4c6a"></a></td>
+    </tr>
+</table>
 
 
 ## Installation
