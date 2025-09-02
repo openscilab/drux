@@ -3,6 +3,7 @@
     <br/>
     <a href="https://badge.fury.io/py/drux"><img src="https://badge.fury.io/py/drux.svg" alt="PyPI version"></a>
     <a href="https://www.python.org/"><img src="https://img.shields.io/badge/built%20with-Python3-green.svg" alt="built with Python3"></a>
+    <a href="https://codecov.io/gh/openscilab/drux"><img src="https://codecov.io/gh/openscilab/drux/branch/dev/graph/badge.svg?token=5O41J3XX2L"></a>
     <a href="https://github.com/openscilab/drux"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/openscilab/drux"></a>
     <a href="https://discord.gg/8Rf6bGBtse"><img src="https://img.shields.io/discord/1064533716615049236.svg" alt="Discord Channel"></a>
 </div>
@@ -46,6 +47,13 @@ Drux is a Python-based framework for simulating drug release profiles using math
         <td align="center">
             <img src="https://github.com/openscilab/drux/actions/workflows/test.yml/badge.svg?branch=dev">
             </td>
+    </tr>
+</table>
+<table>
+    <tr> 
+        <td align="center">Code Quality</td>
+        <td align="center"><a href="https://www.codefactor.io/repository/github/openscilab/drux"><img src="https://www.codefactor.io/repository/github/openscilab/drux/badge" alt="CodeFactor"></a></td>
+        <td align="center"><a href="https://app.codacy.com/gh/openscilab/drux/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img src="https://app.codacy.com/project/badge/Grade/06ed95529d284c81a846205baa1f4c6a"></a></td>
     </tr>
 </table>
 
