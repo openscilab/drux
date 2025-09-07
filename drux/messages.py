@@ -22,3 +22,7 @@ ERROR_SOLUBILITY_HIGHER_THAN_CONCENTRATION = "Solubility (cs) must be lower or e
 # Error messages for zero-order
 ERROR_ZERO_ORDER_RELEASE_RATE = "Release rate (k0) must be non-negative."
 ERROR_ZERO_ORDER_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) must be non-negative."
+
+# Error messages for first-order
+ERROR_FIRST_ORDER_RELEASE_RATE = "Release rate (k) must be non-negative."
+ERROR_FIRST_ORDER_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) must be non-negative."

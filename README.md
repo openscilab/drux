@@ -1,4 +1,4 @@
-<div align="center">
+from drux.first_order import FirstOrderModel<div align="center">
     <h1>Drux: Drug Release Analysis Framework</h1>
     <br/>
     <a href="https://badge.fury.io/py/drux"><img src="https://badge.fury.io/py/drux.svg" alt="PyPI version"></a>
@@ -87,6 +87,24 @@ where:
 4. Intraocular Implants
 5. Infusion Systems
 
+### First-Order
+The first-order drug release model describes a process where the rate of drug release is proportional to the remaining amount of drug in the system. According to this model, the cumulative amount of drug released at time $t$ is given by:
+
+$$
+M_t = M_0e^{-kt}
+$$
+
+where:
+- $M_t (mg)$ is the cumulative absolute amount of drug released at time $t$.
+- $M_0 (mg)$ is the initial amount of drug in the system. $M_0$ defaults to zero in this model.
+- $k (\frac{1}{s})$ is the first-order release rate constant.
+
+#### Applications
+1. Immediate-release tablets and capsules
+2. Liquid drug formulations (oral solutions, intravenous injections)
+3. Controlled-release matrix systems
+4. Elastomeric infusion pumps
+
 ### Higuchi
 The Higuchi model describes the release of a drug from a matrix system, where the drug diffuses through a porous medium.
 The Higuchi equation addressed important aspects of drug transport and release from planar
@@ -119,6 +137,16 @@ model.simulate(duration=1000, time_step=10)
 model.plot(show=True)
 ```
 <img src="/otherfiles/zero_order_plot.png" alt="Zero-order Plot">
+
+### First-Order Model
+```python
+from drux import FirstOrderModel
+model = FirstOrderModel(k=0.00, M0=0.1)
+model.simulate(duration=1000, time_step=10)
+model.plot(show=True)
+```
+<img src="/otherfiles/first_order_plot.png" alt="First-order Plot">
+
 
 ### Higuchi Model
 ```python
