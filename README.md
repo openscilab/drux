@@ -3,6 +3,7 @@
     <br/>
     <a href="https://badge.fury.io/py/drux"><img src="https://badge.fury.io/py/drux.svg" alt="PyPI version"></a>
     <a href="https://www.python.org/"><img src="https://img.shields.io/badge/built%20with-Python3-green.svg" alt="built with Python3"></a>
+    <a href="https://codecov.io/gh/openscilab/drux"><img src="https://codecov.io/gh/openscilab/drux/branch/dev/graph/badge.svg?token=5O41J3XX2L"></a>
     <a href="https://github.com/openscilab/drux"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/openscilab/drux"></a>
     <a href="https://discord.gg/8Rf6bGBtse"><img src="https://img.shields.io/discord/1064533716615049236.svg" alt="Discord Channel"></a>
 </div>
@@ -48,6 +49,13 @@ Drux is a Python-based framework for simulating drug release profiles using math
             </td>
     </tr>
 </table>
+<table>
+    <tr> 
+        <td align="center">Code Quality</td>
+        <td align="center"><a href="https://www.codefactor.io/repository/github/openscilab/drux"><img src="https://www.codefactor.io/repository/github/openscilab/drux/badge" alt="CodeFactor"></a></td>
+        <td align="center"><a href="https://app.codacy.com/gh/openscilab/drux/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img src="https://app.codacy.com/project/badge/Grade/06ed95529d284c81a846205baa1f4c6a"></a></td>
+    </tr>
+</table>
 
 
 ## Installation
@@ -60,6 +68,25 @@ Drux is a Python-based framework for simulating drug release profiles using math
 - Run `pip install .`
 
 ## Supported Models
+### Zero-Order
+The Zero-Order model describes a constant rate of drug release over time. According to this model, the cumulative amount of drug released at time $t$ is given by:
+
+$$
+M_t = M_0 + k_0 t
+$$
+
+where:
+- $M_t (mg)$ is the cumulative absolute amount of drug released at time $t$.
+- $M_0 (mg)$ is the initial amount of drug in the system. $M_0$ defaults to zero in this model.
+- $k_0 (\frac{mg}{s})$ is the zero-order release rate constant.
+
+#### Applications
+1. Tablets with extended release
+2. Transdermal Patches
+3. Implantable Device
+4. Intraocular Implants
+5. Infusion Systems
+
 ### Higuchi
 The Higuchi model describes the release of a drug from a matrix system, where the drug diffuses through a porous medium.
 The Higuchi equation addressed important aspects of drug transport and release from planar
@@ -84,6 +111,15 @@ where:
 5. Implantable Drug delivery systems
 
 ## Usage
+### Zero-Order Model
+```python
+from drux import ZeroOrderModel
+model = ZeroOrderModel(k0=0.1, M0=0)
+model.simulate(duration=1000, time_step=10)
+model.plot(show=True)
+```
+<img src="/otherfiles/zero_order_plot.png" alt="Zero-order Plot">
+
 ### Higuchi Model
 ```python
 from drux import HiguchiModel
@@ -110,6 +146,8 @@ You can also join our discord server
 <blockquote>1- T. Higuchi, "Rate of release of medicaments from ointment bases containing drugs in suspension," <i>Journal of Pharmaceutical Sciences</i>, vol. 50, no. 10, pp. 874–875, 1961.</blockquote>
 <blockquote>2- D. R. Paul, "Elaborations on the Higuchi model for drug delivery," <i>International Journal of Pharmaceutics</i>, vol. 418, no. 1, pp. 13–17, 2011.</blockquote>
 <blockquote>3- R. T. Medarametla, K. V. Gopaiah, J. N. Suresh Kumar, G. Anand Babu, M. Shaggir, G. Raghavendra, D. Naveen Reddy, and B. Venkamma, "Drug Release Kinetics and Mathematical Models," <i>International Journal of Science and Research Methodology</i>, vol. 27, no. 9, pp. 12–19, Sep. 2024.</blockquote>
+<blockquote>4- R. Vaju and K. V. Murthy, "Development and validation of new discriminative dissolution method for carvedilol tablets," <i>Indian Journal of Pharmaceutical Sciences</i>, vol. 73, no. 5, pp. 527–536, Sep. 2011.</blockquote>
+<blockquote>5- S. Dash, "Kinetic modeling on drug release from controlled drug delivery systems," <i>Acta Poloniae Pharmaceutica</i>, 2010.</blockquote>
 
 ## Show your support
 ### Star this repo
