@@ -38,13 +38,13 @@ class FirstOrderModel(DrugReleaseModel):
         Calculate the drug release at time t using the first-order model.
 
         Formula:
-        - M(t) = M0 * exp(-k * t)
+        - M(t) = M0 * (1 - exp(-k * t))
         :param t: time (s)
         """
         M0 = self.params.M0
         k = self.params.k
 
-        Mt = M0*exp(-k*t)
+        Mt = M0 * (1 - exp(-k*t))
 
         return Mt
 

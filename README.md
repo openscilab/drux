@@ -141,7 +141,7 @@ model.plot(show=True)
 ### First-Order Model
 ```python
 from drux import FirstOrderModel
-model = FirstOrderModel(k=0.00, M0=0.1)
+model = FirstOrderModel(k=0.003, M0=0.1)
 model.simulate(duration=1000, time_step=10)
 model.plot(show=True)
 ```
