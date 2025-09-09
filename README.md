@@ -147,7 +147,6 @@ model.plot(show=True)
 ```
 <img src="/otherfiles/first_order_plot.png" alt="First-order Plot">
 
-
 ### Higuchi Model
 ```python
 from drux import HiguchiModel
