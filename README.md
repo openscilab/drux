@@ -91,12 +91,12 @@ where:
 The first-order drug release model describes a process where the rate of drug release is proportional to the remaining amount of drug in the system. According to this model, the cumulative amount of drug released at time $t$ is given by:
 
 $$
-M_t = M_0e^{-kt}
+M_t = M_0 (1 - e^{-kt})
 $$
 
 where:
 - $M_t (mg)$ is the cumulative absolute amount of drug released at time $t$.
-- $M_0 (mg)$ is the initial amount of drug in the system. $M_0$ defaults to zero in this model.
+- $M_0 (mg)$ is entire releasable amount of drug (the asymptotic maximum).
 - $k (\frac{1}{s})$ is the first-order release rate constant.
 
 #### Applications

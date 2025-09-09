@@ -25,4 +25,4 @@ ERROR_ZERO_ORDER_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) m
 
 # Error messages for first-order
 ERROR_FIRST_ORDER_RELEASE_RATE = "Release rate (k) must be non-negative."
-ERROR_FIRST_ORDER_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) must be non-negative."
+ERROR_FIRST_ORDER_INITIAL_AMOUNT = "Entire releasable amount of drug (M0) must be non-negative."

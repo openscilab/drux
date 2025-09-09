@@ -12,7 +12,7 @@ class FirstOrderParameters:
     Parameters for the first-order model.
 
     Attributes:
-        M0 (float):  initial amount of drug in the solution (most times, M0 > 0)
+        M0 (float):  entire releasable amount of drug (normally M0 > 0) (mg)
         k (float):  first-order release rate constant (1/s)
     """
 
@@ -28,7 +28,7 @@ class FirstOrderModel(DrugReleaseModel):
         Initialize the first-order model with the given parameters.
 
         :param k: first-order release rate constant (1/s)
-        :param M0: Initial amount of drug in the solution (mg)
+        :param M0: entire releasable amount of drug (the asymptotic maximum) (mg)
         """
         super().__init__()
         self.params = FirstOrderParameters(k=k, M0=M0)

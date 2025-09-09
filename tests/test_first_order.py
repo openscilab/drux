@@ -19,7 +19,7 @@ def test_first_order_parameters():
     assert model.params.k == k
 
 def test_invalid_parameters():
-    with raises(ValueError, match=escape("Initial amount of drug in the solution (M0) must be non-negative.")):
+    with raises(ValueError, match=escape("Entire releasable amount of drug (M0) must be non-negative.")):
         FirstOrderModel(M0=-M0, k=k).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
     with raises(ValueError, match=escape("Release rate (k) must be non-negative.")):
