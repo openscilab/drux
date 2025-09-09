@@ -44,7 +44,7 @@ class FirstOrderModel(DrugReleaseModel):
         M0 = self.params.M0
         k = self.params.k
 
-        Mt = M0 * (1 - exp(-k*t))
+        Mt = M0 * (1 - exp(-k * t))
 
         return Mt
 
