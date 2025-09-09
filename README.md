@@ -1,4 +1,4 @@
-from drux.first_order import FirstOrderModel<div align="center">
+<div align="center">
     <h1>Drux: Drug Release Analysis Framework</h1>
     <br/>
     <a href="https://badge.fury.io/py/drux"><img src="https://badge.fury.io/py/drux.svg" alt="PyPI version"></a>
