@@ -175,6 +175,7 @@ You can also join our discord server
 <blockquote>3- R. T. Medarametla, K. V. Gopaiah, J. N. Suresh Kumar, G. Anand Babu, M. Shaggir, G. Raghavendra, D. Naveen Reddy, and B. Venkamma, "Drug Release Kinetics and Mathematical Models," <i>International Journal of Science and Research Methodology</i>, vol. 27, no. 9, pp. 12–19, Sep. 2024.</blockquote>
 <blockquote>4- R. Vaju and K. V. Murthy, "Development and validation of new discriminative dissolution method for carvedilol tablets," <i>Indian Journal of Pharmaceutical Sciences</i>, vol. 73, no. 5, pp. 527–536, Sep. 2011.</blockquote>
 <blockquote>5- S. Dash, "Kinetic modeling on drug release from controlled drug delivery systems," <i>Acta Poloniae Pharmaceutica</i>, 2010.</blockquote>
+<blockquote>6- K. H. Ramteke, P. A. Dighe, A. R. Kharat, S. V. Patil, <i>Mathematical models of drug dissolution: A review</i>, <i>Sch. Acad. J. Pharm.</i>, vol. 3, no. 5, pp. 388-396, 2014.</blockquote>
 
 ## Show your support
 ### Star this repo
