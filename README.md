@@ -136,7 +136,7 @@ model = ZeroOrderModel(k0=0.1, M0=0)
 model.simulate(duration=1000, time_step=10)
 model.plot(show=True)
 ```
-<img src="/otherfiles/zero_order_plot.png" alt="Zero-order Plot">
+<img src="https://github.com/openscilab/drux/raw/main/otherfiles/zero_order_plot.png" alt="Zero-order Plot">
 
 ### First-Order Model
 ```python
@@ -145,7 +145,7 @@ model = FirstOrderModel(k=0.003, M0=0.1)
 model.simulate(duration=1000, time_step=10)
 model.plot(show=True)
 ```
-<img src="/otherfiles/first_order_plot.png" alt="First-order Plot">
+<img src="https://github.com/openscilab/drux/raw/main/otherfiles/first_order_plot.png" alt="First-order Plot">
 
 ### Higuchi Model
 ```python
