@@ -1,7 +1,6 @@
 """Tests for the Higuchi model implementation in drux package."""
 
 from pytest import raises
-from unittest import mock
 from numpy import isclose
 from math import sqrt
 from re import escape
