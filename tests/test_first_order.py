@@ -46,9 +46,7 @@ def test_first_order_simulation_errors():
         model.simulate(duration=10, time_step=20)
 
 
-@mock.patch("matplotlib.pyplot.subplots")
-def test_first_order_plot1(mock_subplots: mock.MagicMock):
-    mock_subplots.return_value = (mock.MagicMock(), mock.MagicMock())
+def test_first_order_plot1():
     model = FirstOrderModel(M0=M0, k=k)
     model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
     fig, ax = model.plot()
@@ -58,12 +56,10 @@ def test_first_order_plot1(mock_subplots: mock.MagicMock):
     assert ax.get_xlabel() == model._plot_parameters["xlabel"]
     assert ax.get_ylabel() == model._plot_parameters["ylabel"]
     assert [text.get_text() for text in ax.get_legend().get_texts()] == [model._plot_parameters["label"]]
-    mock_subplots.assert_called_once()
 
 
-@mock.patch("matplotlib.pyplot.subplots")
-def test_first_order_plot2(mock_subplots: mock.MagicMock):
-    mock_subplots.return_value = (mock.MagicMock(), mock.MagicMock())
+
+def test_first_order_plot2():
     model = FirstOrderModel(M0=M0, k=k)
     model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
     fig, ax = model.plot(title="test-title", xlabel="test-xlabel", ylabel="test-ylabel", label="test-label")
@@ -73,7 +69,6 @@ def test_first_order_plot2(mock_subplots: mock.MagicMock):
     assert ax.get_xlabel() == "test-xlabel"
     assert ax.get_ylabel() == "test-ylabel"
     assert [text.get_text() for text in ax.get_legend().get_texts()] == ["test-label"]
-    mock_subplots.assert_called_once()
 
 
 def test_first_order_plot_error():
