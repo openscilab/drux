@@ -1,7 +1,6 @@
 """Tests for the first-order model implementation in drux package."""
 
 from pytest import raises
-from unittest import mock
 from numpy import isclose
 from re import escape
 from math import exp

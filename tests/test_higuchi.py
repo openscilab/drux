@@ -54,16 +54,30 @@ def test_higuchi_simulation_errors():
         model.simulate(duration=10, time_step=20)
 
 
-@mock.patch("matplotlib.pyplot.subplots")
-def test_higuchi_plot(mock_subplots: mock.MagicMock):
-    mock_subplots.return_value = (mock.MagicMock(), mock.MagicMock())
+def test_higuchi_plot1():
     model = HiguchiModel(D=D, c0=C0, cs=CS)
     model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
     fig, ax = model.plot()
     assert fig is not None
     assert ax is not None
-    mock_subplots.assert_called_once()
+    assert ax.get_title() == model._plot_parameters["title"]
+    assert ax.get_xlabel() == model._plot_parameters["xlabel"]
+    assert ax.get_ylabel() == model._plot_parameters["ylabel"]
+    assert [text.get_text() for text in ax.get_legend().get_texts()] == [model._plot_parameters["label"]]
+
+
+def test_higuchi_plot2():
+    model = HiguchiModel(D=D, c0=C0, cs=CS)
+    model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
+
+    fig, ax = model.plot(title="test-title", xlabel="test-xlabel", ylabel="test-ylabel", label="test-label")
+    assert fig is not None
+    assert ax is not None
+    assert ax.get_title() == "test-title"
+    assert ax.get_xlabel() == "test-xlabel"
+    assert ax.get_ylabel() == "test-ylabel"
+    assert [text.get_text() for text in ax.get_legend().get_texts()] == ["test-label"]
 
 
 def test_higuchi_plot_error():
