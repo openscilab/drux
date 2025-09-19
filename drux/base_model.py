@@ -31,6 +31,7 @@ class DrugReleaseModel(ABC):
         """Initialize the drug release model."""
         self.time_points = None
         self.release_profile = None
+        self._plot_parameters = {"xlabel": "Time (s)", "ylabel": "Cumulative Release", "title": "Drug Release Profile", "label": "Release Profile"}
 
     @abstractmethod
     def _validate_parameters(self) -> None:
