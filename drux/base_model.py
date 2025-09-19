@@ -3,7 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Optional
 
 from .messages import (
     ERROR_TARGET_RELEASE_RANGE,
@@ -86,22 +86,26 @@ class DrugReleaseModel(ABC):
         self.release_profile = self._get_release_profile()
         return self.release_profile
 
-    def plot(self, show: bool = True, **kwargs: Any) -> tuple:
+    def plot(self, show: bool = True, label: Optional[str] = None, xlabel: Optional[str] = None, ylabel: Optional[str] = None, title: Optional[str] = None,**kwargs: Any) -> tuple:
         """
         Plot the drug release profile.
 
         :param show: Whether to display the plot (default: True)
+        :param label: The legend label for the release profile curve
+        :param xlabel: Label for the x-axis
+        :param ylabel: Label for the y-axis
+        :param title: Title of the plot
         """
         # Create a new figure and axis if not provided
         fig, ax = self._validate_plot()
 
         # Plotting the release profile
         ax.plot(
-            self.time_points, self.release_profile, label="Release Profile", **kwargs
+            self.time_points, self.release_profile, label=label or self._plot_parameters["label"], **kwargs
         )
-        ax.set_xlabel("Time (s)")
-        ax.set_ylabel("Cumulative Release")
-        ax.set_title("Drug Release Profile")
+        ax.set_xlabel(xlabel or self._plot_parameters["xlabel"])
+        ax.set_ylabel(ylabel or self._plot_parameters["ylabel"])
+        ax.set_title(title or self._plot_parameters["title"])
         ax.grid()
         ax.legend()
 
