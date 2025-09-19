@@ -47,14 +47,32 @@ def test_first_order_simulation_errors():
 
 
 @mock.patch("matplotlib.pyplot.subplots")
-def test_first_order_plot(mock_subplots: mock.MagicMock):
+def test_first_order_plot1(mock_subplots: mock.MagicMock):
     mock_subplots.return_value = (mock.MagicMock(), mock.MagicMock())
     model = FirstOrderModel(M0=M0, k=k)
     model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
-
     fig, ax = model.plot()
     assert fig is not None
     assert ax is not None
+    assert ax.get_title() == model._plot_parameters["title"]
+    assert ax.get_xlabel() == model._plot_parameters["xlabel"]
+    assert ax.get_ylabel() == model._plot_parameters["ylabel"]
+    assert [text.get_text() for text in ax.get_legend().get_texts()] == [model._plot_parameters["label"]]
+    mock_subplots.assert_called_once()
+
+
+@mock.patch("matplotlib.pyplot.subplots")
+def test_first_order_plot2(mock_subplots: mock.MagicMock):
+    mock_subplots.return_value = (mock.MagicMock(), mock.MagicMock())
+    model = FirstOrderModel(M0=M0, k=k)
+    model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
+    fig, ax = model.plot(title="test-title", xlabel="test-xlabel", ylabel="test-ylabel", label="test-label")
+    assert fig is not None
+    assert ax is not None
+    assert ax.get_title() == "test-title"
+    assert ax.get_xlabel() == "test-xlabel"
+    assert ax.get_ylabel() == "test-ylabel"
+    assert [text.get_text() for text in ax.get_legend().get_texts()] == ["test-label"]
     mock_subplots.assert_called_once()
 
 
