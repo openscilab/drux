@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Test system modified
 - Release range bug in `time_for_release` fixed
 - `matplotlib` import bug fixed
+- `plot` method modified
 ## [0.1] - 2025-07-27
 ### Added
 - Base model
