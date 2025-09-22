@@ -32,6 +32,7 @@ class ZeroOrderModel(DrugReleaseModel):
         """
         super().__init__()
         self.params = ZeroOrderParameters(k0=k0, M0=M0)
+        self._plot_parameters["label"] = "Zero-Order Model"
 
     def _model_function(self, t: float) -> float:
         """

@@ -41,6 +41,7 @@ class HiguchiModel(DrugReleaseModel):
         """
         super().__init__()
         self.params = HiguchiParameters(D=D, c0=c0, cs=cs)
+        self._plot_parameters["label"] = "Higuchi Model"
 
     def _model_function(self, t: float) -> float:
         """

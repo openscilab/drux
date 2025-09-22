@@ -1,7 +1,6 @@
 """Tests for the first-order model implementation in drux package."""
 
 from pytest import raises
-from unittest import mock
 from numpy import isclose
 from re import escape
 from math import exp
@@ -18,6 +17,7 @@ def test_first_order_parameters():
     assert model.params.M0 == M0
     assert model.params.k == k
 
+
 def test_invalid_parameters():
     with raises(ValueError, match=escape("Entire releasable amount of drug (M0) must be non-negative.")):
         FirstOrderModel(M0=-M0, k=k).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
@@ -29,7 +29,7 @@ def test_invalid_parameters():
 def test_first_order_simulation():  # Reference: https://europepmc.org/article/pmc/3425064
     model = FirstOrderModel(M0=M0, k=k)
     profile = model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
-    actual_release = [M0 * (1 - exp(-k*t)) for t in range(0, 1001, 10)]
+    actual_release = [M0 * (1 - exp(-k * t)) for t in range(0, 1001, 10)]
     assert all(isclose(p, a, rtol=RELATIVE_TOLERANCE) for p, a in zip(profile, actual_release))
 
 
@@ -46,16 +46,28 @@ def test_first_order_simulation_errors():
         model.simulate(duration=10, time_step=20)
 
 
-@mock.patch("matplotlib.pyplot.subplots")
-def test_first_order_plot(mock_subplots: mock.MagicMock):
-    mock_subplots.return_value = (mock.MagicMock(), mock.MagicMock())
+def test_first_order_plot1():
     model = FirstOrderModel(M0=M0, k=k)
     model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
-
     fig, ax = model.plot()
     assert fig is not None
     assert ax is not None
-    mock_subplots.assert_called_once()
+    assert ax.get_title() == model._plot_parameters["title"]
+    assert ax.get_xlabel() == model._plot_parameters["xlabel"]
+    assert ax.get_ylabel() == model._plot_parameters["ylabel"]
+    assert [text.get_text() for text in ax.get_legend().get_texts()] == [model._plot_parameters["label"]]
+
+
+def test_first_order_plot2():
+    model = FirstOrderModel(M0=M0, k=k)
+    model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
+    fig, ax = model.plot(title="test-title", xlabel="test-xlabel", ylabel="test-ylabel", label="test-label")
+    assert fig is not None
+    assert ax is not None
+    assert ax.get_title() == "test-title"
+    assert ax.get_xlabel() == "test-xlabel"
+    assert ax.get_ylabel() == "test-ylabel"
+    assert [text.get_text() for text in ax.get_legend().get_texts()] == ["test-label"]
 
 
 def test_first_order_plot_error():
@@ -75,7 +87,7 @@ def test_first_order_release_rate():  # Reference: https://www.wolframalpha.com/
     model = FirstOrderModel(M0=M0, k=k)
     model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
     rate = model.get_release_rate()
-    actual_rate = [k*M0*exp(-k*t) for t in range(0, 1001, 10)]
+    actual_rate = [k * M0 * exp(-k * t) for t in range(0, 1001, 10)]
     assert all(isclose(r, a, rtol=1e-1) for r, a in zip(rate, actual_rate))
 
 

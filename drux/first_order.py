@@ -32,6 +32,7 @@ class FirstOrderModel(DrugReleaseModel):
         """
         super().__init__()
         self.params = FirstOrderParameters(k=k, M0=M0)
+        self._plot_parameters["label"] = "First-Order Model"
 
     def _model_function(self, t: float) -> float:
         """
