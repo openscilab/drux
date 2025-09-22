@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Zero-order model
+- First-order model
 ### Changed
 - `README.md` modified
 - Test system modified

@@ -87,6 +87,24 @@ where:
 4. Intraocular Implants
 5. Infusion Systems
 
+### First-Order
+The first-order drug release model describes a process where the rate of drug release is proportional to the remaining amount of drug in the system. According to this model, the cumulative amount of drug released at time $t$ is given by:
+
+$$
+M_t = M_0 (1 - e^{-kt})
+$$
+
+where:
+- $M_t (mg)$ is the cumulative absolute amount of drug released at time $t$.
+- $M_0 (mg)$ is entire releasable amount of drug (the asymptotic maximum).
+- $k (\frac{1}{s})$ is the first-order release rate constant.
+
+#### Applications
+1. Immediate-release tablets and capsules
+2. Liquid drug formulations (oral solutions, intravenous injections)
+3. Controlled-release matrix systems
+4. Elastomeric infusion pumps
+
 ### Higuchi
 The Higuchi model describes the release of a drug from a matrix system, where the drug diffuses through a porous medium.
 The Higuchi equation addressed important aspects of drug transport and release from planar
@@ -118,7 +136,16 @@ model = ZeroOrderModel(k0=0.1, M0=0)
 model.simulate(duration=1000, time_step=10)
 model.plot(show=True)
 ```
-<img src="/otherfiles/zero_order_plot.png" alt="Zero-order Plot">
+<img src="https://github.com/openscilab/drux/raw/main/otherfiles/zero_order_plot.png" alt="Zero-order Plot">
+
+### First-Order Model
+```python
+from drux import FirstOrderModel
+model = FirstOrderModel(k=0.003, M0=0.1)
+model.simulate(duration=1000, time_step=10)
+model.plot(show=True)
+```
+<img src="https://github.com/openscilab/drux/raw/main/otherfiles/first_order_plot.png" alt="First-order Plot">
 
 ### Higuchi Model
 ```python
@@ -148,6 +175,7 @@ You can also join our discord server
 <blockquote>3- R. T. Medarametla, K. V. Gopaiah, J. N. Suresh Kumar, G. Anand Babu, M. Shaggir, G. Raghavendra, D. Naveen Reddy, and B. Venkamma, "Drug Release Kinetics and Mathematical Models," <i>International Journal of Science and Research Methodology</i>, vol. 27, no. 9, pp. 12–19, Sep. 2024.</blockquote>
 <blockquote>4- R. Vaju and K. V. Murthy, "Development and validation of new discriminative dissolution method for carvedilol tablets," <i>Indian Journal of Pharmaceutical Sciences</i>, vol. 73, no. 5, pp. 527–536, Sep. 2011.</blockquote>
 <blockquote>5- S. Dash, "Kinetic modeling on drug release from controlled drug delivery systems," <i>Acta Poloniae Pharmaceutica</i>, 2010.</blockquote>
+<blockquote>6- K. H. Ramteke, P. A. Dighe, A. R. Kharat, S. V. Patil, <i>Mathematical models of drug dissolution: A review</i>, <i>Sch. Acad. J. Pharm.</i>, vol. 3, no. 5, pp. 388-396, 2014.</blockquote>
 
 ## Show your support
 ### Star this repo
