@@ -31,7 +31,7 @@ class ZeroOrderModel(DrugReleaseModel):
         :param M0: Initial amount of drug in the solution (mg), default is 0
         """
         super().__init__()
-        self.params = ZeroOrderParameters(k0=k0, M0=M0)
+        self._parameters = ZeroOrderParameters(k0=k0, M0=M0)
         self._plot_parameters["label"] = "Zero-Order Model"
 
     def _model_function(self, t: float) -> float:
@@ -42,8 +42,8 @@ class ZeroOrderModel(DrugReleaseModel):
         - M(t) = M0 + k0 * t
         :param t: time (s)
         """
-        M0 = self.params.M0
-        k0 = self.params.k0
+        M0 = self._parameters.M0
+        k0 = self._parameters.k0
 
         Mt = M0 + k0 * t
 
@@ -51,7 +51,7 @@ class ZeroOrderModel(DrugReleaseModel):
 
     def _validate_parameters(self) -> None:
         """Validate the parameters of the zero-order model."""
-        if self.params.M0 < 0:
+        if self._parameters.M0 < 0:
             raise ValueError(ERROR_ZERO_ORDER_INITIAL_AMOUNT)
-        if self.params.k0 < 0:
+        if self._parameters.k0 < 0:
             raise ValueError(ERROR_ZERO_ORDER_RELEASE_RATE)

@@ -31,7 +31,7 @@ class FirstOrderModel(DrugReleaseModel):
         :param M0: entire releasable amount of drug (the asymptotic maximum) (mg)
         """
         super().__init__()
-        self.params = FirstOrderParameters(k=k, M0=M0)
+        self._parameters = FirstOrderParameters(k=k, M0=M0)
         self._plot_parameters["label"] = "First-Order Model"
 
     def _model_function(self, t: float) -> float:
@@ -42,8 +42,8 @@ class FirstOrderModel(DrugReleaseModel):
         - M(t) = M0 * (1 - exp(-k * t))
         :param t: time (s)
         """
-        M0 = self.params.M0
-        k = self.params.k
+        M0 = self._parameters.M0
+        k = self._parameters.k
 
         Mt = M0 * (1 - exp(-k * t))
 
@@ -51,7 +51,7 @@ class FirstOrderModel(DrugReleaseModel):
 
     def _validate_parameters(self) -> None:
         """Validate the parameters of the first-order model."""
-        if self.params.M0 < 0:
+        if self._parameters.M0 < 0:
             raise ValueError(ERROR_FIRST_ORDER_INITIAL_AMOUNT)
-        if self.params.k < 0:
+        if self._parameters.k < 0:
             raise ValueError(ERROR_FIRST_ORDER_RELEASE_RATE)
