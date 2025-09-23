@@ -14,8 +14,8 @@ RELATIVE_TOLERANCE = 1e-2
 
 def test_zero_order_parameters():
     model = ZeroOrderModel(M0=M0, k0=k0)
-    assert model.params.M0 == M0
-    assert model.params.k0 == k0
+    assert model._parameters.M0 == M0
+    assert model._parameters.k0 == k0
 
 
 def test_invalid_parameters():
@@ -76,9 +76,9 @@ def test_zero_order_plot_error():
     with raises(ValueError, match=escape("No simulation data available. Run simulate() first.")):
         model.plot()
 
-    model.time_points = [0]  # manually set time points to simulate error (TODO: it will be caught with prior errors)
+    model._time_points = [0]  # manually set time points to simulate error (TODO: it will be caught with prior errors)
     # manually set a too short profile to simulate error (TODO: it will be caught with prior errors)
-    model.release_profile = [0.0]
+    model._release_profile = [0.0]
     with raises(ValueError, match="Release profile is too short to calculate release rate."):
         model.plot()
 
@@ -97,9 +97,9 @@ def test_zero_order_release_rate_error():
     with raises(ValueError, match=escape("No simulation data available. Run simulate() first.")):
         model.get_release_rate()
 
-    model.time_points = [0]  # manually set time points to simulate error (TODO: it will be caught with prior errors)
+    model._time_points = [0]  # manually set time points to simulate error (TODO: it will be caught with prior errors)
     # manually set a too short profile to simulate error (TODO: it will be caught with prior errors)
-    model.release_profile = [0.0]
+    model._release_profile = [0.0]
     with raises(ValueError, match="Release profile is too short to calculate release rate."):
         model.get_release_rate()
 
@@ -107,7 +107,7 @@ def test_zero_order_release_rate_error():
 def test_zero_order_time_for_release():  # Reference: https://www.wolframalpha.com/input?i=solve+for+t+in+0.01+%2B+%280.1*t%29+%3D+0.5*+%280.01+%2B+%280.1*1000%29%29
     model = ZeroOrderModel(M0=M0, k0=k0)
     model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
-    tx = model.time_for_release(0.5 * model.release_profile[-1])
+    tx = model.time_for_release(0.5 * model._release_profile[-1])
     assert isclose(tx, 499.95, rtol=1e-2)
 
 
@@ -122,4 +122,4 @@ def test_zero_order_time_for_release_error():
         model.time_for_release(-0.1)
 
     with raises(ValueError, match="Target release exceeds maximum release of the simulated duration."):
-        model.time_for_release(model.release_profile[-1] + 0.1)
+        model.time_for_release(model._release_profile[-1] + 0.1)
