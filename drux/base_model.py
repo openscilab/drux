@@ -29,7 +29,7 @@ class DrugReleaseModel(ABC):
 
     def __init__(self):
         """Initialize the drug release model."""
-        self.time_points = None
+        self._time_points = None
         self.release_profile = None
         self._plot_parameters = {
             "xlabel": "Time (s)",
@@ -57,7 +57,7 @@ class DrugReleaseModel(ABC):
 
     def _get_release_profile(self) -> np.ndarray:
         """Calculate the drug release profile over the specified time points."""
-        return np.vectorize(self._model_function)(self.time_points)
+        return np.vectorize(self._model_function)(self._time_points)
 
     def _validate_plot(self) -> tuple:
         """
@@ -66,7 +66,7 @@ class DrugReleaseModel(ABC):
         :raises ValueError: if simulation data is not available
         :raises ValueError: if release profile is too short
         """
-        if self.time_points is None or self.release_profile is None:
+        if self._time_points is None or self.release_profile is None:
             raise ValueError(ERROR_NO_SIMULATION_DATA)
 
         if len(self.release_profile) < 2:
@@ -85,7 +85,7 @@ class DrugReleaseModel(ABC):
             raise ValueError(ERROR_DURATION_TIME_STEP_POSITIVE)
         if time_step > duration:
             raise ValueError(ERROR_TIME_STEP_GREATER_THAN_DURATION)
-        self.time_points = np.arange(0, duration + time_step, time_step)
+        self._time_points = np.arange(0, duration + time_step, time_step)
         self._validate_parameters()
         self.release_profile = self._get_release_profile()
         return self.release_profile
@@ -112,7 +112,7 @@ class DrugReleaseModel(ABC):
 
         # Plotting the release profile
         ax.plot(
-            self.time_points, self.release_profile, label=label or self._plot_parameters["label"], **kwargs
+            self._time_points, self.release_profile, label=label or self._plot_parameters["label"], **kwargs
         )
         ax.set_xlabel(xlabel or self._plot_parameters["xlabel"])
         ax.set_ylabel(ylabel or self._plot_parameters["ylabel"])
@@ -128,14 +128,14 @@ class DrugReleaseModel(ABC):
 
     def get_release_rate(self) -> np.ndarray:
         """Calculate the instantaneous release rate (derivative of release profile)."""
-        if self.time_points is None or self.release_profile is None:
+        if self._time_points is None or self.release_profile is None:
             raise ValueError(ERROR_NO_SIMULATION_DATA)
 
         if len(self.release_profile) < 2:
             raise ValueError(ERROR_RELEASE_PROFILE_TOO_SHORT)
 
         # Calculate the derivative of the release profile
-        release_rate = np.gradient(self.release_profile, self.time_points)
+        release_rate = np.gradient(self.release_profile, self._time_points)
         return release_rate
 
     def time_for_release(self, target_release: float) -> float:
@@ -148,7 +148,7 @@ class DrugReleaseModel(ABC):
         :raises ValueError: if simulation data is not available
         :raises ValueError: if target_release exceeds maximum release
         """
-        if self.time_points is None or self.release_profile is None:
+        if self._time_points is None or self.release_profile is None:
             raise ValueError(ERROR_NO_SIMULATION_DATA)
 
         if target_release < 0:
@@ -159,4 +159,4 @@ class DrugReleaseModel(ABC):
 
         # Find first time point where release >= target
         idx = np.argmax(self.release_profile >= target_release)
-        return self.time_points[idx]
+        return self._time_points[idx]
