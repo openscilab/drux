@@ -4,7 +4,7 @@ import os
 import sys
 import codecs
 Failed = 0
-DRUX_VERSION = "0.1"
+DRUX_VERSION = "0.2"
 
 
 SETUP_ITEMS = [
