@@ -32,3 +32,10 @@ ERROR_FIRST_ORDER_RELEASE_RATE = "Release rate (k) must be non-negative."
 ERROR_FIRST_ORDER_INITIAL_AMOUNT = (
     "Entire releasable amount of drug (M0) must be non-negative."
 )
+
+# Error messages for Weilbull
+ERROR_WEIBULL_SCALE_PARAMETER = "Scale parameter (a) must be positive."
+ERROR_WEIBULL_SHAPE_PARAMETER = "Shape parameter (b) must be positive."
+ERROR_WEIBULL_INITIAL_AMOUNT = (
+    "Entire releasable amount of drug (M) must be non-negative."
+)
