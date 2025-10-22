@@ -121,12 +121,26 @@ where:
 - $c_s (\frac{mg}{cm^3})$ is the solubility of the drug in the polymer (carrier)
 
 ⚠️ The Higuchi model assumes that $c_0 \ge c_s$
+
+### Weibull
+Weibull model is an empirical model used to describe drug release kinetics from various pharmaceutical dosage forms. It is characterized by a flexible empirical equation that captures various release kinetics. 
+According to this model, the cumulative amount of drug released at time $t$ is given by:
+
+$$
+M_t = M \left(1 - e^{-at^b}\right)
+$$
+
+where:
+- $M_t (mg)$ is the cumulative absolute amount of drug released at time $t$
+- $M (mg)$ is the total amount of drug released at infinite time
+- $a$ is the scale parameter (related to the release rate)
+- $b$ is the shape parameter (indicates the release mechanism)
+
 #### Applications
-1. Matrix Tablets
-2. Hydrophilic polymer matrices
-3. Controlled - Release Microspheres
-4. Semisolid Systems
-5. Implantable Drug delivery systems
+1. Controlled-release modeling
+2. Dissolution profiling
+3. Comparative studies
+4. Vivo predictions
 
 ## Usage
 ### Zero-Order Model
@@ -156,6 +170,16 @@ model.plot(show=True)
 ```
 <img src="https://github.com/openscilab/drux/raw/main/otherfiles/higuchi_plot.png" alt="Higuchi Plot">
 
+### Weibull Model
+
+```python
+from drux import WeibullModel
+model = WeibullModel(M=1, a=0.095, b=0.7)
+model.simulate(duration=100, time_step=1)
+model.plot(show=True)
+```
+<img src="./otherfiles/weibull_plot.png" alt="Weibull Plot">
+
 ## Issues & bug reports
 
 Just fill an issue and describe it. We'll check it ASAP! or send an email to [drux@openscilab.com](mailto:drux@openscilab.com "drux@openscilab.com"). 
@@ -176,7 +200,7 @@ You can also join our discord server
 <blockquote>4- R. Vaju and K. V. Murthy, "Development and validation of new discriminative dissolution method for carvedilol tablets," <i>Indian Journal of Pharmaceutical Sciences</i>, vol. 73, no. 5, pp. 527–536, Sep. 2011.</blockquote>
 <blockquote>5- S. Dash, "Kinetic modeling on drug release from controlled drug delivery systems," <i>Acta Poloniae Pharmaceutica</i>, 2010.</blockquote>
 <blockquote>6- K. H. Ramteke, P. A. Dighe, A. R. Kharat, S. V. Patil, <i>Mathematical models of drug dissolution: A review</i>, <i>Sch. Acad. J. Pharm.</i>, vol. 3, no. 5, pp. 388-396, 2014.</blockquote>
-
+<blockquote>7- C. Corsaro, G. Neri, A. M. Mezzasalma, and E. Fazio, "Weibull modeling of controlled drug release from Ag-PMA nanosystems," <i>Polymers</i>, vol. 13, no. 17, p. 2897, 2021.</blockquote>
 ## Show your support
 ### Star this repo
 
