@@ -5,7 +5,7 @@ from .base_model import DrugReleaseModel
 from .messages import (
     ERROR_WEIBULL_SCALE_PARAMETER,
     ERROR_WEIBULL_INITIAL_AMOUNT,
-    ERROR_WEIBULL_SHAPE_PARAMETER
+    ERROR_WEIBULL_SHAPE_PARAMETER,
 )
 from dataclasses import dataclass
 from math import exp
@@ -54,7 +54,7 @@ class WeibullModel(DrugReleaseModel):
         a = self._parameters.a
         b = self._parameters.b
 
-        Mt = M * (1 - exp(-a*t ** b))
+        Mt = M * (1 - exp(-a * t**b))
 
         return Mt
 
@@ -66,4 +66,3 @@ class WeibullModel(DrugReleaseModel):
             raise ValueError(ERROR_WEIBULL_SCALE_PARAMETER)
         if self._parameters.b <= 0:
             raise ValueError(ERROR_WEIBULL_SHAPE_PARAMETER)
-
