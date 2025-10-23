@@ -122,6 +122,13 @@ where:
 
 ⚠️ The Higuchi model assumes that $c_0 \ge c_s$
 
+#### Applications
+1. Matrix Tablets
+2. Hydrophilic polymer matrices
+3. Controlled - Release Microspheres
+4. Semisolid Systems
+5. Implantable Drug delivery systems
+
 ### Weibull
 Weibull model is an empirical model used to describe drug release kinetics from various pharmaceutical dosage forms. It is characterized by a flexible empirical equation that captures various release kinetics. 
 According to this model, the cumulative amount of drug released at time $t$ is given by:
