@@ -60,7 +60,7 @@ class WeibullModel(DrugReleaseModel):
 
     def _validate_parameters(self) -> None:
         """Validate the parameters of the Weibull model."""
-        if self._parameters.M <= 0:
+        if self._parameters.M < 0:
             raise ValueError(ERROR_WEIBULL_INITIAL_AMOUNT)
         if self._parameters.a <= 0:
             raise ValueError(ERROR_WEIBULL_SCALE_PARAMETER)
