@@ -185,7 +185,7 @@ model = WeibullModel(M=1, a=0.095, b=0.7)
 model.simulate(duration=100, time_step=1)
 model.plot(show=True)
 ```
-<img src="./otherfiles/weibull_plot.png" alt="Weibull Plot">
+<img src="https://github.com/openscilab/drux/raw/main/otherfiles/weibull_plot.png" alt="Weibull Plot">
 
 ## Issues & bug reports
 
