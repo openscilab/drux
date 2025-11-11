@@ -1,4 +1,5 @@
 <div align="center">
+<img src="https://github.com/openscilab/drux/raw/main/otherfiles/logo.png" width="350">
     <h1>Drux: Drug Release Analysis Framework</h1>
     <br/>
     <a href="https://badge.fury.io/py/drux"><img src="https://badge.fury.io/py/drux.svg" alt="PyPI version"></a>
