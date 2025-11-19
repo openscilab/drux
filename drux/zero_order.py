@@ -34,6 +34,9 @@ class ZeroOrderModel(DrugReleaseModel):
         self._parameters = ZeroOrderParameters(k0=k0, M0=M0)
         self._plot_parameters["label"] = "Zero-Order Model"
 
+    def __repr__(self):
+        return f"drux.ZeroOrderModel(k0={self._parameters.k0}, M0={self._parameters.M0})"
+
     def _model_function(self, t: float) -> float:
         """
         Calculate the drug release at time t using the zero-order model.

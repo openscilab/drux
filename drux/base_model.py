@@ -38,6 +38,11 @@ class DrugReleaseModel(ABC):
             "label": "Release Profile"}
 
     @abstractmethod
+    def __repr__(self):
+        """String representation of the model with its parameters."""
+        pass
+
+    @abstractmethod
     def _validate_parameters(self) -> None:
         """
         Validate model parameters.

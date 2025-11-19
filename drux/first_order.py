@@ -34,6 +34,9 @@ class FirstOrderModel(DrugReleaseModel):
         self._parameters = FirstOrderParameters(k=k, M0=M0)
         self._plot_parameters["label"] = "First-Order Model"
 
+    def __repr__(self):
+        return f"drux.FirstOrderModel(k={self._parameters.k}, M0={self._parameters.M0})"
+
     def _model_function(self, t: float) -> float:
         """
         Calculate the drug release at time t using the first-order model.
