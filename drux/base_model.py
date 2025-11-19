@@ -39,7 +39,7 @@ class DrugReleaseModel(ABC):
 
     @abstractmethod
     def __repr__(self):
-        """String representation of the model with its parameters."""
+        """Return the string representation of the model with its parameters."""
         pass
 
     @abstractmethod
