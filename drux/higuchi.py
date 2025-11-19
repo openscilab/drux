@@ -44,7 +44,7 @@ class HiguchiModel(DrugReleaseModel):
         self._plot_parameters["label"] = "Higuchi Model"
 
     def __repr__(self):
-        """String representation of the Higuchi model."""
+        """Return a string representation of the Higuchi model."""
         return (
             f"drux.HiguchiModel(D={self._parameters.D}, "
             f"c0={self._parameters.c0}, cs={self._parameters.cs})"
