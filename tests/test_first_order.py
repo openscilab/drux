@@ -26,6 +26,14 @@ def test_invalid_parameters():
         FirstOrderModel(M0=M0, k=-k).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
 
+def test_repr():
+    model = FirstOrderModel(M0=M0, k=k)
+    repr_str = repr(model)
+    assert "FirstOrderModel" in repr_str
+    assert f"M0={M0}" in repr_str
+    assert f"k={k}" in repr_str
+
+
 def test_first_order_simulation():  # Reference: https://europepmc.org/article/pmc/3425064
     model = FirstOrderModel(M0=M0, k=k)
     profile = model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
