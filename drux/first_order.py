@@ -35,7 +35,7 @@ class FirstOrderModel(DrugReleaseModel):
         self._plot_parameters["label"] = "First-Order Model"
 
     def __repr__(self):
-        """Return a string representation of the first-order model."""
+        """Return a string representation of the First-Order model."""
         return f"drux.FirstOrderModel(k={self._parameters.k}, M0={self._parameters.M0})"
 
     def _model_function(self, t: float) -> float:
