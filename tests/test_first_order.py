@@ -29,9 +29,7 @@ def test_invalid_parameters():
 def test_repr():
     model = FirstOrderModel(M0=M0, k=k)
     repr_str = repr(model)
-    assert "FirstOrderModel" in repr_str
-    assert f"M0={M0}" in repr_str
-    assert f"k={k}" in repr_str
+    assert repr_str == f"drux.FirstOrderModel(k={k}, M0={M0})"
 
 
 def test_first_order_simulation():  # Reference: https://europepmc.org/article/pmc/3425064

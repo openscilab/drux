@@ -29,9 +29,7 @@ def test_invalid_parameters():
 def test_repr():
     model = ZeroOrderModel(M0=M0, k0=k0)
     repr_str = repr(model)
-    assert "ZeroOrderModel" in repr_str
-    assert f"M0={M0}" in repr_str
-    assert f"k0={k0}" in repr_str
+    assert repr_str == f"drux.ZeroOrderModel(k0={k0}, M0={M0})"
 
 
 def test_zero_order_simulation():  # Reference: https://europepmc.org/article/pmc/3425064
