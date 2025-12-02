@@ -115,6 +115,12 @@ def test_higuchi_release_rate_error():
         model.get_release_rate()
 
 
+def test_repr():
+    model = HiguchiModel(D=D, c0=C0, cs=CS)
+    repr_str = repr(model)
+    assert repr_str == f"drux.HiguchiModel(D={D}, c0={C0}, cs={CS})"
+
+
 def test_higuchi_time_for_release():  # Reference: https://www.wolframalpha.com/input?i=solve+for+t+in+sqrt%2810%5E%28-6%29*0.5*%282*1.5-0.5%29*t%29+%3D+0.5*sqrt%2810%5E%28-6%29*0.5*%282*1.5-0.5%29*1000%29
     model = HiguchiModel(D=D, c0=C0, cs=CS)
     model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)

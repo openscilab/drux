@@ -42,6 +42,10 @@ class WeibullModel(DrugReleaseModel):
         self._parameters = WeibullParameters(M=M, a=a, b=b)
         self._plot_parameters["label"] = "Weibull Model"
 
+    def __repr__(self):
+        """Return a string representation of the Weibull model."""
+        return f"drux.WeibullModel(M={self._parameters.M}, a={self._parameters.a}, b={self._parameters.b})"
+
     def _model_function(self, t: float) -> float:
         """
         Calculate the drug release at time t using the Weibull model.

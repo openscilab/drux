@@ -26,6 +26,12 @@ def test_invalid_parameters():
         ZeroOrderModel(M0=M0, k0=-k0).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
 
+def test_repr():
+    model = ZeroOrderModel(M0=M0, k0=k0)
+    repr_str = repr(model)
+    assert repr_str == f"drux.ZeroOrderModel(k0={k0}, M0={M0})"
+
+
 def test_zero_order_simulation():  # Reference: https://europepmc.org/article/pmc/3425064
     model = ZeroOrderModel(M0=M0, k0=k0)
     profile = model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)

@@ -30,6 +30,12 @@ def test_invalid_parameters():
         WeibullModel(M=M, a=a, b=-b).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
 
+def test_repr():
+    model = WeibullModel(M=M, a=a, b=b)
+    repr_str = repr(model)
+    assert repr_str == f"drux.WeibullModel(M={M}, a={a}, b={b})"
+
+
 def test_weibull_simulation():  # Reference: https://www.mdpi.com/2073-4360/13/17/2897
     model = WeibullModel(M=M, a=a, b=b)
     profile = model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)

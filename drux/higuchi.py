@@ -43,6 +43,13 @@ class HiguchiModel(DrugReleaseModel):
         self._parameters = HiguchiParameters(D=D, c0=c0, cs=cs)
         self._plot_parameters["label"] = "Higuchi Model"
 
+    def __repr__(self):
+        """Return a string representation of the Higuchi model."""
+        return (
+            f"drux.HiguchiModel(D={self._parameters.D}, "
+            f"c0={self._parameters.c0}, cs={self._parameters.cs})"
+        )
+
     def _model_function(self, t: float) -> float:
         """
         Calculate the drug release at time t using the Higuchi model.
