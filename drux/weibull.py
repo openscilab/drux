@@ -4,7 +4,7 @@
 from .base_model import DrugReleaseModel
 from .messages import (
     ERROR_WEIBULL_SCALE_PARAMETER,
-    ERROR_WEIBULL_INITIAL_AMOUNT,
+    ERROR_RELEASABLE_AMOUNT,
     ERROR_WEIBULL_SHAPE_PARAMETER,
 )
 from dataclasses import dataclass
@@ -65,7 +65,7 @@ class WeibullModel(DrugReleaseModel):
     def _validate_parameters(self) -> None:
         """Validate the parameters of the Weibull model."""
         if self._parameters.M < 0:
-            raise ValueError(ERROR_WEIBULL_INITIAL_AMOUNT)
+            raise ValueError(ERROR_RELEASABLE_AMOUNT)
         if self._parameters.a <= 0:
             raise ValueError(ERROR_WEIBULL_SCALE_PARAMETER)
         if self._parameters.b <= 0:
