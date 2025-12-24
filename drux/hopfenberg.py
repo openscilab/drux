@@ -7,7 +7,7 @@ from .messages import (
     ERROR_INVALID_INITIAL_RADIUS,
     ERROR_INVALID_GEOMETRY_FACTOR,
     ERROR_INVALID_CONCENTRATION,
-    ERROR_RELEASABLE_AMOUNT
+    ERROR_RELEASABLE_AMOUNT,
 )
 from dataclasses import dataclass
 
@@ -23,6 +23,7 @@ class HopfenbergParameters:
         a0 (float): Initial radius or half-thickness of the device (mm)
         n (int): Geometry factor (1=slab, 2=cylinder, 3=sphere)
     """
+
     M: float
     k0: float
     c0: float
@@ -33,7 +34,7 @@ class HopfenbergParameters:
 class HopfenbergModel(DrugReleaseModel):
     """Simulator for the Hopfenberg drug release model for surface-eroding polymers."""
 
-    def __init__(self, M:float, k0: float, c0: float, a0: float, n: int) -> None:
+    def __init__(self, M: float, k0: float, c0: float, a0: float, n: int) -> None:
         """
         Initialize the Hopfenberg model with the given parameters.
 
@@ -73,7 +74,7 @@ class HopfenbergModel(DrugReleaseModel):
 
         inner_term = 1 - (k0 * t) / (c0 * a0)
 
-        Mt = M*(1 - (inner_term ** n))
+        Mt = M * (1 - (inner_term**n))
 
         return Mt
 
