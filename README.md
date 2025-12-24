@@ -151,7 +151,7 @@ where:
 4. Vivo predictions
 
 ### Hopfenberg
-The Hopfenberg model describes drug release from surface-eroding polymers  with a constant surface area. 
+The Hopfenberg model describes drug release from surface-eroding polymers with a constant surface area. 
 It is particularly useful for modeling drug release from biodegradable polymers where the drug is uniformly distributed throughout the matrix.
 According to this model, the cumulative amount of drug released at time $t$ is given by:
 
