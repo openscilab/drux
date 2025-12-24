@@ -150,6 +150,29 @@ where:
 3. Comparative studies
 4. Vivo predictions
 
+### Hopfenberg
+The Hopfenberg model describes drug release from surface-eroding polymers  with a constant surface area. 
+It is particularly useful for modeling drug release from biodegradable polymers where the drug is uniformly distributed throughout the matrix.
+According to this model, the cumulative amount of drug released at time $t$ is given by:
+
+$$
+M_t = M_{\infty} \left(1 - \left(1 - \frac{k_0t}{c_0 a_0}\right)^n\right)
+$$
+
+where:
+- $M_t (mg)$ is the cumulative absolute amount of drug released at time $t
+- $M_{\infty} (mg)$ is the total amount of drug released at infinite time
+- $k_0 (\frac{mg}{mm^2 s})$ is the surface erosion rate constant
+- $c_0 (\frac{mg}{mm^3})$ is the initial drug concentration in the polymer matrix
+- $a_0 (mm)$ is the initial radius (for spheres) or half-thickness (for slabs) of the device
+- $n$ is the geometry-dependent exponent (1 for slabs, 2 for cylinders, 3 for spheres)
+
+#### Applications
+1. Biodegradable Implants
+2. Surface-eroding drug delivery systems
+3. Transdermal Patches
+4. Injectable depots
+
 ## Usage
 ### Zero-Order Model
 ```python
@@ -187,6 +210,17 @@ model.simulate(duration=100, time_step=1)
 model.plot(show=True)
 ```
 <img src="https://github.com/openscilab/drux/raw/main/otherfiles/weibull_plot.png" alt="Weibull Plot">
+
+### Hopfenberg Model
+
+```python
+from drux import HopfenbergModel
+model = HopfenbergModel(M=1, k0=0.00067, c0=0.0374, a0=3.51, n=2)
+model.simulate(duration=100, time_step=1)
+model.plot(show=True)
+```
+<img src="https://github.com/openscilab/drux/raw/main/otherfiles/hopfenberg_plot.png" alt="Hopfenberg Plot">
+
 
 ## Issues & bug reports
 
