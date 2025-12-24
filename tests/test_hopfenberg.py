@@ -101,13 +101,14 @@ def test_hopfenberg_plot_error():
         model.plot()
 
 
-def test_hopfenberg_release_rate():  # Reference: https://www.wolframalpha.com/input?i=get+the+derivative+of+%28M+*+%281+-+%281+-+%28k0+*+t%29+%2F+%28c0+*+a0%29%29**n%29%29+with+respect+to+t
+def test_hopfenberg_release_rate():
     small_timestep = 0.001  # smaller time step for better accuracy in numerical derivative
     small_duration = 10
     model = HopfenbergModel(M=M, k0=k0, c0=c0, a0=a0, n=n)
     model.simulate(duration=small_duration, time_step=small_timestep)
     rate = model.get_release_rate().tolist()
     import numpy as np
+    # Ref: https://www.wolframalpha.com/input?i=get+the+derivative+of+%28M+*+%281+-+%281+-+%28k0+*+t%29+%2F+%28c0+*+a0%29%29**n%29%29+with+respect+to+t
     actual_rate = [
         k0*M*n*((1-((k0*t)/(a0*c0)))**(n-1))/(a0*c0)
         for t in np.arange(small_timestep, small_duration + small_timestep, small_timestep)
@@ -128,10 +129,11 @@ def test_hopfenberg_release_rate_error():
         model.get_release_rate()
 
 
-def test_hopfenberg_time_for_release():  # Reference: https://www.wolframalpha.com/input?i=solve+for+t+in+%281+-+%281+-+%280.00067*+t%29+%2F+%280.0374+*+3.51%29%29**2%29+%3D+0.8*0.7602750594732341
+def test_hopfenberg_time_for_release():
     model = HopfenbergModel(M=M, k0=k0, c0=c0, a0=a0, n=n)
     model.simulate(duration=SIM_DURATION, time_step=1)
     tx = model.time_for_release(0.8 * model._release_profile[-1])
+    # Ref: https://www.wolframalpha.com/input?i=solve+for+t+in+%281+-+%281+-+%280.00067*+t%29+%2F+%280.0374+*+3.51%29%29**2%29+%3D+0.8*0.7602750594732341
     assert isclose(tx, 74, rtol=1e-2)
 
 
