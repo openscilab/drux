@@ -243,6 +243,9 @@ You can also join our discord server
 <blockquote>5- S. Dash, "Kinetic modeling on drug release from controlled drug delivery systems," <i>Acta Poloniae Pharmaceutica</i>, 2010.</blockquote>
 <blockquote>6- K. H. Ramteke, P. A. Dighe, A. R. Kharat, S. V. Patil, <i>Mathematical models of drug dissolution: A review</i>, <i>Sch. Acad. J. Pharm.</i>, vol. 3, no. 5, pp. 388-396, 2014.</blockquote>
 <blockquote>7- C. Corsaro, G. Neri, A. M. Mezzasalma, and E. Fazio, "Weibull modeling of controlled drug release from Ag-PMA nanosystems," <i>Polymers</i>, vol. 13, no. 17, p. 2897, 2021.</blockquote>
+<blockquote>8- H. B. Hopfenberg, "Controlled release from erodible slabs, cylinders, and spheres," in <i>Controlled Release Polymeric Formulations</i>, ACS Symposium Series, vol. 33, pp. 26–32, 1976.</blockquote>
+<blockquote>9- H. V. Chavda, M. S. Patel, and C. N. Patel, "Preparation and in vitro evaluation of guar gum based triple-layer matrix tablet of diclofenac sodium," <i>Research in Pharmaceutical Sciences</i>, vol. 7, no. 1, pp. 57–64, Jan. 2012.</blockquote>
+
 
 ## Show your support
 ### Star this repo
