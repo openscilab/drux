@@ -36,11 +36,11 @@ ERROR_FIRST_ORDER_INITIAL_AMOUNT = (
 # Error messages for Weibull
 ERROR_WEIBULL_SCALE_PARAMETER = "Scale parameter (a) must be positive."
 ERROR_WEIBULL_SHAPE_PARAMETER = "Shape parameter (b) must be positive."
-ERROR_RELEASABLE_AMOUNT = (
-    "Entire releasable amount of drug (M) must be non-negative."
-)
+ERROR_RELEASABLE_AMOUNT = "Entire releasable amount of drug (M) must be non-negative."
 
 # Hopfenberg model error messages
 ERROR_INVALID_EROSION_CONSTANT = "Erosion rate constant (k0) must be non-negative."
 ERROR_INVALID_INITIAL_RADIUS = "Initial radius or half-thickness (a0) must be positive."
-ERROR_INVALID_GEOMETRY_FACTOR = "Geometry factor (n) must be 1 (slab), 2 (cylinder), or 3 (sphere)."
+ERROR_INVALID_GEOMETRY_FACTOR = (
+    "Geometry factor (n) must be 1 (slab), 2 (cylinder), or 3 (sphere)."
+)
