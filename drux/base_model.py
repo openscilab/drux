@@ -2,7 +2,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from abc import ABC, abstractmethod
+from abc import ABC
 from typing import Any, Optional
 
 from .messages import (
@@ -13,6 +13,8 @@ from .messages import (
     ERROR_RELEASE_PROFILE_TOO_SHORT,
     ERROR_TARGET_RELEASE_EXCEEDS_MAX,
 )
+
+from .params import MODELS_REGISTRY
 
 
 class DrugReleaseModel(ABC):
@@ -35,25 +37,44 @@ class DrugReleaseModel(ABC):
             "xlabel": "Time (s)",
             "ylabel": "Cumulative Release",
             "title": "Drug Release Profile",
-            "label": "Release Profile"}
+            "label": "Release Profile",
+        }
+        self._parameters = None
+        self._model_name = None
 
-    @abstractmethod
     def _validate_parameters(self) -> None:
         """
-        Validate model parameters.
+        Validate model parameters using MODELS_REGISTRY.
 
-        Should raise ValueError if parameters are invalid.
+        Raises ValueError if parameters are invalid.
         """
-        pass
+        if self._model_name is None or self._parameters is None:
+            raise ValueError("Model name and parameters must be set")
 
-    @abstractmethod
+        config = MODELS_REGISTRY[self._model_name]
+
+        for param_name, rule in config["validation"].items():
+            if rule.get("cross_param"):
+                # Cross-parameter validation (e.g., cs <= c0)
+                if not rule["check"](self._parameters):
+                    raise ValueError(rule["error"])
+            else:
+                # Single parameter validation
+                param_value = getattr(self._parameters, param_name)
+                if not rule["check"](param_value):
+                    raise ValueError(rule["error"])
+
     def _model_function(self, t: float) -> float:
         """
         Model function that calculates drug release profile over time.
 
         :param t: time point at which to calculate drug release
         """
-        pass
+        if self._model_name is None or self._parameters is None:
+            raise ValueError("Model name and parameters must be set")
+
+        config = MODELS_REGISTRY[self._model_name]
+        return config["equation"](self._parameters, t)
 
     def _get_release_profile(self) -> np.ndarray:
         """Calculate the drug release profile over the specified time points."""
@@ -91,13 +112,14 @@ class DrugReleaseModel(ABC):
         return self._release_profile
 
     def plot(
-            self,
-            show: bool = True,
-            label: Optional[str] = None,
-            xlabel: Optional[str] = None,
-            ylabel: Optional[str] = None,
-            title: Optional[str] = None,
-            **kwargs: Any) -> tuple:
+        self,
+        show: bool = True,
+        label: Optional[str] = None,
+        xlabel: Optional[str] = None,
+        ylabel: Optional[str] = None,
+        title: Optional[str] = None,
+        **kwargs: Any
+    ) -> tuple:
         """
         Plot the drug release profile.
 
@@ -112,7 +134,10 @@ class DrugReleaseModel(ABC):
 
         # Plotting the release profile
         ax.plot(
-            self._time_points, self._release_profile, label=label or self._plot_parameters["label"], **kwargs
+            self._time_points,
+            self._release_profile,
+            label=label or self._plot_parameters["label"],
+            **kwargs
         )
         ax.set_xlabel(xlabel or self._plot_parameters["xlabel"])
         ax.set_ylabel(ylabel or self._plot_parameters["ylabel"])
