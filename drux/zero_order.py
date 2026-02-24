@@ -7,6 +7,12 @@ from .utils import create_parameters_dataclass
 
 class ZeroOrderModel(DrugReleaseModel):
     def __init__(self, k0: float, M0: float = 0):
+        """
+        Initialize the Zero-Order model with the given parameters.
+
+        :param k0: Zero-order release rate constant (amount/time)
+        :param M0: Initial amount of drug released at time zero (default is 0
+        """
         super().__init__()
         self._model_name = "zero_order"
         _params_class = create_parameters_dataclass(self._model_name)
