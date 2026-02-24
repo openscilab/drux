@@ -25,13 +25,13 @@ MODELS_REGISTRY = {
     "zero_order": {
         "params": {
             "k0": {
-                "type": "float",
+                "type": float,
                 "description": "Zero-order release rate constant",
                 "unit": "mg/s",
                 "default": None,
             },
             "M0": {
-                "type": "float",
+                "type": float,
                 "description": "Initial amount of drug in the solution",
                 "unit": "mg",
                 "default": 0,
@@ -46,13 +46,13 @@ MODELS_REGISTRY = {
     "first_order": {
         "params": {
             "k": {
-                "type": "float",
+                "type": float,
                 "description": "First-order release rate constant",
                 "unit": "1/s",
                 "default": None,
             },
             "M0": {
-                "type": "float",
+                "type": float,
                 "description": "Entire releasable amount of drug",
                 "unit": "mg",
                 "default": 1,
@@ -70,19 +70,19 @@ MODELS_REGISTRY = {
     "higuchi": {
         "params": {
             "D": {
-                "type": "float",
+                "type": float,
                 "description": "Drug diffusivity in the polymer carrier",
                 "unit": "cm^2/s",
                 "default": None,
             },
             "c0": {
-                "type": "float",
+                "type": float,
                 "description": "Initial drug concentration",
                 "unit": "mg/cm^3",
                 "default": None,
             },
             "cs": {
-                "type": "float",
+                "type": float,
                 "description": "Drug solubility in the polymer",
                 "unit": "mg/cm^3",
                 "default": None,
@@ -103,19 +103,19 @@ MODELS_REGISTRY = {
     "weibull": {
         "params": {
             "a": {
-                "type": "float",
+                "type": float,
                 "description": "Scale factor",
                 "unit": "dimensionless",
                 "default": None,
             },
             "b": {
-                "type": "float",
+                "type": float,
                 "description": "Shape factor",
                 "unit": "dimensionless",
                 "default": None,
             },
             "M": {
-                "type": "float",
+                "type": float,
                 "description": "Entire releasable amount of drug",
                 "unit": "mg",
                 "default": 1,
@@ -131,19 +131,19 @@ MODELS_REGISTRY = {
     "hopfenberg": {
         "params": {
             "k0": {
-                "type": "float",
+                "type": float,
                 "description": "Erosion rate constant",
                 "unit": "mg/(mm^2·s)",
                 "default": None,
             },
             "c0": {
-                "type": "float",
+                "type": float,
                 "description": "Initial drug concentration in the matrix",
                 "unit": "mg/mm^3",
                 "default": None,
             },
             "a0": {
-                "type": "float",
+                "type": float,
                 "description": "Initial radius or half-thickness of the device",
                 "unit": "mm",
                 "default": None,
@@ -155,7 +155,7 @@ MODELS_REGISTRY = {
                 "default": None,
             },
             "M": {
-                "type": "float",
+                "type": float,
                 "description": "Entire releasable amount of drug",
                 "unit": "mg",
                 "default": 1,

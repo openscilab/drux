@@ -13,7 +13,7 @@ def create_parameters_dataclass(model_name: str):
     fields = []
 
     for param_name, param_info in config["params"].items():
-        param_type = eval(param_info["type"])
+        param_type = param_info["type"]
         default_value = param_info["default"]
 
         if default_value is not None:
