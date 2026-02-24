@@ -2,30 +2,7 @@
 """Drux Higuchi model implementation."""
 
 from .base_model import DrugReleaseModel
-from .messages import (
-    ERROR_INVALID_DIFFUSION,
-    ERROR_INVALID_CONCENTRATION,
-    ERROR_INVALID_SOLUBILITY,
-    ERROR_SOLUBILITY_HIGHER_THAN_CONCENTRATION,
-)
-from dataclasses import dataclass
-from math import sqrt
-
-
-@dataclass
-class HiguchiParameters:
-    """
-    Parameters for the Higuchi model based on physical formulation.
-
-    Attributes:
-        D (float): Drug diffusivity in the polymer carrier (cm^2/s)
-        c0 (float): Initial drug concentration (mg/cm^3)
-        cs (float): Drug solubility in the polymer (mg/cm^3)
-    """
-
-    D: float
-    c0: float
-    cs: float
+from .utils import create_parameters_dataclass
 
 
 class HiguchiModel(DrugReleaseModel):
