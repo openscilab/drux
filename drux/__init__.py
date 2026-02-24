@@ -2,10 +2,10 @@
 """Drux modules."""
 
 from .params import DRUX_VERSION
-from .higuchi import HiguchiModel, HiguchiParameters
-from .zero_order import ZeroOrderModel, ZeroOrderParameters
-from .first_order import FirstOrderModel, FirstOrderParameters
-from .weibull import WeibullModel, WeibullParameters
-from .hopfenberg import HopfenbergModel, HopfenbergParameters
+from .higuchi import HiguchiModel
+from .zero_order import ZeroOrderModel
+from .first_order import FirstOrderModel
+from .weibull import WeibullModel
+from .hopfenberg import HopfenbergModel
 
 __version__ = DRUX_VERSION
