@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+"""Generic utilities for Drux."""
+
 from dataclasses import field, make_dataclass
 from .params import MODELS_REGISTRY
 
