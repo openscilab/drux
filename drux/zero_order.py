@@ -6,6 +6,8 @@ from .utils import create_parameters_dataclass
 
 
 class ZeroOrderModel(DrugReleaseModel):
+    """Simulator for the zero-order drug release model."""
+    
     def __init__(self, k0: float, M0: float = 0):
         """
         Initialize the Zero-Order model with the given parameters.
