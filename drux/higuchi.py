@@ -17,7 +17,9 @@ class HiguchiModel(DrugReleaseModel):
         :param cs: Drug solubility in the polymer (mg/cm^3)
         """
         super().__init__()
-        self._parameters = HiguchiParameters(D=D, c0=c0, cs=cs)
+        self._model_name = "higuchi"
+        _params_class = create_parameters_dataclass(self._model_name)
+        self._parameters = _params_class(D=D, c0=c0, cs=cs)
         self._plot_parameters["label"] = "Higuchi Model"
 
     def __repr__(self):
@@ -26,30 +28,3 @@ class HiguchiModel(DrugReleaseModel):
             f"drux.HiguchiModel(D={self._parameters.D}, "
             f"c0={self._parameters.c0}, cs={self._parameters.cs})"
         )
-
-    def _model_function(self, t: float) -> float:
-        """
-        Calculate the drug release at time t using the Higuchi model.
-
-        Formula:
-        - General case: Mt = sqrt(D * c0 * (2*c0 - cs) * cs * t)
-        :param t: time (s)
-        """
-        D = self._parameters.D
-        c0 = self._parameters.c0
-        cs = self._parameters.cs
-
-        Mt = sqrt(D * (2 * c0 - cs) * cs * t)
-
-        return Mt
-
-    def _validate_parameters(self) -> None:
-        """Validate the parameters of the Higuchi model."""
-        if self._parameters.D <= 0:
-            raise ValueError(ERROR_INVALID_DIFFUSION)
-        if self._parameters.c0 <= 0:
-            raise ValueError(ERROR_INVALID_CONCENTRATION)
-        if self._parameters.cs <= 0:
-            raise ValueError(ERROR_INVALID_SOLUBILITY)
-        if self._parameters.cs > self._parameters.c0:
-            raise ValueError(ERROR_SOLUBILITY_HIGHER_THAN_CONCENTRATION)
