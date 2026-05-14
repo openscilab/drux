@@ -2,7 +2,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from abc import ABC
+from types import SimpleNamespace
 from typing import Any, Optional
 
 from .messages import (
@@ -14,19 +14,17 @@ from .messages import (
     ERROR_TARGET_RELEASE_EXCEEDS_MAX,
 )
 
-from .params import MODELS_REGISTRY
-from .utils import create_parameters_dataclass
+from .registry import get_model_config
 
 
-class DrugReleaseModel(ABC):
-    """
-    Abstract base class for drug release models.
+class DrugReleaseModel:
+    """Base class for drug release models.
 
     This class provides a common interface and functionality for various
     mathematical models of drug release from delivery systems.
 
     Model classes are typically generated via :func:`create_model_class`
-    from the centralized ``MODELS_REGISTRY``.  All equation logic,
+    from the centralized model registry.  All equation logic,
     parameter validation, and parameter metadata live in the registry
     so that subclasses need no custom overrides.
     """
@@ -45,15 +43,11 @@ class DrugReleaseModel(ABC):
         self._model_name = None
 
     def _validate_parameters(self) -> None:
-        """
-        Validate model parameters using MODELS_REGISTRY.
-
-        Raises ValueError if parameters are invalid.
-        """
+        """Validate model parameters using the model registry."""
         if self._model_name is None or self._parameters is None:
             raise ValueError("Model name and parameters must be set")
 
-        config = MODELS_REGISTRY[self._model_name]
+        config = get_model_config(self._model_name)
 
         for param_name, rule in config["validation"].items():
             if rule.get("cross_param"):
@@ -75,7 +69,7 @@ class DrugReleaseModel(ABC):
         if self._model_name is None or self._parameters is None:
             raise ValueError("Model name and parameters must be set")
 
-        config = MODELS_REGISTRY[self._model_name]
+        config = get_model_config(self._model_name)
         return config["equation"](self._parameters, t)
 
     def _get_release_profile(self) -> np.ndarray:
@@ -189,28 +183,23 @@ class DrugReleaseModel(ABC):
         return self._time_points[idx]
 
 
+def _create_parameters(**kwargs):
+    """Create a parameters namespace.
+
+    :param kwargs: Parameter values
+    """
+    return SimpleNamespace(**kwargs)
+
+
 def create_model_class(model_name: str, class_name: str, label: str, docstring: str = "") -> type:
-    """
-    Generate a :class:`DrugReleaseModel` subclass from ``MODELS_REGISTRY``.
+    """Generate a :class:`DrugReleaseModel` subclass from the model registry.
 
-    Parameters
-    ----------
-    model_name : str
-        Key in ``MODELS_REGISTRY`` (e.g. ``"zero_order"``).
-    class_name : str
-        Name of the generated class (e.g. ``"ZeroOrderModel"``).
-    label : str
-        Plot legend label (e.g. ``"Zero-Order Model"``).
-    docstring : str, optional
-        Docstring for the generated class.
-
-    Returns
-    -------
-    type
-        A new class that inherits from :class:`DrugReleaseModel`.
-        
+    :param model_name: Key in the model registry (e.g. ``"zero_order"``)
+    :param class_name: Name of the generated class (e.g. ``"ZeroOrderModel"``)
+    :param label: Plot legend label (e.g. ``"Zero-Order Model"``)
+    :param docstring: Docstring for the generated class
     """
-    config = MODELS_REGISTRY[model_name]
+    config = get_model_config(model_name)
     param_specs = config["params"]
 
     # Build the ordered list of (name, type, default|REQUIRED) for __init__
@@ -232,8 +221,7 @@ def create_model_class(model_name: str, class_name: str, label: str, docstring: 
                 raise TypeError(f"Missing required parameter: {pname}")
         DrugReleaseModel.__init__(self)
         self._model_name = model_name
-        _params_class = create_parameters_dataclass(model_name)
-        self._parameters = _params_class(**kwargs)
+        self._parameters = _create_parameters(**kwargs)
         self._plot_parameters["label"] = label
 
     def __repr__(self):
