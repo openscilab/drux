@@ -15,6 +15,7 @@ from .messages import (
 )
 
 from .params import MODELS_REGISTRY
+from .utils import create_parameters_dataclass
 
 
 class DrugReleaseModel(ABC):
@@ -24,9 +25,10 @@ class DrugReleaseModel(ABC):
     This class provides a common interface and functionality for various
     mathematical models of drug release from delivery systems.
 
-    Subclasses should implement:
-    - _model_function(): Core model equation
-    - _validate_parameters(): Parameter validation
+    Model classes are typically generated via :func:`create_model_class`
+    from the centralized ``MODELS_REGISTRY``.  All equation logic,
+    parameter validation, and parameter metadata live in the registry
+    so that subclasses need no custom overrides.
     """
 
     def __init__(self):
@@ -185,3 +187,65 @@ class DrugReleaseModel(ABC):
         # Find first time point where release >= target
         idx = np.argmax(self._release_profile >= target_release)
         return self._time_points[idx]
+
+
+def create_model_class(model_name: str, class_name: str, label: str, docstring: str = "") -> type:
+    """
+    Generate a :class:`DrugReleaseModel` subclass from ``MODELS_REGISTRY``.
+
+    Parameters
+    ----------
+    model_name : str
+        Key in ``MODELS_REGISTRY`` (e.g. ``"zero_order"``).
+    class_name : str
+        Name of the generated class (e.g. ``"ZeroOrderModel"``).
+    label : str
+        Plot legend label (e.g. ``"Zero-Order Model"``).
+    docstring : str, optional
+        Docstring for the generated class.
+
+    Returns
+    -------
+    type
+        A new class that inherits from :class:`DrugReleaseModel`.
+    """
+    config = MODELS_REGISTRY[model_name]
+    param_specs = config["params"]
+
+    # Build the ordered list of (name, type, default|REQUIRED) for __init__
+    required_params = []
+    optional_params = []
+    for pname, pinfo in param_specs.items():
+        if pinfo["default"] is not None:
+            optional_params.append((pname, pinfo["type"], pinfo["default"]))
+        else:
+            required_params.append((pname, pinfo["type"]))
+
+    def __init__(self, **kwargs):
+        # Apply defaults for missing optional params
+        for pname, _ptype, pdefault in optional_params:
+            kwargs.setdefault(pname, pdefault)
+        # Check all required params are present
+        for pname, _ptype in required_params:
+            if pname not in kwargs:
+                raise TypeError(f"Missing required parameter: {pname}")
+        DrugReleaseModel.__init__(self)
+        self._model_name = model_name
+        _params_class = create_parameters_dataclass(model_name)
+        self._parameters = _params_class(**kwargs)
+        self._plot_parameters["label"] = label
+
+    def __repr__(self):
+        parts = ", ".join(
+            f"{pname}={getattr(self._parameters, pname)}"
+            for pname in param_specs
+        )
+        return f"drux.{class_name}({parts})"
+
+    cls = type(class_name, (DrugReleaseModel,), {
+        "__init__": __init__,
+        "__repr__": __repr__,
+        "__doc__": docstring or f"Simulator for the {label.lower()}.",
+    })
+
+    return cls
