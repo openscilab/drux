@@ -15,8 +15,7 @@ _VALIDATIONS = {}
 # ---------------------------------------------------------------------------
 
 def equation(name):
-    """
-    Register a simulation equation for the given model name.
+    """Register a simulation equation for the given model name.
 
     The decorated function must have the signature ``(p, t) -> float``
     where *p* is a parameters dataclass instance.
