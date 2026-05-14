@@ -1,13 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Centralized equation and validation registry for drug release models.
-
-Use the @equation decorator to register model equations. Each equation
-receives a parameters object `p` and a time value `t`, and returns the
-computed drug release amount.
-
-Use the @validation decorator to register validation rules for model
-parameters, co-located with the equations they belong to.
-"""
+"""Centralized equation and validation registry for drug release models."""
 
 from math import exp, sqrt
 
@@ -23,7 +15,8 @@ _VALIDATIONS = {}
 # ---------------------------------------------------------------------------
 
 def equation(name):
-    """Register a simulation equation for the given model name.
+    """
+    Register a simulation equation for the given model name.
 
     The decorated function must have the signature ``(p, t) -> float``
     where *p* is a parameters dataclass instance.
@@ -35,7 +28,8 @@ def equation(name):
 
 
 def validation(name):
-    """Register validation rules for the given model name.
+    """
+    Register validation rules for the given model name.
 
     The decorated function must return a dict of validation rules in the form::
 
@@ -111,7 +105,7 @@ def hopfenberg(p, t):
 
 @validation("zero_order")
 def zero_order_validation():
-    """Validation rules for the zero-order model."""
+    """Rules for validating the zero-order model."""
     from .messages import ERROR_ZERO_ORDER_RELEASE_RATE, ERROR_ZERO_ORDER_INITIAL_AMOUNT
     return {
         "k0": {"check": lambda v: v >= 0, "error": ERROR_ZERO_ORDER_RELEASE_RATE},
@@ -121,7 +115,7 @@ def zero_order_validation():
 
 @validation("first_order")
 def first_order_validation():
-    """Validation rules for the first-order model."""
+    """Rules for validating the first-order model."""
     from .messages import ERROR_FIRST_ORDER_RELEASE_RATE, ERROR_FIRST_ORDER_INITIAL_AMOUNT
     return {
         "k": {"check": lambda v: v >= 0, "error": ERROR_FIRST_ORDER_RELEASE_RATE},
@@ -131,7 +125,7 @@ def first_order_validation():
 
 @validation("higuchi")
 def higuchi_validation():
-    """Validation rules for the Higuchi model."""
+    """Rules for validating the Higuchi model."""
     from .messages import (
         ERROR_INVALID_DIFFUSION,
         ERROR_INVALID_CONCENTRATION,
@@ -152,7 +146,7 @@ def higuchi_validation():
 
 @validation("weibull")
 def weibull_validation():
-    """Validation rules for the Weibull model."""
+    """Rules for validating the Weibull model."""
     from .messages import (
         ERROR_RELEASABLE_AMOUNT,
         ERROR_WEIBULL_SCALE_PARAMETER,
@@ -167,7 +161,7 @@ def weibull_validation():
 
 @validation("hopfenberg")
 def hopfenberg_validation():
-    """Validation rules for the Hopfenberg model."""
+    """Rules for validating the Hopfenberg model."""
     from .messages import (
         ERROR_RELEASABLE_AMOUNT,
         ERROR_INVALID_EROSION_CONSTANT,

@@ -208,6 +208,7 @@ def create_model_class(model_name: str, class_name: str, label: str, docstring: 
     -------
     type
         A new class that inherits from :class:`DrugReleaseModel`.
+        
     """
     config = MODELS_REGISTRY[model_name]
     param_specs = config["params"]
