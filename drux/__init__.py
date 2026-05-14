@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """Drux modules."""
 
-__version__ = "0.3"
+from .params import DRUX_VERSION
+
+__version__ = DRUX_VERSION
 
 from .higuchi import HiguchiModel
 from .zero_order import ZeroOrderModel
