@@ -33,14 +33,14 @@ setup(
     name='drux',
     packages=[
         'drux', ],
-    version='0.3',
+    version='0.4',
     description='Drux: Drug Release Analysis Framework',
     long_description=read_description(),
     long_description_content_type='text/markdown',
     author='Drux Development Team',
     author_email='drux@openscilab.com',
     url='https://github.com/openscilab/drux',
-    download_url='https://github.com/openscilab/drux/tarball/v0.3',
+    download_url='https://github.com/openscilab/drux/tarball/v0.4',
     keywords="drug-release drug-delivery mathematical-modeling simulation kinetics",
     project_urls={
             'Source': 'https://github.com/openscilab/drux',
