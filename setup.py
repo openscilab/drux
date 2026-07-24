@@ -1,16 +1,6 @@
 # -*- coding: utf-8 -*-
 """Setup module."""
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
-
-
-def get_requires() -> list:
-    """Read requirements.txt."""
-    requirements = open("requirements.txt", "r").read()
-    return list(filter(lambda x: x != "", requirements.split()))
-
+from setuptools import setup
 
 def read_description() -> str:
     """Read README.md and CHANGELOG.md."""
@@ -41,11 +31,14 @@ setup(
     author_email='drux@openscilab.com',
     url='https://github.com/openscilab/drux',
     download_url='https://github.com/openscilab/drux/tarball/v0.4',
-    keywords="drug-release drug-delivery mathematical-modeling simulation kinetics",
+    keywords='drug-release drug-delivery mathematical-modeling simulation kinetics',
     project_urls={
-            'Source': 'https://github.com/openscilab/drux',
+        'Source': 'https://github.com/openscilab/drux',
     },
-    install_requires=get_requires(),
+    install_requires=[
+        'numpy>=1.21.0',
+        'matplotlib>=3.2.2'
+    ],
     python_requires='>=3.7',
     classifiers=[
         'Development Status :: 3 - Alpha',
