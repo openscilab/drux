@@ -38,17 +38,17 @@ class ZeroOrderModel(DrugReleaseModel):
         """Return a string representation of the Zero-Order model."""
         return f"drux.ZeroOrderModel(k0={self._parameters.k0}, M0={self._parameters.M0})"
 
-    def _model_function(self, t: float) -> float:
+    @staticmethod
+    def _model_function(t: float, M0: float, k0: float) -> float:
         """
         Calculate the drug release at time t using the zero-order model.
 
         Formula:
         - M(t) = M0 + k0 * t
         :param t: time (s)
+        :param M0: initial amount of drug in the solution (mg)
+        :param k0: zero-order release rate constant (mg/s)
         """
-        M0 = self._parameters.M0
-        k0 = self._parameters.k0
-
         Mt = M0 + k0 * t
 
         return Mt

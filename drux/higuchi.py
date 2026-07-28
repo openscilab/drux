@@ -50,18 +50,18 @@ class HiguchiModel(DrugReleaseModel):
             f"c0={self._parameters.c0}, cs={self._parameters.cs})"
         )
 
-    def _model_function(self, t: float) -> float:
+    @staticmethod
+    def _model_function(t: float, D: float, c0: float, cs: float) -> float:
         """
         Calculate the drug release at time t using the Higuchi model.
 
         Formula:
         - General case: Mt = sqrt(D * c0 * (2*c0 - cs) * cs * t)
         :param t: time (s)
+        :param D: Drug diffusivity in the polymer carrier (cm^2/s)
+        :param c0: Initial drug concentration (mg/cm^3)
+        :param cs: Drug solubility in the polymer (mg/cm^3)
         """
-        D = self._parameters.D
-        c0 = self._parameters.c0
-        cs = self._parameters.cs
-
         Mt = sqrt(D * (2 * c0 - cs) * cs * t)
 
         return Mt

@@ -38,17 +38,17 @@ class FirstOrderModel(DrugReleaseModel):
         """Return a string representation of the First-Order model."""
         return f"drux.FirstOrderModel(k={self._parameters.k}, M0={self._parameters.M0})"
 
-    def _model_function(self, t: float) -> float:
+    @staticmethod
+    def _model_function(t: float, M0: float, k: float) -> float:
         """
         Calculate the drug release at time t using the first-order model.
 
         Formula:
         - M(t) = M0 * (1 - exp(-k * t))
         :param t: time (s)
+        :param M0: entire releasable amount of drug (the asymptotic maximum) (mg)
+        :param k: first-order release rate constant (1/s)
         """
-        M0 = self._parameters.M0
-        k = self._parameters.k
-
         Mt = M0 * (1 - exp(-k * t))
 
         return Mt
