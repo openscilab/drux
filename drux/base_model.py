@@ -30,7 +30,7 @@ class DrugReleaseModel(ABC):
 
     def __init__(self):
         """Initialize the drug release model."""
-        self._parameters: Any = None
+        self._parameters = None
         self._time_points = None
         self._release_profile = None
         self._plot_parameters = {
