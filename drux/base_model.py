@@ -50,7 +50,7 @@ class DrugReleaseModel(ABC):
 
     @staticmethod
     @abstractmethod
-    def _model_function(t: float, **parameters: float) -> float:
+    def _model_function(t: float, **parameters: Any) -> float:
         """
         Model function that calculates drug release profile over time.
 
