@@ -50,7 +50,7 @@ class DrugReleaseModel(ABC):
 
     @staticmethod
     @abstractmethod
-    def _model_function(t: float, **parameters: Any) -> float:
+    def model_function(t: float, **parameters: Any) -> float:
         """
         Model function that calculates drug release profile over time.
 
@@ -66,7 +66,7 @@ class DrugReleaseModel(ABC):
     def _get_release_profile(self) -> np.ndarray:
         """Calculate the drug release profile over the specified time points."""
         parameters = asdict(self._parameters)
-        return np.vectorize(lambda t: self._model_function(t, **parameters))(self._time_points)
+        return np.vectorize(lambda t: self.model_function(t, **parameters))(self._time_points)
 
     def _validate_plot(self) -> tuple:
         """

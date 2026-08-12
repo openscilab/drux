@@ -51,7 +51,7 @@ class HiguchiModel(DrugReleaseModel):
         )
 
     @staticmethod
-    def _model_function(t: float, D: float, c0: float, cs: float) -> float:
+    def model_function(t: float, D: float, c0: float, cs: float) -> float:
         """
         Calculate the drug release at time t using the Higuchi model.
 

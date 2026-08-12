@@ -47,7 +47,7 @@ class WeibullModel(DrugReleaseModel):
         return f"drux.WeibullModel(M={self._parameters.M}, a={self._parameters.a}, b={self._parameters.b})"
 
     @staticmethod
-    def _model_function(t: float, M: float, a: float, b: float) -> float:
+    def model_function(t: float, M: float, a: float, b: float) -> float:
         """
         Calculate the drug release at time t using the Weibull model.
 

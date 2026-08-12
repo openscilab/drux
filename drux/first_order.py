@@ -39,7 +39,7 @@ class FirstOrderModel(DrugReleaseModel):
         return f"drux.FirstOrderModel(k={self._parameters.k}, M0={self._parameters.M0})"
 
     @staticmethod
-    def _model_function(t: float, M0: float, k: float) -> float:
+    def model_function(t: float, M0: float, k: float) -> float:
         """
         Calculate the drug release at time t using the first-order model.
 

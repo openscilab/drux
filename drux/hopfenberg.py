@@ -57,7 +57,7 @@ class HopfenbergModel(DrugReleaseModel):
         )
 
     @staticmethod
-    def _model_function(t: float, M: float, k0: float, c0: float, a0: float, n: int) -> float:
+    def model_function(t: float, M: float, k0: float, c0: float, a0: float, n: int) -> float:
         """
         Calculate the fractional drug release at time t using the Hopfenberg model.
 
