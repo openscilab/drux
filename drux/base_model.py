@@ -24,7 +24,7 @@ class DrugReleaseModel(ABC):
     mathematical models of drug release from delivery systems.
 
     Subclasses should implement:
-    - _model_function(): Core model equation, as a static method
+    - model_function(): Core model equation, as a static method
     - _validate_parameters(): Parameter validation
     """
 
