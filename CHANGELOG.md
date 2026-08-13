@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - `_model_function` method refactored
+- `_model_function` method renamed to `model_function`
 
 ## [0.4] - 2026-05-18
 ### Added
