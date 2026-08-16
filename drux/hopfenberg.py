@@ -56,7 +56,8 @@ class HopfenbergModel(DrugReleaseModel):
             f"n={self._parameters.n})"
         )
 
-    def _model_function(self, t: float) -> float:
+    @staticmethod
+    def model_function(t: float, M: float, k0: float, c0: float, a0: float, n: int) -> float:
         """
         Calculate the fractional drug release at time t using the Hopfenberg model.
 
@@ -64,14 +65,13 @@ class HopfenbergModel(DrugReleaseModel):
         - Mt = M∞(1 - (1 - k0*t / (c0*a0))^n)
 
         :param t: time (s)
+        :param M: entire releasable amount of drug (normally M > 0) (mg)
+        :param k0: Erosion rate constant (mg/(mm^2·s))
+        :param c0: Initial drug concentration in the matrix (mg/mm^3)
+        :param a0: Initial radius or half-thickness of the device (mm)
+        :param n: Geometry factor (1=slab, 2=cylinder, 3=sphere)
         :return: drug release
         """
-        M = self._parameters.M
-        k0 = self._parameters.k0
-        c0 = self._parameters.c0
-        a0 = self._parameters.a0
-        n = self._parameters.n
-
         inner_term = 1 - (k0 * t) / (c0 * a0)
 
         Mt = M * (1 - (inner_term**n))

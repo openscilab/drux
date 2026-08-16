@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from abc import ABC, abstractmethod
+from dataclasses import asdict
 from typing import Any, Optional
 
 from .messages import (
@@ -23,12 +24,13 @@ class DrugReleaseModel(ABC):
     mathematical models of drug release from delivery systems.
 
     Subclasses should implement:
-    - _model_function(): Core model equation
+    - model_function(): Core model equation, as a static method
     - _validate_parameters(): Parameter validation
     """
 
     def __init__(self):
         """Initialize the drug release model."""
+        self._parameters = None
         self._time_points = None
         self._release_profile = None
         self._plot_parameters = {
@@ -46,18 +48,25 @@ class DrugReleaseModel(ABC):
         """
         pass
 
+    @staticmethod
     @abstractmethod
-    def _model_function(self, t: float) -> float:
+    def model_function(t: float, **parameters: Any) -> float:
         """
         Model function that calculates drug release profile over time.
 
+        Subclasses must implement this as a @staticmethod, computing the release
+        purely from time and explicit model parameters (no instance state), so the
+        formula is defined once and can be evaluated independently of a model instance.
+
         :param t: time point at which to calculate drug release
+        :param parameters: model parameters, matching the model's parameter dataclass fields
         """
         pass
 
     def _get_release_profile(self) -> np.ndarray:
         """Calculate the drug release profile over the specified time points."""
-        return np.vectorize(self._model_function)(self._time_points)
+        parameters = asdict(self._parameters)
+        return np.vectorize(lambda t: self.model_function(t, **parameters))(self._time_points)
 
     def _validate_plot(self) -> tuple:
         """

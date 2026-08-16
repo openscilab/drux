@@ -46,18 +46,18 @@ class WeibullModel(DrugReleaseModel):
         """Return a string representation of the Weibull model."""
         return f"drux.WeibullModel(M={self._parameters.M}, a={self._parameters.a}, b={self._parameters.b})"
 
-    def _model_function(self, t: float) -> float:
+    @staticmethod
+    def model_function(t: float, M: float, a: float, b: float) -> float:
         """
         Calculate the drug release at time t using the Weibull model.
 
         Formula:
         - General case: Mt = M * (1 - exp(-a*t ** b))
         :param t: time (s)
+        :param M: entire releasable amount of drug (normally M > 0) (mg)
+        :param a: scale factor
+        :param b: shape factor
         """
-        M = self._parameters.M
-        a = self._parameters.a
-        b = self._parameters.b
-
         Mt = M * (1 - exp(-a * t**b))
 
         return Mt
