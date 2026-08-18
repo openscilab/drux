@@ -44,3 +44,11 @@ ERROR_RELEASABLE_AMOUNT = (
 ERROR_INVALID_EROSION_CONSTANT = "Erosion rate constant (k0) must be non-negative."
 ERROR_INVALID_INITIAL_RADIUS = "Initial radius or half-thickness (a0) must be positive."
 ERROR_INVALID_GEOMETRY_FACTOR = "Geometry factor (n) must be 1 (slab), 2 (cylinder), or 3 (sphere)."
+
+# Error messages for curve fitting
+ERROR_UNKNOWN_MODEL = "Unknown model '{}'. Available models: {}."
+ERROR_TIME_RELEASE_LENGTH_MISMATCH = "Time and release profile must have the same length."
+ERROR_INSUFFICIENT_DATA_POINTS = "At least 2 data points are required for fitting."
+ERROR_UNKNOWN_FIT_PARAMETER = "Unknown parameter(s) {} for model '{}'. Valid parameters: {}."
+ERROR_NO_FREE_PARAMETERS = "All parameters are known; there is nothing left to fit."
+ERROR_NO_FIT_RESULT = "No fit result available. Run fit() first."
