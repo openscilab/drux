@@ -24,7 +24,7 @@ from .messages import (
 )
 
 # Single point of registration mapping a model name to its class.
-MODEL_CLASSES: Dict[str, Type[DrugReleaseModel]] = {
+MODEL_CLASSES = {
     "zero_order": ZeroOrderModel,
     "first_order": FirstOrderModel,
     "higuchi": HiguchiModel,
