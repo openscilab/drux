@@ -172,4 +172,4 @@ class CurveFit:
         if self._fit_result is None:
             return f"drux.CurveFit({self._model_name}, not fitted)"
         params = ", ".join(f"{k}={v:.4f}" for k, v in self._fit_result.parameters.items())
-        return f"drux.CurveFit({self._model_name}: {params}, R²={self._fit_result.r_squared:.4f})"
+        return f"drux.CurveFit({self._model_name}: {params}, R^2={self._fit_result.r_squared:.4f})"
