@@ -79,7 +79,7 @@ class CurveFit:
         :param known_parameters: parameter values to hold fixed instead of fitting
         """
         if model_name not in MODEL_CLASSES:
-            raise ValueError(ERROR_UNKNOWN_MODEL.format(model_name, sorted(MODEL_CLASSES)))
+            raise ValueError(ERROR_UNKNOWN_MODEL.format(model_name=model_name, available_models=sorted(MODEL_CLASSES)))
 
         time = np.asarray(time, dtype=float)
         release_profile = np.asarray(release_profile, dtype=float)
@@ -98,7 +98,7 @@ class CurveFit:
         unknown_keys = sorted(set(self._known_parameters) - set(self._parameter_names))
         if unknown_keys:
             raise ValueError(
-                ERROR_UNKNOWN_FIT_PARAMETER.format(unknown_keys, model_name, self._parameter_names)
+                ERROR_UNKNOWN_FIT_PARAMETER.format(unknown_keys=unknown_keys, model_name=model_name, parameter_names=self._parameter_names)
             )
 
         self._free_parameters = [p for p in self._parameter_names if p not in self._known_parameters]

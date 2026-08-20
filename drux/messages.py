@@ -46,9 +46,9 @@ ERROR_INVALID_INITIAL_RADIUS = "Initial radius or half-thickness (a0) must be po
 ERROR_INVALID_GEOMETRY_FACTOR = "Geometry factor (n) must be 1 (slab), 2 (cylinder), or 3 (sphere)."
 
 # Error messages for curve fitting
-ERROR_UNKNOWN_MODEL = "Unknown model '{}'. Available models: {}."
+ERROR_UNKNOWN_MODEL = "Unknown model '{model_name}'. Available models: {available_models}."
 ERROR_TIME_RELEASE_LENGTH_MISMATCH = "Time and release profile must have the same length."
 ERROR_INSUFFICIENT_DATA_POINTS = "At least 2 data points are required for fitting."
-ERROR_UNKNOWN_FIT_PARAMETER = "Unknown parameter(s) {} for model '{}'. Valid parameters: {}."
+ERROR_UNKNOWN_FIT_PARAMETER = "Unknown parameter(s) {unknown_keys} for model '{model_name}'. Valid parameters: {parameter_names}."
 ERROR_NO_FREE_PARAMETERS = "All parameters are known; there is nothing left to fit."
 ERROR_NO_FIT_RESULT = "No fit result available. Run fit() first."
