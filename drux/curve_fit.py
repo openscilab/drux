@@ -34,7 +34,10 @@ MODEL_CLASSES = {
 
 
 def _model_parameter_names(model_class: Type[DrugReleaseModel]) -> List[str]:
-    """Return a model's parameter names, in declaration order, excluding time."""
+    """Return a model's parameter names, in declaration order, excluding time.
+
+    :param model_class: model class exposing a `model_function` signature
+    """
     parameters = inspect.signature(model_class.model_function).parameters
     return [name for name in parameters if name != "t"]
 
@@ -72,7 +75,7 @@ class CurveFit:
 
         :param model_name: name of a registered model (see `MODEL_CLASSES`)
         :param time: time points of the experimental data (s)
-        :param release_profile: measured drug release at each time point
+        :param release_profile: a sequence of measured drug release at each time point
         :param known_parameters: parameter values to hold fixed instead of fitting
         """
         if model_name not in MODEL_CLASSES:
@@ -105,7 +108,10 @@ class CurveFit:
         self._fit_result: Optional[FitResult] = None
 
     def _merge_parameters(self, free_values: Sequence[float]) -> Dict[str, float]:
-        """Merge fitted values for the free parameters with the known parameters."""
+        """Merge fitted values for free parameters with known fixed parameters.
+
+        :param free_values: fitted values in the model's declared free-parameter order
+        """
         free_values = iter(free_values)
         return {
             name: self._known_parameters[name] if name in self._known_parameters else next(free_values)
@@ -113,7 +119,11 @@ class CurveFit:
         }
 
     def _equation(self, t: np.ndarray, *free_values: float) -> np.ndarray:
-        """Evaluate the model's own equation for a set of free parameter values."""
+        """Evaluate the model equation for a set of free parameter values.
+
+        :param t: time values where the model should be evaluated
+        :param free_values: free parameter values passed by the optimizer
+        """
         parameters = self._merge_parameters(free_values)
         return np.vectorize(lambda ti: self._model_class.model_function(ti, **parameters))(t)
 
@@ -125,10 +135,8 @@ class CurveFit:
         """
         Estimate the unknown parameters via non-linear least squares.
 
-        :param initial_guess: initial guess for each free parameter, in the model's
-            declared parameter order (default: 1.0 for each)
-        :param bounds: (lower, upper) bounds for the free parameters, forwarded to
-            `scipy.optimize.curve_fit` (default: (~0, inf))
+        :param initial_guess: initial guess for each free parameter in declared order (default: 1.0 for each)
+        :param bounds: `(lower, upper)` bounds for free parameters forwarded to `curve_fit` (default: (~0, inf))
         """
         n_free = len(self._free_parameters)
         p0 = list(initial_guess) if initial_guess is not None else [1.0] * n_free
