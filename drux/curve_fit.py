@@ -3,7 +3,7 @@
 
 import inspect
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Sequence, Tuple, Type
+from typing import Any, Dict, List, Optional, Sequence, Tuple, Type
 
 import numpy as np
 from scipy.optimize import curve_fit
@@ -118,7 +118,7 @@ class CurveFit:
             for name in self._parameter_names
         }
 
-    def _equation(self, t: np.ndarray, *free_values: float) -> np.ndarray:
+    def _equation(self, t: np.ndarray, *free_values: Any) -> np.ndarray:
         """Evaluate the model equation for a set of free parameter values.
 
         :param t: time values where the model should be evaluated
