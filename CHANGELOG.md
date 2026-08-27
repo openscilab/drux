@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `CurveFit` class
-- `FitResult` object
+- `FitResult` class
 ### Changed
 - `_model_function` method refactored
 - `_model_function` method renamed to `model_function`
