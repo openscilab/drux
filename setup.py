@@ -37,7 +37,8 @@ setup(
     },
     install_requires=[
         'numpy>=1.21.0',
-        'matplotlib>=3.2.2'
+        'matplotlib>=3.2.2',
+        'scipy>=1.7.3'
     ],
     python_requires='>=3.7',
     classifiers=[
