@@ -189,7 +189,7 @@ where:
 
 An $R^2$ value near 1 shows a good fit. A low value shows that the model does not describe the data correctly.
 
-You can fit all of the models above. This table gives the name and the parameters of each model:
+You can fit all the models above. This table gives the name and the parameters of each model:
 
 | Model        | `model_name`   | Parameters                 |
 | ------------ | -------------- | -------------------------- |
@@ -204,7 +204,7 @@ The `fit` method starts from a value of 1 for each unknown parameter, and keeps 
 The `fit` method returns a `FitResult` object, where:
 - `model_name` is the name of the fitted model
 - `parameters` is a dictionary of the known and the calculated parameter values
-- `r_squared` is the coefficient of determination of the fit
+- `r_squared` is the fit's coefficient of determination
 - `model` is a model object with the calculated parameters. You can simulate and plot this model.
 
 ### Known Parameters
