@@ -173,6 +173,54 @@ where:
 3. Transdermal Patches
 4. Injectable depots
 
+## Curve Fitting
+The models above calculate a release profile from known parameters. The `CurveFit` class does the opposite operation. It calculates the parameters of a model from measured experimental data. `CurveFit` uses the non-linear least squares method. This method decreases the difference between the measured release and the calculated release.
+
+`CurveFit` gives the quality of the fit as the coefficient of determination:
+
+$$
+R^2 = 1 - \frac{\sum_i \left(M_i - \hat{M}_i\right)^2}{\sum_i \left(M_i - \bar{M}\right)^2}
+$$
+
+where:
+- $M_i (mg)$ is the measured drug release at time $t_i$
+- $\hat{M}_i (mg)$ is the drug release that the model calculates at time $t_i$
+- $\bar{M} (mg)$ is the mean value of the measured drug release
+
+An $R^2$ value near 1 shows a good fit. A low value shows that the model does not describe the data correctly.
+
+You can fit all the models above. This table gives the name and the parameters of each model:
+
+| Model        | `model_name`   | Parameters                 |
+| ------------ | -------------- | -------------------------- |
+| Zero-Order   | `zero_order`   | `M0`, `k0`                 |
+| First-Order  | `first_order`  | `M0`, `k`                  |
+| Higuchi      | `higuchi`      | `D`, `c0`, `cs`            |
+| Weibull      | `weibull`      | `M`, `a`, `b`              |
+| Hopfenberg   | `hopfenberg`   | `M`, `k0`, `c0`, `a0`, `n` |
+
+The `fit` method starts from a value of 1 for each unknown parameter, and keeps all the parameters positive. If the result is not good, give your own values in the `initial_guess` and `bounds` arguments. These arguments contain only the unknown parameters, in the order of the table. The `get_result` method gives the result of the last fit again.
+
+The `fit` method returns a `FitResult` object, where:
+- `model_name` is the name of the fitted model
+- `parameters` is a dictionary of the known and the calculated parameter values
+- `r_squared` is the fit's coefficient of determination
+- `model` is a model object with the calculated parameters. You can simulate and plot this model.
+
+### Known Parameters
+If you know the value of a parameter, give it in the `known_parameters` argument. Use the parameter names in the table above. `CurveFit` keeps these values constant and calculates only the other parameters.
+
+⚠️ All the parameters of a model cannot always be calculated from a release profile. Some models use a group of parameters only as one product or one ratio. Many different combinations of these parameters give the same value for this group. Thus, the fit has no unique solution, and the calculated values can be different from the true physical values.  To prevent this problem, give at least **two** parameters of each group in the `known_parameters` argument. Two of the models have such a group:
+- The Higuchi model uses $D$, $c_0$ and $c_s$ only in the product $D(2c_0 - c_s)c_s$. Give two of these three parameters, for example `known_parameters={"c0": 1, "cs": 0.5}`.
+- The Hopfenberg model uses $k_0$, $c_0$ and $a_0$ only in the ratio $\frac{k_0}{c_0 a_0}$. Give two of these three parameters, and also the geometry factor $n$, for example `known_parameters={"c0": 0.0374, "a0": 3.51, "n": 2}`. Also, $n$ is always assumed to be known because the user should know the shape of the device.
+
+### Applications
+1. Analysis of dissolution test data
+2. Estimation of the release rate constants
+3. Selection of the correct model for an experiment
+4. Comparison of different formulations
+5. Quality control of production batches
+
 ## Usage
 ### Zero-Order Model
 ```python
@@ -220,6 +268,21 @@ model.simulate(duration=100, time_step=1)
 model.plot(show=True)
 ```
 <img src="https://github.com/openscilab/drux/raw/main/otherfiles/hopfenberg_plot.png" alt="Hopfenberg Plot">
+
+### Curve Fitting
+
+```python
+from drux import CurveFit
+time = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+release_profile = [0, 0.35, 0.48, 0.57, 0.63, 0.69, 0.73, 0.77, 0.80, 0.83, 0.85]
+fitter = CurveFit(model_name="weibull", time=time, release_profile=release_profile)
+result = fitter.fit()
+print(result.parameters)
+print(result.r_squared)
+result.model.simulate(duration=100, time_step=1)
+result.model.plot(show=True)
+```
+<img src="https://github.com/openscilab/drux/raw/main/otherfiles/curve_fit_plot.png" alt="Curve Fit Plot">
 
 
 ## Issues & bug reports
