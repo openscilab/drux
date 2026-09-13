@@ -199,7 +199,7 @@ You can fit all the models above. This table gives the name and the parameters o
 | `weibull`      | `M`, `a`, `b`              |
 | `hopfenberg`   | `M`, `k0`, `c0`, `a0`, `n` |
 
-The `fit` method starts from a value of 1 for each unknown parameter, and keeps all the parameters positive. If the result is not good, give your own values in the `initial_guess` and `bounds` arguments. These arguments contain only the unknown parameters, in the order of the table. The `get_result` method gives the result of the last fit again.
+The `fit` method starts from a value of 1 for each unknown parameter, and keeps all the parameters positive. If the result is not good, give your own values in the `initial_guess` and `bounds` arguments. These arguments contain only the unknown parameters. The `get_result` method gives the result of the last fit again.
 
 The `fit` method returns a `FitResult` object, where:
 - `model_name` is the name of the fitted model
