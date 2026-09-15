@@ -191,13 +191,13 @@ An $R^2$ value near 1 shows a good fit. A low value shows that the model does no
 
 You can fit all the models above. This table gives the name and the parameters of each model:
 
-| `model_name`   | Parameters                 |
-| -------------- | -------------------------- |
-| `zero_order`   | `M0`, `k0`                 |
-| `first_order`  | `M0`, `k`                  |
-| `higuchi`      | `D`, `c0`, `cs`            |
-| `weibull`      | `M`, `a`, `b`              |
-| `hopfenberg`   | `M`, `k0`, `c0`, `a0`, `n` |
+| Model Name    | Parameters                 |
+|---------------| -------------------------- |
+| `zero_order`  | `M0`, `k0`                 |
+| `first_order` | `M0`, `k`                  |
+| `higuchi`     | `D`, `c0`, `cs`            |
+| `weibull`     | `M`, `a`, `b`              |
+| `hopfenberg`  | `M`, `k0`, `c0`, `a0`, `n` |
 
 The `fit` method starts from a value of 1 for each unknown parameter, and keeps all the parameters positive. If the result is not good, give your own values in the `initial_guess` and `bounds` arguments. These arguments contain only the unknown parameters. The `get_result` method gives the result of the last fit again.
 
