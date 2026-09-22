@@ -48,7 +48,8 @@ DEFAULT_BOUNDS = (1e-10, np.inf)
 
 
 def _fit_value(value: Any, parameter_name: str, argument_name: str) -> float:
-    """Return a value of a fit argument as a float.
+    """
+    Return a value of a fit argument as a float.
 
     :param value: value given for the parameter
     :param parameter_name: name of the parameter, used in the error message
@@ -155,7 +156,8 @@ class CurveFit:
 
     def _validate_fit_argument(
             self, values: Optional[Dict[str, Any]], argument_name: str) -> Optional[Dict[str, Any]]:
-        """Check that a fit argument gives a value for every free parameter, and for no other parameter.
+        """
+        Check that a fit argument gives a value for every free parameter, and for no other parameter.
 
         :param values: fit argument keyed by parameter name, or None to use the defaults
         :param argument_name: name of the argument, used in the error messages
@@ -190,7 +192,8 @@ class CurveFit:
         return values
 
     def _parameter_bounds(self, bounds: Optional[Dict[str, Any]], name: str) -> Tuple[float, float]:
-        """Return the validated `(lower, upper)` bounds of a single free parameter.
+        """
+        Return the validated `(lower, upper)` bounds of a single free parameter.
 
         :param bounds: bounds keyed by parameter name, or None to use the defaults
         :param name: name of the free parameter
@@ -210,7 +213,8 @@ class CurveFit:
         return low, high
 
     def _parameter_guess(self, initial_guess: Optional[Dict[str, Any]], name: str, low: float, high: float) -> float:
-        """Return the validated initial guess of a single free parameter.
+        """
+        Return the validated initial guess of a single free parameter.
 
         :param initial_guess: initial guess keyed by parameter name, or None to use the default
         :param name: name of the free parameter
