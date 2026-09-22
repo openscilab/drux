@@ -229,7 +229,7 @@ def test_fit_initial_guess():
         time=LONG_TIME,
         release_profile=HIGUCHI_RELEASE,
         known_parameters={"c0": HIGUCHI_C0, "cs": HIGUCHI_CS})
-    result = fitter.fit(initial_guess=[HIGUCHI_D])
+    result = fitter.fit(initial_guess={"D": HIGUCHI_D})
     assert isclose(result.parameters["D"], HIGUCHI_D, rtol=RELATIVE_TOLERANCE)
     assert isclose(result.r_squared, 1.0, atol=ABSOLUTE_TOLERANCE)
 
@@ -237,10 +237,102 @@ def test_fit_initial_guess():
 def test_fit_bounds():
     upper_k0 = ZERO_ORDER_K0 / 2  # the release rate is capped below its actual value
     fitter = CurveFit(model_name="zero_order", time=LONG_TIME, release_profile=ZERO_ORDER_RELEASE)
-    result = fitter.fit(initial_guess=[ZERO_ORDER_M0, upper_k0], bounds=([1e-10, 1e-10], [1.0, upper_k0]))
+    result = fitter.fit(
+        initial_guess={"M0": ZERO_ORDER_M0, "k0": upper_k0},
+        bounds={"M0": (1e-10, 1.0), "k0": (1e-10, upper_k0)})
     assert isclose(result.parameters["k0"], upper_k0, rtol=RELATIVE_TOLERANCE)
     assert result.parameters["M0"] <= 1.0
     assert result.r_squared < 1.0
+
+
+def test_fit_bounds_without_initial_guess():  # the default guess is kept inside the given bounds
+    upper_k0 = ZERO_ORDER_K0 / 2
+    fitter = CurveFit(model_name="zero_order", time=LONG_TIME, release_profile=ZERO_ORDER_RELEASE)
+    result = fitter.fit(bounds={"M0": (1e-10, 1.0), "k0": (1e-10, upper_k0)})  # both bounds exclude the default 1.0
+    assert isclose(result.parameters["k0"], upper_k0, rtol=RELATIVE_TOLERANCE)
+    assert result.parameters["M0"] <= 1.0
+    assert result.r_squared < 1.0
+
+
+def test_fit_argument_order_is_irrelevant():  # the keys carry the mapping, not their position
+    upper_k0 = ZERO_ORDER_K0 / 2
+    fitter = CurveFit(model_name="zero_order", time=LONG_TIME, release_profile=ZERO_ORDER_RELEASE)
+    declared = fitter.fit(
+        initial_guess={"M0": ZERO_ORDER_M0, "k0": upper_k0},
+        bounds={"M0": (1e-10, 1.0), "k0": (1e-10, upper_k0)})
+    reversed_keys = fitter.fit(
+        initial_guess={"k0": upper_k0, "M0": ZERO_ORDER_M0},
+        bounds={"k0": (1e-10, upper_k0), "M0": (1e-10, 1.0)})
+    assert declared.parameters == reversed_keys.parameters
+
+
+def test_fit_invalid_arguments():
+    fitter = CurveFit(
+        model_name="zero_order",
+        time=LONG_TIME,
+        release_profile=ZERO_ORDER_RELEASE,
+        known_parameters={"M0": ZERO_ORDER_M0})
+
+    with raises(ValueError, match=escape(
+            "Unknown parameter(s) ['a'] in 'initial_guess' for model 'zero_order'. Free parameters: ['k0'].")):
+        fitter.fit(initial_guess={"a": WEIBULL_A})
+
+    with raises(ValueError, match=escape(
+            "Parameter(s) ['M0'] in 'bounds' are known, so they are not fitted.")):
+        fitter.fit(bounds={"M0": (1e-10, 1.0)})
+
+
+def test_fit_incomplete_arguments():
+    fitter = CurveFit(model_name="zero_order", time=LONG_TIME, release_profile=ZERO_ORDER_RELEASE)
+
+    with raises(ValueError, match=escape(
+            "Missing parameter(s) ['k0'] in 'initial_guess'. Give a value for every free parameter: ['M0', 'k0'].")):
+        fitter.fit(initial_guess={"M0": ZERO_ORDER_M0})
+
+    with raises(ValueError, match=escape(
+            "Missing parameter(s) ['M0', 'k0'] in 'bounds'. Give a value for every free parameter: ['M0', 'k0'].")):
+        fitter.fit(bounds={})
+
+
+def test_fit_argument_type():  # the sequence form of the arguments is not accepted
+    fitter = CurveFit(model_name="zero_order", time=LONG_TIME, release_profile=ZERO_ORDER_RELEASE)
+
+    with raises(ValueError, match=escape(
+            "'initial_guess' must be a dictionary that maps parameter names to values.")):
+        fitter.fit(initial_guess=[ZERO_ORDER_M0, ZERO_ORDER_K0])
+
+    with raises(ValueError, match=escape(
+            "'bounds' must be a dictionary that maps parameter names to values.")):
+        fitter.fit(bounds=([1e-10, 1e-10], [1.0, 1.0]))
+
+
+def test_fit_invalid_values():
+    fitter = CurveFit(model_name="zero_order", time=LONG_TIME, release_profile=ZERO_ORDER_RELEASE)
+    valid_bounds = {"M0": (1e-10, 1.0), "k0": (1e-10, 1.0)}
+
+    with raises(ValueError, match=escape(
+            "Bounds of parameter 'k0' must be a (lower, upper) pair of real numbers.")):
+        fitter.fit(bounds={"M0": (1e-10, 1.0), "k0": ZERO_ORDER_K0})
+
+    with raises(ValueError, match=escape(
+            "Bounds of parameter 'k0' must be a (lower, upper) pair of real numbers.")):
+        fitter.fit(bounds={"M0": (1e-10, 1.0), "k0": (1e-10, 1.0, 2.0)})
+
+    with raises(ValueError, match=escape(
+            "Value of parameter 'k0' in 'bounds' must be a real number.")):
+        fitter.fit(bounds={"M0": (1e-10, 1.0), "k0": (1e-10, "1.0")})
+
+    with raises(ValueError, match=escape(
+            "Lower bound of parameter 'k0' must be less than its upper bound.")):
+        fitter.fit(bounds={"M0": (1e-10, 1.0), "k0": (1.0, 1e-10)})
+
+    with raises(ValueError, match=escape(
+            "Value of parameter 'M0' in 'initial_guess' must be a real number.")):
+        fitter.fit(initial_guess={"M0": None, "k0": ZERO_ORDER_K0})
+
+    with raises(ValueError, match=escape(
+            "Initial guess of parameter 'k0' must be between its bounds.")):
+        fitter.fit(initial_guess={"M0": ZERO_ORDER_M0, "k0": 2.0}, bounds=valid_bounds)
 
 
 def test_fit_noisy_release_profile():
@@ -284,8 +376,8 @@ def test_get_result():
 
     upper_k0 = ZERO_ORDER_K0 / 2
     bounded_result = fitter.fit(
-        initial_guess=[ZERO_ORDER_M0, upper_k0],
-        bounds=([1e-10, 1e-10], [1.0, upper_k0]))
+        initial_guess={"M0": ZERO_ORDER_M0, "k0": upper_k0},
+        bounds={"M0": (1e-10, 1.0), "k0": (1e-10, upper_k0)})
     assert fitter.get_result() is bounded_result  # the latest fit result is kept
 
 
