@@ -3,6 +3,8 @@
 
 import inspect
 from dataclasses import dataclass
+from math import isnan
+from numbers import Real
 from typing import Any, Dict, List, Optional, Sequence, Tuple, Type
 
 import numpy as np
@@ -19,6 +21,14 @@ from .messages import (
     ERROR_TIME_RELEASE_LENGTH_MISMATCH,
     ERROR_INSUFFICIENT_DATA_POINTS,
     ERROR_UNKNOWN_FIT_PARAMETER,
+    ERROR_UNKNOWN_FIT_ARGUMENT,
+    ERROR_KNOWN_FIT_ARGUMENT,
+    ERROR_MISSING_FIT_ARGUMENT,
+    ERROR_FIT_ARGUMENT_TYPE,
+    ERROR_INVALID_FIT_VALUE,
+    ERROR_INVALID_FIT_BOUNDS,
+    ERROR_FIT_BOUNDS_ORDER,
+    ERROR_FIT_GUESS_OUT_OF_BOUNDS,
     ERROR_NO_FREE_PARAMETERS,
     ERROR_NO_FIT_RESULT,
 )
@@ -31,6 +41,23 @@ MODEL_CLASSES = {
     "weibull": WeibullModel,
     "hopfenberg": HopfenbergModel,
 }
+
+# Defaults applied to every free parameter that the caller does not specify.
+DEFAULT_INITIAL_GUESS = 1.0
+DEFAULT_BOUNDS = (1e-10, np.inf)
+
+
+def _fit_value(value: Any, parameter_name: str, argument_name: str) -> float:
+    """
+    Return a value of a fit argument as a float.
+
+    :param value: value given for the parameter
+    :param parameter_name: name of the parameter, used in the error message
+    :param argument_name: name of the fit argument, used in the error message
+    """
+    if not isinstance(value, Real) or isnan(value):
+        raise ValueError(ERROR_INVALID_FIT_VALUE.format(parameter_name=parameter_name, argument_name=argument_name))
+    return float(value)
 
 
 def _model_parameter_names(model_class: Type[DrugReleaseModel]) -> List[str]:
@@ -127,23 +154,110 @@ class CurveFit:
         parameters = self._merge_parameters(free_values)
         return np.vectorize(lambda ti: self._model_class.model_function(ti, **parameters))(t)
 
+    def _validate_fit_argument(
+            self, values: Optional[Dict[str, Any]], argument_name: str) -> Optional[Dict[str, Any]]:
+        """
+        Check that a fit argument gives a value for every free parameter, and for no other parameter.
+
+        :param values: fit argument keyed by parameter name, or None to use the defaults
+        :param argument_name: name of the argument, used in the error messages
+        """
+        if values is None:
+            return None
+        if not isinstance(values, dict):
+            raise ValueError(ERROR_FIT_ARGUMENT_TYPE.format(argument_name=argument_name))
+
+        known_keys = sorted(set(values) & set(self._known_parameters))
+        if known_keys:
+            raise ValueError(ERROR_KNOWN_FIT_ARGUMENT.format(known_keys=known_keys, argument_name=argument_name))
+
+        unknown_keys = sorted(set(values) - set(self._free_parameters))
+        if unknown_keys:
+            raise ValueError(
+                ERROR_UNKNOWN_FIT_ARGUMENT.format(
+                    unknown_keys=unknown_keys,
+                    argument_name=argument_name,
+                    model_name=self._model_name,
+                    free_parameters=self._free_parameters)
+            )
+
+        missing_keys = [name for name in self._free_parameters if name not in values]
+        if missing_keys:
+            raise ValueError(
+                ERROR_MISSING_FIT_ARGUMENT.format(
+                    missing_keys=missing_keys,
+                    argument_name=argument_name,
+                    free_parameters=self._free_parameters)
+            )
+        return values
+
+    def _parameter_bounds(self, bounds: Optional[Dict[str, Any]], name: str) -> Tuple[float, float]:
+        """
+        Return the validated `(lower, upper)` bounds of a single free parameter.
+
+        :param bounds: bounds keyed by parameter name, or None to use the defaults
+        :param name: name of the free parameter
+        """
+        if bounds is None:
+            return DEFAULT_BOUNDS
+
+        try:
+            low, high = bounds[name]
+        except (TypeError, ValueError):
+            raise ValueError(ERROR_INVALID_FIT_BOUNDS.format(parameter_name=name))
+
+        low = _fit_value(low, name, "bounds")
+        high = _fit_value(high, name, "bounds")
+        if low >= high:
+            raise ValueError(ERROR_FIT_BOUNDS_ORDER.format(parameter_name=name))
+        return low, high
+
+    def _parameter_guess(self, initial_guess: Optional[Dict[str, Any]], name: str, low: float, high: float) -> float:
+        """
+        Return the validated initial guess of a single free parameter.
+
+        :param initial_guess: initial guess keyed by parameter name, or None to use the default
+        :param name: name of the free parameter
+        :param low: validated lower bound of the parameter
+        :param high: validated upper bound of the parameter
+        """
+        # A default guess is kept inside the bounds, so that bounds stay usable on their own.
+        if initial_guess is None:
+            return min(max(DEFAULT_INITIAL_GUESS, low), high)
+
+        guess = _fit_value(initial_guess[name], name, "initial_guess")
+        if not low <= guess <= high:
+            raise ValueError(ERROR_FIT_GUESS_OUT_OF_BOUNDS.format(parameter_name=name))
+        return guess
+
     def fit(
         self,
-        initial_guess: Optional[Sequence[float]] = None,
-        bounds: Optional[Tuple[Sequence[float], Sequence[float]]] = None,
+        initial_guess: Optional[Dict[str, float]] = None,
+        bounds: Optional[Dict[str, Tuple[float, float]]] = None,
     ) -> FitResult:
         """
         Estimate the unknown parameters via non-linear least squares.
 
-        :param initial_guess: initial guess for each free parameter in declared order (default: 1.0 for each)
-        :param bounds: `(lower, upper)` bounds for free parameters forwarded to `curve_fit` (default: (~0, inf))
+        Both arguments are keyed by parameter name, so the caller does not need to know the
+        order in which the optimizer receives the free parameters. An argument that is given
+        must hold a value for every free parameter; omit the argument to use the defaults.
+
+        :param initial_guess: initial guess per free parameter, keyed by name (default: 1.0 for each)
+        :param bounds: `(lower, upper)` bounds per free parameter, keyed by name (default: (~0, inf))
+
+        :raises ValueError: if a parameter name or a value of either argument is invalid
         """
-        n_free = len(self._free_parameters)
-        p0 = list(initial_guess) if initial_guess is not None else [1.0] * n_free
-        lower_upper = bounds or ([1e-10] * n_free, [np.inf] * n_free)
+        initial_guess = self._validate_fit_argument(initial_guess, "initial_guess")
+        bounds = self._validate_fit_argument(bounds, "bounds")
+
+        lower, upper = zip(*(self._parameter_bounds(bounds, name) for name in self._free_parameters))
+        p0 = [
+            self._parameter_guess(initial_guess, name, low, high)
+            for name, low, high in zip(self._free_parameters, lower, upper)
+        ]
 
         fitted_values, _ = curve_fit(
-            self._equation, self._time, self._release_profile, p0=p0, bounds=lower_upper, maxfev=10000
+            self._equation, self._time, self._release_profile, p0=p0, bounds=(list(lower), list(upper)), maxfev=10000
         )
         parameters = self._merge_parameters(fitted_values)
 
