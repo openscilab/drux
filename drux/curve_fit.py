@@ -16,6 +16,7 @@ from .higuchi import HiguchiModel
 from .hopfenberg import HopfenbergModel
 from .weibull import WeibullModel
 from .zero_order import ZeroOrderModel
+from .params import DEFAULT_BOUNDS, DEFAULT_INITIAL_GUESS
 from .messages import (
     ERROR_UNKNOWN_MODEL,
     ERROR_TIME_RELEASE_LENGTH_MISMATCH,
@@ -41,10 +42,6 @@ MODEL_CLASSES = {
     "weibull": WeibullModel,
     "hopfenberg": HopfenbergModel,
 }
-
-# Defaults applied to every free parameter that the caller does not specify.
-DEFAULT_INITIAL_GUESS = 1.0
-DEFAULT_BOUNDS = (1e-10, np.inf)
 
 
 def _fit_value(value: Any, parameter_name: str, argument_name: str) -> float:
