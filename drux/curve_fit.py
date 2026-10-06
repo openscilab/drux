@@ -244,8 +244,6 @@ class CurveFit:
 
         :param initial_guess: initial guess per free parameter, keyed by name (default: 1.0 for each)
         :param bounds: `(lower, upper)` bounds per free parameter, keyed by name (default: (~0, inf))
-
-        :raises ValueError: if a parameter name or a value of either argument is invalid
         """
         initial_guess = self._validate_fit_argument(initial_guess, "initial_guess")
         bounds = self._validate_fit_argument(bounds, "bounds")
