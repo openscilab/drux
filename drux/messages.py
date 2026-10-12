@@ -50,5 +50,19 @@ ERROR_UNKNOWN_MODEL = "Unknown model '{model_name}'. Available models: {availabl
 ERROR_TIME_RELEASE_LENGTH_MISMATCH = "Time and release profile must have the same length."
 ERROR_INSUFFICIENT_DATA_POINTS = "At least 2 data points are required for fitting."
 ERROR_UNKNOWN_FIT_PARAMETER = "Unknown parameter(s) {unknown_keys} for model '{model_name}'. Valid parameters: {parameter_names}."
+ERROR_UNKNOWN_FIT_ARGUMENT = (
+    "Unknown parameter(s) {unknown_keys} in '{argument_name}' for model '{model_name}'. "
+    "Free parameters: {free_parameters}."
+)
+ERROR_KNOWN_FIT_ARGUMENT = "Parameter(s) {known_keys} in '{argument_name}' are known, so they are not fitted."
+ERROR_MISSING_FIT_ARGUMENT = (
+    "Missing parameter(s) {missing_keys} in '{argument_name}'. "
+    "Give a value for every free parameter: {free_parameters}."
+)
+ERROR_FIT_ARGUMENT_TYPE = "'{argument_name}' must be a dictionary that maps parameter names to values."
+ERROR_INVALID_FIT_VALUE = "Value of parameter '{parameter_name}' in '{argument_name}' must be a real number."
+ERROR_INVALID_FIT_BOUNDS = "Bounds of parameter '{parameter_name}' must be a (lower, upper) pair of real numbers."
+ERROR_FIT_BOUNDS_ORDER = "Lower bound of parameter '{parameter_name}' must be less than its upper bound."
+ERROR_FIT_GUESS_OUT_OF_BOUNDS = "Initial guess of parameter '{parameter_name}' must be between its bounds."
 ERROR_NO_FREE_PARAMETERS = "All parameters are known; there is nothing left to fit."
 ERROR_NO_FIT_RESULT = "No fit result available. Run fit() first."
