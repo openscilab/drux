@@ -63,9 +63,9 @@ Drux is a Python-based framework for simulating drug release profiles using math
 
 ### PyPI
 - Check [Python Packaging User Guide](https://packaging.python.org/installing/)
-- Run `pip install drux==0.4`
+- Run `pip install drux==0.5`
 ### Source code
-- Download [Version 0.4](https://github.com/openscilab/drux/archive/v0.4.zip) or [Latest Source](https://github.com/openscilab/drux/archive/dev.zip)
+- Download [Version 0.5](https://github.com/openscilab/drux/archive/v0.5.zip) or [Latest Source](https://github.com/openscilab/drux/archive/dev.zip)
 - Run `pip install .`
 
 ## Supported Models

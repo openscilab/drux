@@ -2,7 +2,7 @@
 """Drux parameters and constants."""
 import numpy as np
 
-DRUX_VERSION = "0.4"
+DRUX_VERSION = "0.5"
 
 # CurveFit params
 DEFAULT_INITIAL_GUESS = 1.0
