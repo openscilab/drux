@@ -1,7 +1,8 @@
 <div align="center">
 <img src="https://github.com/openscilab/drux/raw/main/otherfiles/logo.png" width="350">
     <h1>Drux: Drug Release Analysis Framework</h1>
-    <br/>
+ <p><i>Drux is dedicated to the memory of <a href="https://github.com/nazanin-nabi">Nazanin Nabinia</a>, one of its co-creators.</i></p>
+<br/>
     <a href="https://badge.fury.io/py/drux"><img src="https://badge.fury.io/py/drux.svg" alt="PyPI version"></a>
     <a href="https://www.python.org/"><img src="https://img.shields.io/badge/built%20with-Python3-green.svg" alt="built with Python3"></a>
     <a href="https://codecov.io/gh/openscilab/drux"><img src="https://codecov.io/gh/openscilab/drux/branch/dev/graph/badge.svg?token=5O41J3XX2L"></a>
