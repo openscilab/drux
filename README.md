@@ -1,7 +1,8 @@
 <div align="center">
 <img src="https://github.com/openscilab/drux/raw/main/otherfiles/logo.png" width="350">
     <h1>Drux: Drug Release Analysis Framework</h1>
-    <br/>
+ <p><i>Drux is dedicated to the memory of <a href="https://github.com/nazanin-nabi">Nazanin Nabinia</a>, one of its co-creators.</i></p>
+<br/>
     <a href="https://badge.fury.io/py/drux"><img src="https://badge.fury.io/py/drux.svg" alt="PyPI version"></a>
     <a href="https://www.python.org/"><img src="https://img.shields.io/badge/built%20with-Python3-green.svg" alt="built with Python3"></a>
     <a href="https://codecov.io/gh/openscilab/drux"><img src="https://codecov.io/gh/openscilab/drux/branch/dev/graph/badge.svg?token=5O41J3XX2L"></a>
@@ -63,9 +64,9 @@ Drux is a Python-based framework for simulating drug release profiles using math
 
 ### PyPI
 - Check [Python Packaging User Guide](https://packaging.python.org/installing/)
-- Run `pip install drux==0.4`
+- Run `pip install drux==0.5`
 ### Source code
-- Download [Version 0.4](https://github.com/openscilab/drux/archive/v0.4.zip) or [Latest Source](https://github.com/openscilab/drux/archive/dev.zip)
+- Download [Version 0.5](https://github.com/openscilab/drux/archive/v0.5.zip) or [Latest Source](https://github.com/openscilab/drux/archive/dev.zip)
 - Run `pip install .`
 
 ## Supported Models
