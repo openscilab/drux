@@ -4,7 +4,7 @@ from pytest import raises
 from numpy import isclose, array
 from math import exp, sqrt
 from re import escape
-from drux import CurveFit, ZeroOrderModel, FirstOrderModel, HiguchiModel, WeibullModel, HopfenbergModel
+from drux import CurveFit, ZeroOrderModel, FirstOrderModel, HiguchiModel, WeibullModel, HopfenbergModel, QuadraticModel
 
 TEST_CASE_NAME = "CurveFit tests"
 LONG_DURATION, LONG_TIME_STEP = 1000, 10
@@ -20,6 +20,7 @@ FIRST_ORDER_M0, FIRST_ORDER_K = 0.1, 0.003
 HIGUCHI_D, HIGUCHI_C0, HIGUCHI_CS = 1e-6, 1, 0.5
 WEIBULL_M, WEIBULL_A, WEIBULL_B = 1, 0.095, 0.7
 HOPFENBERG_M, HOPFENBERG_K0, HOPFENBERG_C0, HOPFENBERG_A0, HOPFENBERG_N = 1, 0.00067, 0.0374, 3.51, 2
+QUADRATIC_M0, QUADRATIC_K1, QUADRATIC_K2 = 0.01, 0.1, 0.00005
 
 ZERO_ORDER_RELEASE = [ZERO_ORDER_M0 + (ZERO_ORDER_K0 * t) for t in LONG_TIME]
 FIRST_ORDER_RELEASE = [FIRST_ORDER_M0 * (1 - exp(-FIRST_ORDER_K * t)) for t in LONG_TIME]
@@ -27,6 +28,7 @@ HIGUCHI_RELEASE = [sqrt(HIGUCHI_D * (2 * HIGUCHI_C0 - HIGUCHI_CS) * HIGUCHI_CS *
 WEIBULL_RELEASE = [WEIBULL_M * (1 - exp(-WEIBULL_A * t ** WEIBULL_B)) for t in SHORT_TIME]
 HOPFENBERG_RELEASE = [
     HOPFENBERG_M * (1 - (1 - (HOPFENBERG_K0 * t) / (HOPFENBERG_C0 * HOPFENBERG_A0))**HOPFENBERG_N) for t in SHORT_TIME]
+QUADRATIC_RELEASE = [QUADRATIC_M0 + (QUADRATIC_K1 * t) + (QUADRATIC_K2 * t**2) for t in LONG_TIME]
 
 # Zero-mean alternating perturbation, kept deterministic so that the fit is reproducible
 NOISE = [0.5 * (-1)**i for i in range(len(LONG_TIME))]
@@ -220,6 +222,40 @@ def test_hopfenberg_fit_with_known_parameters():
     result = fitter.fit()
     assert result.parameters["M"] == HOPFENBERG_M
     assert isclose(result.parameters["k0"], HOPFENBERG_K0, rtol=RELATIVE_TOLERANCE)
+    assert isclose(result.r_squared, 1.0, atol=ABSOLUTE_TOLERANCE)
+
+
+def test_quadratic_fit():
+    fitter = CurveFit(model_name="quadratic", time=LONG_TIME, release_profile=QUADRATIC_RELEASE)
+    result = fitter.fit()
+    assert result.model_name == "quadratic"
+    assert isclose(result.parameters["M0"], QUADRATIC_M0, rtol=RELATIVE_TOLERANCE)
+    assert isclose(result.parameters["k1"], QUADRATIC_K1, rtol=RELATIVE_TOLERANCE)
+    assert isclose(result.parameters["k2"], QUADRATIC_K2, rtol=RELATIVE_TOLERANCE)
+    assert isclose(result.r_squared, 1.0, atol=ABSOLUTE_TOLERANCE)
+    assert isinstance(result.model, QuadraticModel)
+
+
+def test_quadratic_fit_with_known_parameters():
+    fitter = CurveFit(
+        model_name="quadratic",
+        time=LONG_TIME,
+        release_profile=QUADRATIC_RELEASE,
+        known_parameters={"M0": QUADRATIC_M0})
+    result = fitter.fit()
+    assert result.parameters["M0"] == QUADRATIC_M0
+    assert isclose(result.parameters["k1"], QUADRATIC_K1, rtol=RELATIVE_TOLERANCE)
+    assert isclose(result.parameters["k2"], QUADRATIC_K2, rtol=RELATIVE_TOLERANCE)
+    assert isclose(result.r_squared, 1.0, atol=ABSOLUTE_TOLERANCE)
+
+
+def test_quadratic_fit_negative_coefficient():  # a concave profile needs a negative k2, so its lower bound is negative
+    release_profile = [QUADRATIC_M0 + (QUADRATIC_K1 * t) - (QUADRATIC_K2 * t**2) for t in LONG_TIME]
+    fitter = CurveFit(model_name="quadratic", time=LONG_TIME, release_profile=release_profile)
+    result = fitter.fit(bounds={"M0": (0, 1), "k1": (-10, 10), "k2": (-10, 10)})
+    assert isclose(result.parameters["M0"], QUADRATIC_M0, rtol=RELATIVE_TOLERANCE)
+    assert isclose(result.parameters["k1"], QUADRATIC_K1, rtol=RELATIVE_TOLERANCE)
+    assert isclose(result.parameters["k2"], -QUADRATIC_K2, rtol=RELATIVE_TOLERANCE)
     assert isclose(result.r_squared, 1.0, atol=ABSOLUTE_TOLERANCE)
 
 
