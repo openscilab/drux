@@ -225,7 +225,7 @@ def test_hopfenberg_fit_with_known_parameters():
     assert isclose(result.r_squared, 1.0, atol=ABSOLUTE_TOLERANCE)
 
 
-def test_quadratic_fit():  # Reference: https://pmc.ncbi.nlm.nih.gov/articles/PMC2895453/
+def test_quadratic_fit():
     fitter = CurveFit(model_name="quadratic", time=LONG_TIME, release_profile=QUADRATIC_RELEASE)
     result = fitter.fit()
     assert result.model_name == "quadratic"
