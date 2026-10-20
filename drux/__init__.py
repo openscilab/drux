@@ -7,6 +7,7 @@ from .zero_order import ZeroOrderModel, ZeroOrderParameters
 from .first_order import FirstOrderModel, FirstOrderParameters
 from .weibull import WeibullModel, WeibullParameters
 from .hopfenberg import HopfenbergModel, HopfenbergParameters
+from .quadratic import QuadraticModel, QuadraticParameters
 from .curve_fit import CurveFit, FitResult
 
 __version__ = DRUX_VERSION

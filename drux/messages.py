@@ -45,6 +45,9 @@ ERROR_INVALID_EROSION_CONSTANT = "Erosion rate constant (k0) must be non-negativ
 ERROR_INVALID_INITIAL_RADIUS = "Initial radius or half-thickness (a0) must be positive."
 ERROR_INVALID_GEOMETRY_FACTOR = "Geometry factor (n) must be 1 (slab), 2 (cylinder), or 3 (sphere)."
 
+# Error messages for quadratic
+ERROR_QUADRATIC_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) must be non-negative."
+
 # Error messages for curve fitting
 ERROR_UNKNOWN_MODEL = "Unknown model '{model_name}'. Available models: {available_models}."
 ERROR_TIME_RELEASE_LENGTH_MISMATCH = "Time and release profile must have the same length."
