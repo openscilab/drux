@@ -14,6 +14,7 @@ from .base_model import DrugReleaseModel
 from .first_order import FirstOrderModel
 from .higuchi import HiguchiModel
 from .hopfenberg import HopfenbergModel
+from .quadratic import QuadraticModel
 from .weibull import WeibullModel
 from .zero_order import ZeroOrderModel
 from .params import DEFAULT_BOUNDS, DEFAULT_INITIAL_GUESS
@@ -41,6 +42,7 @@ MODEL_CLASSES = {
     "higuchi": HiguchiModel,
     "weibull": WeibullModel,
     "hopfenberg": HopfenbergModel,
+    "quadratic": QuadraticModel,
 }
 
 
