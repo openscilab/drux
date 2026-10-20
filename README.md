@@ -222,8 +222,6 @@ You can fit all the models above. This table gives the name and the parameters o
 
 The `fit` method starts from a value of 1 for each unknown parameter, and keeps all the parameters positive. If the result is not good, give your own values in the `initial_guess` and `bounds` arguments. These arguments contain only the unknown parameters. The `get_result` method gives the result of the last fit again.
 
-The $k_1$ and $k_2$ parameters of the Quadratic model can be negative. To calculate a negative value, give a negative lower bound for it in the `bounds` argument, for example `bounds={"M0": (0, 1), "k1": (-10, 10), "k2": (-10, 10)}`.
-
 The `fit` method returns a `FitResult` object, where:
 - `model_name` is the name of the fitted model
 - `parameters` is a dictionary of the known and the calculated parameter values
