@@ -288,7 +288,7 @@ def test_cubic_fit_with_known_parameters():
     assert isclose(result.r_squared, 1.0, atol=ABSOLUTE_TOLERANCE)
 
 
-def test_cubic_fit_negative_coefficient():  # a negative k3 is only found when its lower bound is negative
+def test_cubic_fit_negative_coefficient():
     release_profile = [CUBIC_M0 + (CUBIC_K1 * t) + (CUBIC_K2 * t**2) - (CUBIC_K3 * t**3) for t in LONG_TIME]
     fitter = CurveFit(model_name="cubic", time=LONG_TIME, release_profile=release_profile)
     result = fitter.fit(bounds={"M0": (0, 1), "k1": (-10, 10), "k2": (-10, 10), "k3": (-10, 10)})
