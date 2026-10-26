@@ -11,6 +11,7 @@ import numpy as np
 from scipy.optimize import curve_fit
 
 from .base_model import DrugReleaseModel
+from .cubic import CubicModel
 from .first_order import FirstOrderModel
 from .higuchi import HiguchiModel
 from .hopfenberg import HopfenbergModel
@@ -43,6 +44,7 @@ MODEL_CLASSES = {
     "weibull": WeibullModel,
     "hopfenberg": HopfenbergModel,
     "quadratic": QuadraticModel,
+    "cubic": CubicModel,
 }
 
 
