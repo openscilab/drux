@@ -193,6 +193,26 @@ where:
 2. Comparison of dissolution profiles
 3. Release profiles with an increasing or a decreasing release rate
 
+### Cubic
+The Cubic model is an empirical model that describes drug release with a linear, a second-order, and a third-order term in time. Its release rate is a quadratic function of time, so it can describe release profiles with an inflection point, where the release rate changes from increasing to decreasing or vice versa.
+According to this model, the cumulative amount of drug released at time $t$ is given by:
+
+$$
+M_t = M_0 + k_1 t + k_2 t^2 + k_3 t^3
+$$
+
+where:
+- $M_t (mg)$ is the cumulative absolute amount of drug released at time $t$
+- $M_0 (mg)$ is the initial amount of drug in the system. $M_0$ defaults to zero in this model.
+- $k_1 (\frac{mg}{s})$ is the linear release coefficient (the release rate at $t = 0$)
+- $k_2 (\frac{mg}{s^2})$ is the quadratic release coefficient
+- $k_3 (\frac{mg}{s^3})$ is the cubic release coefficient
+
+#### Applications
+1. Empirical fitting of dissolution data
+2. Release from polymeric nanoparticles
+3. Release profiles with an inflection point
+
 ## Curve Fitting
 The models above calculate a release profile from known parameters. The `CurveFit` class does the opposite operation. It calculates the parameters of a model from measured experimental data. `CurveFit` uses the non-linear least squares method. This method decreases the difference between the measured release and the calculated release.
 
@@ -219,6 +239,7 @@ You can fit all the models above. This table gives the name and the parameters o
 | `weibull`     | `M`, `a`, `b`              |
 | `hopfenberg`  | `M`, `k0`, `c0`, `a0`, `n` |
 | `quadratic`   | `M0`, `k1`, `k2`           |
+| `cubic`       | `M0`, `k1`, `k2`, `k3`     |
 
 The `fit` method starts from a value of 1 for each unknown parameter, and keeps all the parameters positive. If the result is not good, give your own values in the `initial_guess` and `bounds` arguments. These arguments contain only the unknown parameters. The `get_result` method gives the result of the last fit again.
 
@@ -300,6 +321,16 @@ model.plot(show=True)
 ```
 <img src="https://github.com/openscilab/drux/raw/main/otherfiles/quadratic_plot.png" alt="Quadratic Plot">
 
+### Cubic Model
+
+```python
+from drux import CubicModel
+model = CubicModel(k1=0.1, k2=0.00005, k3=0.00000005, M0=0)
+model.simulate(duration=1000, time_step=10)
+model.plot(show=True)
+```
+<img src="https://github.com/openscilab/drux/raw/main/otherfiles/cubic_plot.png" alt="Cubic Plot">
+
 ### Curve Fitting
 
 ```python
@@ -340,6 +371,7 @@ You can also join our discord server
 <blockquote>8- H. B. Hopfenberg, "Controlled release from erodible slabs, cylinders, and spheres," in <i>Controlled Release Polymeric Formulations</i>, ACS Symposium Series, vol. 33, pp. 26–32, 1976.</blockquote>
 <blockquote>9- H. V. Chavda, M. S. Patel, and C. N. Patel, "Preparation and in vitro evaluation of guar gum based triple-layer matrix tablet of diclofenac sodium," <i>Research in Pharmaceutical Sciences</i>, vol. 7, no. 1, pp. 57–64, Jan. 2012.</blockquote>
 <blockquote>10- Y. Zhang, M. Huo, J. Zhou, A. Zou, W. Li, C. Yao, and S. Xie, "DDSolver: An add-in program for modeling and comparison of drug dissolution profiles," <i>The AAPS Journal</i>, vol. 12, no. 3, pp. 263–271, 2010.</blockquote>
+<blockquote>11- N. S. Heredia, K. Vizuete, M. Flores-Calero, K. Pazmiño V., F. Pilaquinga, B. Kumar, and A. Debut, "Comparative statistical analysis of the release kinetics models for nanoprecipitated drug delivery systems based on poly(lactic-co-glycolic acid)," <i>PLoS ONE</i>, vol. 17, no. 3, Art. no. e0264825, 2022.</blockquote>
 
 
 ## Show your support

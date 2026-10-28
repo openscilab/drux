@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Quadratic model
+- Cubic model
 ### Changed
 - `Python 3.15` added to `test.yml`
 - Build system modified

@@ -48,6 +48,9 @@ ERROR_INVALID_GEOMETRY_FACTOR = "Geometry factor (n) must be 1 (slab), 2 (cylind
 # Error messages for quadratic
 ERROR_QUADRATIC_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) must be non-negative."
 
+# Error messages for cubic
+ERROR_CUBIC_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) must be non-negative."
+
 # Error messages for curve fitting
 ERROR_UNKNOWN_MODEL = "Unknown model '{model_name}'. Available models: {available_models}."
 ERROR_TIME_RELEASE_LENGTH_MISMATCH = "Time and release profile must have the same length."
