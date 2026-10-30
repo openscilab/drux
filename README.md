@@ -213,6 +213,29 @@ where:
 2. Release from polymeric nanoparticles
 3. Release profiles with an inflection point
 
+### Korsmeyer-Peppas
+The Korsmeyer-Peppas model describes drug release from a polymeric system with a power law of time. The release exponent $n$ shows the release mechanism. This model also supports an initial amount of drug in the solution, $M_0$, for example from a burst release.
+According to this model, the cumulative amount of drug released at time $t$ is given by:
+
+$$
+M_t = M_0 + k t^n
+$$
+
+where:
+- $M_t (mg)$ is the cumulative absolute amount of drug released at time $t$
+- $M_0 (mg)$ is the initial amount of drug in the system. $M_0$ defaults to zero in this model, which gives the original Korsmeyer-Peppas model.
+- $k (\frac{mg}{s^n})$ is the release rate constant
+- $n$ is the release exponent
+
+For cylindrical tablets, $n \le 0.45$ shows Fickian diffusion, $0.45 < n < 0.89$ shows non-Fickian transport, $n = 0.89$ shows Case II (relaxational) transport, and $n > 0.89$ shows super Case II transport.
+
+⚠️ To find the release mechanism, use only the part of the release profile where $\frac{M_t}{M_\infty} < 0.6$.
+
+#### Applications
+1. Polymeric matrix tablets
+2. Microcapsules and microspheres
+3. Identification of the drug release mechanism
+
 ## Curve Fitting
 The models above calculate a release profile from known parameters. The `CurveFit` class does the opposite operation. It calculates the parameters of a model from measured experimental data. `CurveFit` uses the non-linear least squares method. This method decreases the difference between the measured release and the calculated release.
 
@@ -231,15 +254,16 @@ An $R^2$ value near 1 shows a good fit. A low value shows that the model does no
 
 You can fit all the models above. This table gives the name and the parameters of each model:
 
-| Model Name    | Parameters                 |
-|---------------| -------------------------- |
-| `zero_order`  | `M0`, `k0`                 |
-| `first_order` | `M0`, `k`                  |
-| `higuchi`     | `D`, `c0`, `cs`            |
-| `weibull`     | `M`, `a`, `b`              |
-| `hopfenberg`  | `M`, `k0`, `c0`, `a0`, `n` |
-| `quadratic`   | `M0`, `k1`, `k2`           |
-| `cubic`       | `M0`, `k1`, `k2`, `k3`     |
+| Model Name         | Parameters                 |
+|--------------------| -------------------------- |
+| `zero_order`       | `M0`, `k0`                 |
+| `first_order`      | `M0`, `k`                  |
+| `higuchi`          | `D`, `c0`, `cs`            |
+| `weibull`          | `M`, `a`, `b`              |
+| `hopfenberg`       | `M`, `k0`, `c0`, `a0`, `n` |
+| `quadratic`        | `M0`, `k1`, `k2`           |
+| `cubic`            | `M0`, `k1`, `k2`, `k3`     |
+| `korsmeyer_peppas` | `M0`, `k`, `n`             |
 
 The `fit` method starts from a value of 1 for each unknown parameter, and keeps all the parameters positive. If the result is not good, give your own values in the `initial_guess` and `bounds` arguments. These arguments contain only the unknown parameters. The `get_result` method gives the result of the last fit again.
 
@@ -331,6 +355,16 @@ model.plot(show=True)
 ```
 <img src="https://github.com/openscilab/drux/raw/main/otherfiles/cubic_plot.png" alt="Cubic Plot">
 
+### Korsmeyer-Peppas Model
+
+```python
+from drux import KorsmeyerPeppasModel
+model = KorsmeyerPeppasModel(k=0.1, n=0.6, M0=0)
+model.simulate(duration=1000, time_step=10)
+model.plot(show=True)
+```
+<img src="https://github.com/openscilab/drux/raw/main/otherfiles/korsmeyer_peppas_plot.png" alt="Korsmeyer-Peppas Plot">
+
 ### Curve Fitting
 
 ```python
@@ -365,7 +399,7 @@ You can also join our discord server
 <blockquote>2- D. R. Paul, "Elaborations on the Higuchi model for drug delivery," <i>International Journal of Pharmaceutics</i>, vol. 418, no. 1, pp. 13–17, 2011.</blockquote>
 <blockquote>3- R. T. Medarametla, K. V. Gopaiah, J. N. Suresh Kumar, G. Anand Babu, M. Shaggir, G. Raghavendra, D. Naveen Reddy, and B. Venkamma, "Drug Release Kinetics and Mathematical Models," <i>International Journal of Science and Research Methodology</i>, vol. 27, no. 9, pp. 12–19, Sep. 2024.</blockquote>
 <blockquote>4- R. Vaju and K. V. Murthy, "Development and validation of new discriminative dissolution method for carvedilol tablets," <i>Indian Journal of Pharmaceutical Sciences</i>, vol. 73, no. 5, pp. 527–536, Sep. 2011.</blockquote>
-<blockquote>5- S. Dash, "Kinetic modeling on drug release from controlled drug delivery systems," <i>Acta Poloniae Pharmaceutica</i>, 2010.</blockquote>
+<blockquote>5- S. Dash, P. N. Murthy, L. Nath, and P. Chowdhury, "Kinetic modeling on drug release from controlled drug delivery systems," <i>Acta Poloniae Pharmaceutica</i>, vol. 67, no. 3, pp. 217–223, 2010.</blockquote>
 <blockquote>6- K. H. Ramteke, P. A. Dighe, A. R. Kharat, S. V. Patil, <i>Mathematical models of drug dissolution: A review</i>, <i>Sch. Acad. J. Pharm.</i>, vol. 3, no. 5, pp. 388-396, 2014.</blockquote>
 <blockquote>7- C. Corsaro, G. Neri, A. M. Mezzasalma, and E. Fazio, "Weibull modeling of controlled drug release from Ag-PMA nanosystems," <i>Polymers</i>, vol. 13, no. 17, p. 2897, 2021.</blockquote>
 <blockquote>8- H. B. Hopfenberg, "Controlled release from erodible slabs, cylinders, and spheres," in <i>Controlled Release Polymeric Formulations</i>, ACS Symposium Series, vol. 33, pp. 26–32, 1976.</blockquote>
