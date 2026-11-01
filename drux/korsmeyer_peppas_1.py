@@ -3,15 +3,15 @@
 
 from .base_model import DrugReleaseModel
 from .messages import (
-    ERROR_KORSMEYER_PEPPAS_INITIAL_AMOUNT,
-    ERROR_KORSMEYER_PEPPAS_RELEASE_RATE,
-    ERROR_KORSMEYER_PEPPAS_RELEASE_EXPONENT,
+    ERROR_KORSMEYER_PEPPAS_1_INITIAL_AMOUNT,
+    ERROR_KORSMEYER_PEPPAS_1_RELEASE_RATE,
+    ERROR_KORSMEYER_PEPPAS_1_RELEASE_EXPONENT,
 )
 from dataclasses import dataclass
 
 
 @dataclass
-class KorsmeyerPeppasParameters:
+class KorsmeyerPeppasParameters1:
     """
     Parameters for the Korsmeyer-Peppas model.
 
@@ -26,7 +26,7 @@ class KorsmeyerPeppasParameters:
     n: float
 
 
-class KorsmeyerPeppasModel(DrugReleaseModel):
+class KorsmeyerPeppasModel1(DrugReleaseModel):
     """Simulator for the Korsmeyer-Peppas drug release model."""
 
     def __init__(self, k: float, n: float, M0: float = 0) -> None:
@@ -38,13 +38,13 @@ class KorsmeyerPeppasModel(DrugReleaseModel):
         :param M0: initial amount of drug in the solution (mg), default is 0
         """
         super().__init__()
-        self._parameters = KorsmeyerPeppasParameters(M0=M0, k=k, n=n)
+        self._parameters = KorsmeyerPeppasParameters1(M0=M0, k=k, n=n)
         self._plot_parameters["label"] = "Korsmeyer-Peppas Model"
 
     def __repr__(self):
         """Return a string representation of the Korsmeyer-Peppas model."""
         return (
-            f"drux.KorsmeyerPeppasModel(k={self._parameters.k}, n={self._parameters.n}, "
+            f"drux.KorsmeyerPeppasModel1(k={self._parameters.k}, n={self._parameters.n}, "
             f"M0={self._parameters.M0})"
         )
 
@@ -67,8 +67,8 @@ class KorsmeyerPeppasModel(DrugReleaseModel):
     def _validate_parameters(self) -> None:
         """Validate the parameters of the Korsmeyer-Peppas model."""
         if self._parameters.M0 < 0:
-            raise ValueError(ERROR_KORSMEYER_PEPPAS_INITIAL_AMOUNT)
+            raise ValueError(ERROR_KORSMEYER_PEPPAS_1_INITIAL_AMOUNT)
         if self._parameters.k < 0:
-            raise ValueError(ERROR_KORSMEYER_PEPPAS_RELEASE_RATE)
+            raise ValueError(ERROR_KORSMEYER_PEPPAS_1_RELEASE_RATE)
         if self._parameters.n <= 0:
-            raise ValueError(ERROR_KORSMEYER_PEPPAS_RELEASE_EXPONENT)
+            raise ValueError(ERROR_KORSMEYER_PEPPAS_1_RELEASE_EXPONENT)

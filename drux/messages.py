@@ -52,9 +52,9 @@ ERROR_QUADRATIC_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) mu
 ERROR_CUBIC_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) must be non-negative."
 
 # Error messages for Korsmeyer-Peppas
-ERROR_KORSMEYER_PEPPAS_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) must be non-negative."
-ERROR_KORSMEYER_PEPPAS_RELEASE_RATE = "Release rate constant (k) must be non-negative."
-ERROR_KORSMEYER_PEPPAS_RELEASE_EXPONENT = "Release exponent (n) must be positive."
+ERROR_KORSMEYER_PEPPAS_1_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) must be non-negative."
+ERROR_KORSMEYER_PEPPAS_1_RELEASE_RATE = "Release rate constant (k) must be non-negative."
+ERROR_KORSMEYER_PEPPAS_1_RELEASE_EXPONENT = "Release exponent (n) must be positive."
 
 # Error messages for curve fitting
 ERROR_UNKNOWN_MODEL = "Unknown model '{model_name}'. Available models: {available_models}."
