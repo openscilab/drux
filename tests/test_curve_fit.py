@@ -5,7 +5,7 @@ from numpy import isclose, array
 from math import exp, sqrt
 from re import escape
 from drux import CurveFit, ZeroOrderModel, FirstOrderModel, HiguchiModel, WeibullModel, HopfenbergModel
-from drux import QuadraticModel, CubicModel, KorsmeyerPeppasModel1
+from drux import QuadraticModel, CubicModel, KorsmeyerPeppas1Model
 
 TEST_CASE_NAME = "CurveFit tests"
 LONG_DURATION, LONG_TIME_STEP = 1000, 10
@@ -303,14 +303,14 @@ def test_cubic_fit_negative_coefficient():
 
 def test_korsmeyer_peppas_1_fit():
     fitter = CurveFit(model_name="korsmeyer_peppas", time=LONG_TIME, release_profile=KORSMEYER_PEPPAS_1_RELEASE)
-    assert fitter._model_class == KorsmeyerPeppasModel1
+    assert fitter._model_class == KorsmeyerPeppas1Model
     result = fitter.fit()
     assert result.model_name == "korsmeyer_peppas"
     assert isclose(result.parameters["M0"], KORSMEYER_PEPPAS_1_M0, rtol=RELATIVE_TOLERANCE)
     assert isclose(result.parameters["k"], KORSMEYER_PEPPAS_1_K, rtol=RELATIVE_TOLERANCE)
     assert isclose(result.parameters["n"], KORSMEYER_PEPPAS_1_N, rtol=RELATIVE_TOLERANCE)
     assert isclose(result.r_squared, 1.0, atol=ABSOLUTE_TOLERANCE)
-    assert isinstance(result.model, KorsmeyerPeppasModel1)
+    assert isinstance(result.model, KorsmeyerPeppas1Model)
 
 
 def test_korsmeyer_peppas_1_fit_with_known_parameters():

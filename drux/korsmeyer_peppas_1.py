@@ -11,7 +11,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class KorsmeyerPeppasParameters1:
+class KorsmeyerPeppas1Parameters:
     """
     Parameters for the Korsmeyer-Peppas model.
 
@@ -26,7 +26,7 @@ class KorsmeyerPeppasParameters1:
     n: float
 
 
-class KorsmeyerPeppasModel1(DrugReleaseModel):
+class KorsmeyerPeppas1Model(DrugReleaseModel):
     """Simulator for the Korsmeyer-Peppas drug release model."""
 
     def __init__(self, k: float, n: float, M0: float = 0) -> None:
@@ -38,13 +38,13 @@ class KorsmeyerPeppasModel1(DrugReleaseModel):
         :param M0: initial amount of drug in the solution (mg), default is 0
         """
         super().__init__()
-        self._parameters = KorsmeyerPeppasParameters1(M0=M0, k=k, n=n)
+        self._parameters = KorsmeyerPeppas1Parameters(M0=M0, k=k, n=n)
         self._plot_parameters["label"] = "Korsmeyer-Peppas Model"
 
     def __repr__(self):
         """Return a string representation of the Korsmeyer-Peppas model."""
         return (
-            f"drux.KorsmeyerPeppasModel1(k={self._parameters.k}, n={self._parameters.n}, "
+            f"drux.KorsmeyerPeppas1Model(k={self._parameters.k}, n={self._parameters.n}, "
             f"M0={self._parameters.M0})"
         )
 

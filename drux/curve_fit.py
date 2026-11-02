@@ -15,7 +15,7 @@ from .cubic import CubicModel
 from .first_order import FirstOrderModel
 from .higuchi import HiguchiModel
 from .hopfenberg import HopfenbergModel
-from .korsmeyer_peppas_1 import KorsmeyerPeppasModel1
+from .korsmeyer_peppas_1 import KorsmeyerPeppas1Model
 from .quadratic import QuadraticModel
 from .weibull import WeibullModel
 from .zero_order import ZeroOrderModel
@@ -46,7 +46,7 @@ MODEL_CLASSES = {
     "hopfenberg": HopfenbergModel,
     "quadratic": QuadraticModel,
     "cubic": CubicModel,
-    "korsmeyer_peppas": KorsmeyerPeppasModel1,
+    "korsmeyer_peppas": KorsmeyerPeppas1Model,
 }
 
 

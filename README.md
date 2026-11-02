@@ -358,8 +358,8 @@ model.plot(show=True)
 ### Korsmeyer-Peppas Model
 
 ```python
-from drux import KorsmeyerPeppasModel1
-model = KorsmeyerPeppasModel1(k=0.1, n=0.6, M0=0)
+from drux import KorsmeyerPeppas1Model
+model = KorsmeyerPeppas1Model(k=0.1, n=0.6, M0=0)
 model.simulate(duration=1000, time_step=10)
 model.plot(show=True)
 ```

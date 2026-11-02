@@ -3,7 +3,7 @@
 from pytest import raises
 from numpy import isclose
 from re import escape
-from drux import KorsmeyerPeppasModel1
+from drux import KorsmeyerPeppas1Model
 
 TEST_CASE_NAME = "Korsmeyer-Peppas model tests"
 M0, k, n = 0.01, 0.1, 0.6
@@ -12,46 +12,46 @@ RELATIVE_TOLERANCE = 1e-2
 
 
 def test_korsmeyer_peppas_1_parameters():
-    model = KorsmeyerPeppasModel1(M0=M0, k=k, n=n)
+    model = KorsmeyerPeppas1Model(M0=M0, k=k, n=n)
     assert model._parameters.M0 == M0
     assert model._parameters.k == k
     assert model._parameters.n == n
 
 
 def test_korsmeyer_peppas_1_default_initial_amount():
-    model = KorsmeyerPeppasModel1(k=k, n=n)
+    model = KorsmeyerPeppas1Model(k=k, n=n)
     assert model._parameters.M0 == 0
 
 
 def test_invalid_parameters():
     with raises(ValueError, match=escape("Initial amount of drug in the solution (M0) must be non-negative.")):
-        KorsmeyerPeppasModel1(M0=-M0, k=k, n=n).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
+        KorsmeyerPeppas1Model(M0=-M0, k=k, n=n).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
     with raises(ValueError, match=escape("Release rate constant (k) must be non-negative.")):
-        KorsmeyerPeppasModel1(M0=M0, k=-k, n=n).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
+        KorsmeyerPeppas1Model(M0=M0, k=-k, n=n).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
     with raises(ValueError, match=escape("Release exponent (n) must be positive.")):
-        KorsmeyerPeppasModel1(M0=M0, k=k, n=-n).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
+        KorsmeyerPeppas1Model(M0=M0, k=k, n=-n).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
     with raises(ValueError, match=escape("Release exponent (n) must be positive.")):
-        KorsmeyerPeppasModel1(M0=M0, k=k, n=0).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
+        KorsmeyerPeppas1Model(M0=M0, k=k, n=0).simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
 
 
 def test_repr():
-    model = KorsmeyerPeppasModel1(M0=M0, k=k, n=n)
+    model = KorsmeyerPeppas1Model(M0=M0, k=k, n=n)
     repr_str = repr(model)
-    assert repr_str == f"drux.KorsmeyerPeppasModel1(k={k}, n={n}, M0={M0})"
+    assert repr_str == f"drux.KorsmeyerPeppas1Model(k={k}, n={n}, M0={M0})"
 
 
 def test_korsmeyer_peppas_1_simulation():  # Reference: https://www.ptfarm.pl/pub/File/Acta_Poloniae/2010/3/217.pdf
-    model = KorsmeyerPeppasModel1(M0=M0, k=k, n=n)
+    model = KorsmeyerPeppas1Model(M0=M0, k=k, n=n)
     profile = model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
     actual_release = [M0 + (k * t**n) for t in range(0, SIM_DURATION + SIM_TIME_STEP, SIM_TIME_STEP)]
     assert all(isclose(p, a, rtol=RELATIVE_TOLERANCE) for p, a in zip(profile, actual_release))
 
 
 def test_korsmeyer_peppas_1_simulation_errors():
-    model = KorsmeyerPeppasModel1(M0=M0, k=k, n=n)
+    model = KorsmeyerPeppas1Model(M0=M0, k=k, n=n)
 
     with raises(ValueError, match="Duration and time step must be positive values"):
         model.simulate(duration=-100, time_step=10)
@@ -64,7 +64,7 @@ def test_korsmeyer_peppas_1_simulation_errors():
 
 
 def test_korsmeyer_peppas_1_plot1():
-    model = KorsmeyerPeppasModel1(M0=M0, k=k, n=n)
+    model = KorsmeyerPeppas1Model(M0=M0, k=k, n=n)
     model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
     fig, ax = model.plot()
     assert fig is not None
@@ -76,7 +76,7 @@ def test_korsmeyer_peppas_1_plot1():
 
 
 def test_korsmeyer_peppas_1_plot2():
-    model = KorsmeyerPeppasModel1(M0=M0, k=k, n=n)
+    model = KorsmeyerPeppas1Model(M0=M0, k=k, n=n)
     model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
     fig, ax = model.plot(title="test-title", xlabel="test-xlabel", ylabel="test-ylabel", label="test-label")
     assert fig is not None
@@ -88,7 +88,7 @@ def test_korsmeyer_peppas_1_plot2():
 
 
 def test_korsmeyer_peppas_1_plot_error():
-    model = KorsmeyerPeppasModel1(M0=M0, k=k, n=n)
+    model = KorsmeyerPeppas1Model(M0=M0, k=k, n=n)
 
     with raises(ValueError, match=escape("No simulation data available. Run simulate() first.")):
         model.plot()
@@ -101,7 +101,7 @@ def test_korsmeyer_peppas_1_plot_error():
 
 
 def test_korsmeyer_peppas_1_release_rate():  # Reference: https://www.wolframalpha.com/input?i=get+the+derivative+of+M0+%2B+k+*+t%5En+with+respect+to+t
-    model = KorsmeyerPeppasModel1(M0=M0, k=k, n=n)
+    model = KorsmeyerPeppas1Model(M0=M0, k=k, n=n)
     model.simulate(duration=SIM_DURATION, time_step=SIM_TIME_STEP)
     rate = model.get_release_rate()
     actual_rate = [k * n * t**(n - 1)
@@ -111,7 +111,7 @@ def test_korsmeyer_peppas_1_release_rate():  # Reference: https://www.wolframalp
 
 
 def test_korsmeyer_peppas_1_release_rate_error():
-    model = KorsmeyerPeppasModel1(M0=M0, k=k, n=n)
+    model = KorsmeyerPeppas1Model(M0=M0, k=k, n=n)
 
     with raises(ValueError, match=escape("No simulation data available. Run simulate() first.")):
         model.get_release_rate()
@@ -124,14 +124,14 @@ def test_korsmeyer_peppas_1_release_rate_error():
 
 
 def test_korsmeyer_peppas_1_time_for_release():  # Reference: https://www.wolframalpha.com/input?i=solve+for+t+in+0.01+%2B+0.1*t%5E0.6+%3D+0.5*%280.01+%2B+0.1*1000%5E0.6%29
-    model = KorsmeyerPeppasModel1(M0=M0, k=k, n=n)
+    model = KorsmeyerPeppas1Model(M0=M0, k=k, n=n)
     model.simulate(duration=SIM_DURATION, time_step=1)
     tx = model.time_for_release(0.5 * model._release_profile[-1])
     assert isclose(tx, 314.1, rtol=1e-2)
 
 
 def test_korsmeyer_peppas_1_time_for_release_error():
-    model = KorsmeyerPeppasModel1(M0=M0, k=k, n=n)
+    model = KorsmeyerPeppas1Model(M0=M0, k=k, n=n)
 
     with raises(ValueError, match=escape("No simulation data available. Run simulate() first.")):
         model.time_for_release(0.5)

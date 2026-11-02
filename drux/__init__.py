@@ -9,7 +9,7 @@ from .weibull import WeibullModel, WeibullParameters
 from .hopfenberg import HopfenbergModel, HopfenbergParameters
 from .quadratic import QuadraticModel, QuadraticParameters
 from .cubic import CubicModel, CubicParameters
-from .korsmeyer_peppas_1 import KorsmeyerPeppasModel1, KorsmeyerPeppasParameters1
+from .korsmeyer_peppas_1 import KorsmeyerPeppas1Model, KorsmeyerPeppas1Parameters
 from .curve_fit import CurveFit, FitResult
 
 __version__ = DRUX_VERSION
