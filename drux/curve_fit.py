@@ -46,7 +46,7 @@ MODEL_CLASSES = {
     "hopfenberg": HopfenbergModel,
     "quadratic": QuadraticModel,
     "cubic": CubicModel,
-    "korsmeyer_peppas": KorsmeyerPeppas1Model,
+    "korsmeyer_peppas_1": KorsmeyerPeppas1Model,
 }
 
 

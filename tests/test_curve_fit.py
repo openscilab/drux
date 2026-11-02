@@ -302,10 +302,10 @@ def test_cubic_fit_negative_coefficient():
 
 
 def test_korsmeyer_peppas_1_fit():
-    fitter = CurveFit(model_name="korsmeyer_peppas", time=LONG_TIME, release_profile=KORSMEYER_PEPPAS_1_RELEASE)
+    fitter = CurveFit(model_name="korsmeyer_peppas_1", time=LONG_TIME, release_profile=KORSMEYER_PEPPAS_1_RELEASE)
     assert fitter._model_class == KorsmeyerPeppas1Model
     result = fitter.fit()
-    assert result.model_name == "korsmeyer_peppas"
+    assert result.model_name == "korsmeyer_peppas_1"
     assert isclose(result.parameters["M0"], KORSMEYER_PEPPAS_1_M0, rtol=RELATIVE_TOLERANCE)
     assert isclose(result.parameters["k"], KORSMEYER_PEPPAS_1_K, rtol=RELATIVE_TOLERANCE)
     assert isclose(result.parameters["n"], KORSMEYER_PEPPAS_1_N, rtol=RELATIVE_TOLERANCE)
@@ -315,7 +315,7 @@ def test_korsmeyer_peppas_1_fit():
 
 def test_korsmeyer_peppas_1_fit_with_known_parameters():
     fitter = CurveFit(
-        model_name="korsmeyer_peppas",
+        model_name="korsmeyer_peppas_1",
         time=LONG_TIME,
         release_profile=KORSMEYER_PEPPAS_1_RELEASE,
         known_parameters={"M0": KORSMEYER_PEPPAS_1_M0})
