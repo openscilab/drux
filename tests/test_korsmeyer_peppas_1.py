@@ -1,11 +1,11 @@
-"""Tests for the Korsmeyer-Peppas model implementation in drux package."""
+"""Tests for the Korsmeyer-Peppas-1 model implementation in drux package."""
 
 from pytest import raises
 from numpy import isclose
 from re import escape
 from drux import KorsmeyerPeppas1Model
 
-TEST_CASE_NAME = "Korsmeyer-Peppas model tests"
+TEST_CASE_NAME = "Korsmeyer-Peppas-1 model tests"
 M0, k, n = 0.01, 0.1, 0.6
 SIM_DURATION, SIM_TIME_STEP = 1000, 10
 RELATIVE_TOLERANCE = 1e-2

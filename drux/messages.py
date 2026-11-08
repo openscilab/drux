@@ -51,7 +51,7 @@ ERROR_QUADRATIC_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) mu
 # Error messages for cubic
 ERROR_CUBIC_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) must be non-negative."
 
-# Error messages for Korsmeyer-Peppas
+# Error messages for Korsmeyer-Peppas-1
 ERROR_KORSMEYER_PEPPAS_1_INITIAL_AMOUNT = "Initial amount of drug in the solution (M0) must be non-negative."
 ERROR_KORSMEYER_PEPPAS_1_RELEASE_RATE = "Release rate constant (k) must be non-negative."
 ERROR_KORSMEYER_PEPPAS_1_RELEASE_EXPONENT = "Release exponent (n) must be positive."

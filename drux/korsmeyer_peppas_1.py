@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Drux Korsmeyer-Peppas model implementation."""
+"""Drux Korsmeyer-Peppas-1 model implementation."""
 
 from .base_model import DrugReleaseModel
 from .messages import (
@@ -13,7 +13,7 @@ from dataclasses import dataclass
 @dataclass
 class KorsmeyerPeppas1Parameters:
     """
-    Parameters for the Korsmeyer-Peppas model.
+    Parameters for the Korsmeyer-Peppas-1 model.
 
     Attributes:
         M0 (float): initial amount of drug in the solution (most times, M0 = 0) (mg)
@@ -27,11 +27,11 @@ class KorsmeyerPeppas1Parameters:
 
 
 class KorsmeyerPeppas1Model(DrugReleaseModel):
-    """Simulator for the Korsmeyer-Peppas drug release model."""
+    """Simulator for the Korsmeyer-Peppas-1 drug release model."""
 
     def __init__(self, k: float, n: float, M0: float = 0) -> None:
         """
-        Initialize the Korsmeyer-Peppas model with the given parameters.
+        Initialize the Korsmeyer-Peppas-1 model with the given parameters.
 
         :param k: release rate constant (mg/s^n)
         :param n: release exponent
@@ -39,10 +39,10 @@ class KorsmeyerPeppas1Model(DrugReleaseModel):
         """
         super().__init__()
         self._parameters = KorsmeyerPeppas1Parameters(M0=M0, k=k, n=n)
-        self._plot_parameters["label"] = "Korsmeyer-Peppas Model"
+        self._plot_parameters["label"] = "Korsmeyer-Peppas-1 Model"
 
     def __repr__(self):
-        """Return a string representation of the Korsmeyer-Peppas model."""
+        """Return a string representation of the Korsmeyer-Peppas-1 model."""
         return (
             f"drux.KorsmeyerPeppas1Model(k={self._parameters.k}, n={self._parameters.n}, "
             f"M0={self._parameters.M0})"
@@ -51,7 +51,7 @@ class KorsmeyerPeppas1Model(DrugReleaseModel):
     @staticmethod
     def model_function(t: float, M0: float, k: float, n: float) -> float:
         """
-        Calculate the drug release at time t using the Korsmeyer-Peppas model.
+        Calculate the drug release at time t using the Korsmeyer-Peppas-1 model.
 
         Formula:
         - M(t) = M0 + k * t^n
@@ -65,7 +65,7 @@ class KorsmeyerPeppas1Model(DrugReleaseModel):
         return Mt
 
     def _validate_parameters(self) -> None:
-        """Validate the parameters of the Korsmeyer-Peppas model."""
+        """Validate the parameters of the Korsmeyer-Peppas-1 model."""
         if self._parameters.M0 < 0:
             raise ValueError(ERROR_KORSMEYER_PEPPAS_1_INITIAL_AMOUNT)
         if self._parameters.k < 0:

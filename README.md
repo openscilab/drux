@@ -213,8 +213,8 @@ where:
 2. Release from polymeric nanoparticles
 3. Release profiles with an inflection point
 
-### Korsmeyer-Peppas
-The Korsmeyer-Peppas model describes drug release from a polymeric system with a power law of time. The release exponent $n$ shows the release mechanism. This model also supports an initial amount of drug in the solution, $M_0$, for example from a burst release.
+### Korsmeyer-Peppas-1
+The Korsmeyer-Peppas-1 model describes drug release from a polymeric system with a power law of time. The release exponent $n$ shows the release mechanism. This model also supports an initial amount of drug in the solution, $M_0$, for example from a burst release.
 According to this model, the cumulative amount of drug released at time $t$ is given by:
 
 $$
@@ -355,7 +355,7 @@ model.plot(show=True)
 ```
 <img src="https://github.com/openscilab/drux/raw/main/otherfiles/cubic_plot.png" alt="Cubic Plot">
 
-### Korsmeyer-Peppas Model
+### Korsmeyer-Peppas-1 Model
 
 ```python
 from drux import KorsmeyerPeppas1Model
@@ -363,7 +363,7 @@ model = KorsmeyerPeppas1Model(k=0.1, n=0.6, M0=0)
 model.simulate(duration=1000, time_step=10)
 model.plot(show=True)
 ```
-<img src="https://github.com/openscilab/drux/raw/main/otherfiles/korsmeyer_peppas_1_plot.png" alt="Korsmeyer-Peppas Plot">
+<img src="https://github.com/openscilab/drux/raw/main/otherfiles/korsmeyer_peppas_1_plot.png" alt="Korsmeyer-Peppas-1 Plot">
 
 ### Curve Fitting
 
